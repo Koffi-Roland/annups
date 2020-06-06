@@ -1,0 +1,253 @@
+<div class="col-md-12  mx-auto my-auto">
+
+
+    <div class="col my-auto mx-auto">
+
+
+        <div class="card bg-light border-light mb-1">
+            <div class="mt-5" *ngIf="progressSuccess||progressError">
+                <alert *ngIf="progressSuccess" type="success" dismissOnTimeout="6000" (onClosed)="progressSuccess = false">{{
+                    msg | translate}}</alert>
+                <alert *ngIf="progressError" type="danger" dismissOnTimeout="6000" (onClosed)="progressError = false">{{
+                    msg | translate}} </alert>
+            </div>
+            <div class="mt-5">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">Projet</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{entity.label}}</li>
+                       
+
+                    </ol>
+
+                    <dl class="row-md jh-entity-details">
+                        <!--dt><span jhiTranslate="userManagement.login">Login</span></dt>
+  <dd>
+      <span>{{user.login}}</span>
+      <span class="badge badge-danger" *ngIf="!user.activated"
+            jhiTranslate="userManagement.deactivated">Deactivated</span>
+      <span class="badge badge-success" *ngIf="user.activated"
+            jhiTranslate="userManagement.activated">Activated</span>
+  </dd-->
+
+
+                        <!--  <dt>
+                    <span>Libellé</span>
+                </dt>
+                <dd>{{affectProjet.projet.label}}</dd>-->
+                      
+                        <dt>
+                             <span>Date début</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Date fin</span>
+
+                        </dt>
+                        <dd> {{entity.datedebut | date: 'dd-MM-yyyy'}} &nbsp;&nbsp;&nbsp;&nbsp;  {{entity.datefin | date: 'dd-MM-yyyy'}}</dd>
+                      
+
+                        <!-- <dt>
+                    <span>Taches</span>
+                </dt>
+                <dd>
+                    <ul class="list-unstyled">
+                        <li *ngFor="let tache of affectProjet.taches">
+                            <span class="badge" [ngClass]="{'badge-danger': tache.echeance==true , 'badge-success' : tache.echeance==false}">{{tache.employe}} &nbsp; {{tache.label}} &nbsp; {{tache.dateDebut}} &nbsp; {{tache.dateFin}}</span>
+                        </li>
+                    </ul>
+                </dd>-->
+                    </dl>
+                  <!--   <ol class="breadcrumb">
+                        <li class="breadcrumb-item">Projet</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{entity.label}}</li>
+                        <li class="breadcrumb-item">Date début </li>
+
+                        <li class="breadcrumb-item active" aria-current="page">{{entity.datedebut | date: 'dd-MM-yyyy'}}</li>
+                        <li class="breadcrumb-item">Date fin </li>
+
+                        <li class="breadcrumb-item active" aria-current="page">{{entity.datefin | date: 'dd-MM-yyyy'}}</li>
+
+
+                    </ol> -->
+                    <button class="btn btn-primary float-right" (click)="listProjets()">Liste des projets</button>
+
+                </nav>
+            </div>
+
+            <div class="card-body"  *ngIf="showTab">
+
+                <h5 class="card-title">Liste des tâches</h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered ">
+                        <caption>Liste des tâches</caption>
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Libellé
+                                    <span class="fa fa-sort"></span>
+                                </th>
+                                <th>Assigné à
+                                    <span class="fa fa-sort"></span>
+                                </th>
+                                <th>Téléphone
+                                    <span></span>
+                                </th>
+                                <th>Date debut
+                                    <span class="fa fa-sort"></span>
+                                </th>
+                                <th>Date fin
+                                    <span class="fa fa-sort"></span>
+                                </th>
+                                <th>Progression
+                                    <span> </span>
+                                </th>
+                                <th>Option
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--<tr *ngFor="let tache of affectProjet.taches" [ngClass]="{'dangerline': tache.echeance==true , 'successline' : tache.echeance==false}">-->
+                            <!--   <tr *ngFor="let tache of taches"  [ngClass]="{'dangerline': tache.echeance=='danger' , 'bg-success' : tache.echeance=='success','bg-info' : tache.echeance=='info'}" > -->
+                            <tr *ngFor="let tache of taches" class="text-bold">
+                                <td [ngClass]="{'dangerline': tache.echeance=='danger' , 'bg-success' : tache.echeance=='success','bg-info' : tache.echeance=='info','bg-warning' : tache.echeance=='warning'}">{{tache.label}}</td>
+                                <td [ngClass]="{'dangerline': tache.echeance=='danger' , 'bg-success' : tache.echeance=='success','bg-info' : tache.echeance=='info','bg-warning' : tache.echeance=='warning'}">{{tache.employe}}</td>
+                                <td [ngClass]="{'dangerline': tache.echeance=='danger' , 'bg-success' : tache.echeance=='success','bg-info' : tache.echeance=='info','bg-warning' : tache.echeance=='warning'}">
+                                    <span *ngIf="tache.telPro">{{tache.telPro}}</span>
+                                    <span *ngIf="tache.telFixePro">/ {{tache.telFixePro}}</span>
+                                    <span *ngIf="tache.telAbbr">/ {{tache.telAbbr}}</span>
+                                </td>
+                                <td [ngClass]="{'dangerline': tache.echeance=='danger' , 'bg-success' : tache.echeance=='success','bg-info' : tache.echeance=='info','bg-warning' : tache.echeance=='warning'}">{{tache.dateDebut|
+                                    date: 'dd-MM-yyyy'}}</td>
+                                <td [ngClass]="{'dangerline': tache.echeance=='danger' , 'bg-success' : tache.echeance=='success','bg-info' : tache.echeance=='info','bg-warning' : tache.echeance=='warning'}">{{tache.dateFin|
+                                    date: 'dd-MM-yyyy'}}</td>
+                                <!-- [ngClass]="{'dangerline': tache.echeance=='oui' , 'bg-success' : tache.echeance=='success','bg-info' : tache.echeance=='egal'}" -->
+                                <td [ngClass]="{'text-danger': tache.echeance=='danger' , 'text-success' : tache.echeance=='success','text-info' : tache.echeance=='info','text-warning' : tache.echeance=='warning'}">
+                                    <div class="mb-2">
+                                        <progressbar max="100" class="progress-striped active" [value]="tache.progression"
+                                            [type]="tache.echeance" [striped]="true" [animate]="true">
+                                            <b class="text-dark">{{tache.progression}}%</b>
+                                        </progressbar>
+                                    </div>
+                                </td>
+                                <td> <button type="button" (click)="openModal(template,tache)" class="btn btn-dark btn-circle-min"
+                                        title="Ajouter la progression">
+                                        <i class="fas fa-hourglass-half"></i>
+                                    </button>&nbsp;
+                                    <button type="button" (click)="updateTache(tache)" class="btn btn-primary btn-circle-min mr-1"
+                                        title="modifier tâche">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!--================================================================================-->
+
+
+
+
+        <div class="card bg-light border-light mb-1" *ngIf="showForm">
+
+            <div class="card-body">
+
+
+                <div>
+                    <div>
+                        <div class="card mt-1">
+                            <div class="card-body">
+                                <h5 class="card-title">Modifier une tâche</h5>
+                                <form class="pt-3" novalidate (ngSubmit)="onSubmit()" #f="ngForm">
+                                    <div class="form-row">
+                                        <!--=====================date debut===================-->
+                                        <div class="form-group col-md-4">
+                                            <label for="datedebut">Date de début</label>
+                                            <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker
+                                                [(ngModel)]="tacheUpdateDto.dateDebut" id="datedebut" [minDate]="minDate"
+                                                [maxDate]="maxDate" name="datedebut" [bsValue]="bsValue" [bsConfig]="bsConfig"
+                                                required>
+
+                                        </div>
+
+                                        <!--=====================date embauche===================-->
+                                        <div class="form-group col-md-4">
+                                            <label for="datefin">Date de fin </label>
+
+
+                                            <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker
+                                                [(ngModel)]="tacheUpdateDto.dateFin" [minDate]="tacheUpdateDto.dateDebut" id="datefin"
+                                                name="datefin"  [maxDate]="maxDate" [bsValue]="bsValue" [bsConfig]="bsConfig" required>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <!--=====================prenom===================-->
+                                        <div class="form-group col-md-10">
+                                            <label for="label">Description de la tâche</label>
+                                            <textarea class="form-control" id="label" rows="3" [(ngModel)]="tacheUpdateDto.label"
+                                                name="label" required></textarea>
+                                        </div>
+
+
+                                    </div>
+
+
+
+                                    <div class="float-left">
+                                        <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Modifier</button>
+                                    </div>
+                                    <!--                                           <pre>{{f.value | json}}</pre>
+-->
+                                </form>
+
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+        <!--==================================================================================-->
+
+
+    </div>
+</div>
+<ng-template #template>
+    <div class="modal-body text-center">
+        <h6 class="card-title">Mise à jour du niveau de progression</h6>
+        <form class="pt-3" novalidate (ngSubmit)="confirm()" #f="ngForm">
+            <div class="form-row">
+
+
+                <div class="col-md-12 ">
+                    <div class="form-group">
+                        <input type="number" class="form-control form-control-sm" [(ngModel)]="progress" id="bar" name="bar"
+                            min="0" max="100" />
+                        <span [hidden]="progress==null" class="validity"></span>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <button type="button" class="btn btn-primary mr-2" [disabled]="!f.valid || progress > 100" (click)="confirm()">Enregister</button>
+            <button type="button" class="btn btn-default " (click)="decline()">Annuler</button>
+            <!--  <div class="float-left">
+                        <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Enregistrer</button>
+                    </div> -->
+        </form>
+
+    </div>
+</ng-template>

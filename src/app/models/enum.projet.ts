@@ -1,0 +1,12 @@
+ export enum EtatProjet {
+
+    TERMINER = "TERMINER",
+    ENCOURS = "ENCOURS",
+    EN_ATTENTE = "EN_ATTENTE",
+    ANNULER = "ANNULER",
+    ABANDONNER = "ABANDONNER",
+    CLOTURER = "CLOTURER",
+    EN_RETARD = "EN_RETARD",
+
+}
+

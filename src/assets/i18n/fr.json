@@ -1,0 +1,162 @@
+{
+  "login": {
+    "authenticate": "Authentifiez vous ",
+    "001": "Identifiant ou mot de passe invalide",
+    "002": "Votre compte n'est pas activé! Veuillez contacter l'administrateur",
+    "003": "Veuillez bien changer votre mot de passe"
+  },
+  "fonction": {
+    "save": "Fonction {{value}} enregistrée avec succès ",
+    "update": "Fonction {{value}} a été mise à jour  ",
+    "delete": "Fonction supprimée avec succès "
+  },
+  "typeconge": {
+    "save": "Type congé ({{value}}) enregistré avec succès ",
+    "update": "Mise à jour effectué avec succès ",
+    "delete": "Type congé supprimé avec succès "
+  },
+  "typeretour": {
+    "save": "Type retour {{value}} enregistré avec succès ",
+    "update": "Type retour  a été mis à jour  ",
+    "delete": "Type retour supprimé avec succès "
+  },
+  "service": {
+    "save": "Service {{value}} enregistré avec succès ",
+    "update": "Service {{value}} a été mis à jour  ",
+    "delete": "Service supprimé avec succès "
+  },
+  "jourferriers": {
+    "savelist": " Jour(s) fériés enregistré(s) avec succès",
+    "delete": "Jour férié supprimé avec succès "
+  },
+  "conge": {
+    "upload": " Fichier envoyé avec succés",
+    "save": "La programmation du congé a été effectuée avec succés",
+    "valider": "La validation du congé a été effectuée avec succés ",
+    "param": {
+      "global": {
+        "list": {
+          "update": " Mise à jour sur {{value}} effectuée avec succès "
+        }
+      },
+      "employe": {
+        "list": {
+          "update": " Mise à jour sur {{value}} effectuée avec succès "
+        }
+      }
+    }
+  },
+  "employe": {
+    "save": "Employé {{value}} enregistré avec succès ",
+    "update": "L'employé a été mise à jour ",
+    "delete": "Employé  supprimé avec succès ",
+    "etat": {
+      "activer": "Employé activé avec succés",
+      "desactiver": "Employé desactivé avec succés"
+    }
+  },
+  "projet": {
+    "save": "Projet enregistré avec succès ",
+    "update": "Le projet a été mis à jour ",
+    "delete": "Projet  supprimé avec succès ",
+    "affecter": "Projet Affecté à l'employé  avec succès  ",
+    "retirer": "Chef projet retiré  avec succès  ",
+    "changer": "Chef projet changé  avec succès  ",
+    "terminer": "La validation de fin de projet effectuée avec succès  ",
+    "cloturer": "Ce projet a été clôturé avec succés ",
+    "abandonner": "Ce projet a été abandonner avec succés ",
+    "reactiver": "Ce projet a été réactivé avec succés",
+    "task": {
+      "save": "Cette tâche a été assignée avec succès ",
+      "update": "Cette tâche a été mise à jour ",
+      "niveau": {
+        "update": "Le niveau de  progression de la tâche a été mis à jour"
+      }
+    },
+    "tasks": {
+      "save": "Les tâches ont été assignées avec succès "
+    }
+  },
+  "employetemp": {
+    "save": "Enregistrement temporaire du profil a été effectué avec succès ",
+    "update": "Votre profil temporaire a été mise à jour "
+  },
+  "courrier": {
+    "envoi": "Le courrier de réference {{value}} a été envoyé avec succès",
+    "avis": {
+      "valider": "Ce courrier a  été clôturé avec succès",
+      "envoyer": "Avis envoyé avec succès"
+    }
+  }, 
+  "error": { 
+    "upload": "Echec d'envoi du fichier.Veuillez bien verifier et reprendre l'action",
+    "employe": {
+      "error": {
+        "idexist": "Cet employé existe déjà ",
+        "matriculeexist": "Ce matricule existe déjà ",
+        "emailexist": "l' e-mail renseigné existe déja ",
+        "parentexist": "Le supérieur du premier niveau existe déja"
+      }
+    },
+    "conge": {
+      "error": {
+        "fichier": {
+          "extension": "Echec d'envoi du fichier.Veuillez bien verifier et reprendre l'action."
+        },
+        "nbr": "Veuillez vérifier le nombre de jours programmé. Le nombre de  programmé dépasse le nombre de jours prévu pour le congé"
+      }
+    },
+    "projet": {
+      "error": {
+        "affecter": " Impossible d'affecter  ce projet  ",
+        "retirer": " Impossible de  ce projet ",
+        "changer": " Cet employé est déjà affecté à ce projet",
+        "idnotexist": "Ce projet n'existe pas",
+        "task": {
+          "datefin": "La date fin de cette tâche est invalide",
+          "datedebut": "La date début de cette tâche est invalide"
+        }
+      }
+    },
+    "service": {
+      "error": {
+        "labelexist": "Ce libellé existe déjà ",
+        "idexist": "Ce service existe déjà ",
+        "sigleexist": "Ce sigle existe déjà ",
+        "delete": "Impossible de supprimer ce service "
+      }
+    },
+    "fonction": {
+      "error": {
+        "labelexist": "Ce libellé existe déjà ",
+        "idexist": "Cette fonction existe déjà ",
+        "sigleexist": "Ce sigle existe déjà ",
+        "delete": "Impossible de supprimer cette fonction "
+      }
+    },
+    "typeretour": {
+      "error": {
+        "labelexist": "Ce libellé existe déjà ",
+        "idexist": "Ce type de retour existe déjà ",
+        "delete": "Impossible de supprimer ce type de retour"
+      }
+    },
+    "courrier": {
+      "error": {
+        "envoi": "Erreur d'envoi du courrier. Veuillez bien verifier vos informations d'envoi ",
+        "fichier": "Fichier incorrect ",
+        "idexist": "Ce courrier existe déjà",
+        "referenceexist": "La réference de ce courrier existe déjà",
+        "refrencenotexist": "La réference de ce courrier n'existe déjà" 
+      }
+    },
+    "password": {
+      "format": {
+        "incorrect": "Veuillez saisir au moins 4 caractéres"
+      },
+      "init": {
+        "incorrect": "Ancien mot de passe incorrect "
+      }
+    }
+  }
+}

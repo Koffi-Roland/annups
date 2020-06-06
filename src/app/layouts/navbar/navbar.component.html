@@ -1,0 +1,116 @@
+
+<nav class="navbar navbar-expand-lg  bg-primary  fixed-top"  [ngSwitch]="isAuthenticated()">
+    <a class="navbar-brand" href="javascript:void(0)"  (click)="goHome()"><img class="navbar-img" class="imgDim" src="assets/images/organ.png"></a>
+    <a class="navbar-brand" *jhiHasAnyAuthority="'ROLE_ADMIN'" [routerLink]="['/admin/home']"  >Administration</a>
+   
+   <!--  <a class="navbar-brand" *jhiHasAnyAuthority="['ROLE_ADMIN','ROLE_ADMIN_PROJET','ROLE_CONSULTER_PROJET']" href="javascript:void(0)" (click)="backToUserProject()"  >Mes projets</a>
+    <a class="navbar-brand" *jhiHasAnyAuthority="['ROLE_ADMIN','ROLE_ADMIN_COURRIER','ROLE_GESTION_COURRIER','ROLE_VISIONNER_COURRIER']" [routerLink]="['/suiviecourrier/home']"  >Suivi courrier</a>
+    <a class="navbar-brand" *jhiHasAnyAuthority="'ROLE_ADMIN'" href="javascript:void(0)" (click)="backToOrgan()"  >Arborescence</a> -->
+
+    <!--a class="navbar-brand" *jhiHasAnyAuthority="['ROLE_GESTION_COURRIER','ROLE_VISIONNER_COURRIER',ROLE_ADMIN_COURRIER]" [routerLink]="['/suiviecourrier/home']"  >Suivie courier</a--> 
+    <!--button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button-->
+    <!--button type="button" class="navbar-toggler" (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="collapseBasic" (collapsed)="collapsed()" (expanded)="expanded()" [collapse]="isCollapsed"-->
+    
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsCol" aria-controls="navbarsCol" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsCol"> 
+        <ul class="navbar-nav ml-auto mt-2 mt-lg-0" *ngSwitchCase="true"> <!-- class="navbar-nav mr-auto"-->
+
+          <!--   <li class="nav-item ">
+                <div class="btn-group" dropdown >
+                    <button id="button-basic" dropdownToggle type="button" class="btn btn-primary btn-link dropdown-toggle dropdown-toggle-split "
+                            aria-controls="dropdown-basic"  aria-haspopup="true" aria-expanded="false"> 
+                        Button dropdown <span class="caret"></span>
+                    </button>
+                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                        role="menu" aria-labelledby="button-basic">
+                        <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+                        <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+                        <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li class="divider dropdown-divider"></li>
+                        <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
+                        </li> 
+                    </ul> 
+                </div>
+            </li> -->
+
+            <li class="nav-item dropdown mr-5" ngbDropdown >
+                <a href="javascript:void(0)" class="nav-link active" ngbDropdownToggle>
+                    <i class="fa fa-user"></i> {{principal.userIdentity.nom}}&nbsp;{{principal.userIdentity.prenom | titlecase}} <b class="caret"></b>
+                  </a>    
+                    <!--img [src]="getImageUrl()" class="rounded-circle  passport-profil bg-light" alt="Avatar">&nbsp;{{principal.userIdentity.authentification.matricule}}
+              
+                <!--span *ngIf="getImageUrl()">
+                    <img [src]="getImageUrl()" class="profile-image img-circle" alt="Avatar">
+                </span-->
+                <div class="dropdown-menu-right" ngbDropdownMenu>
+                    <!--a href="javascript:void(0)" class="nav-link active" ngbDropdownToggle>
+                  <img [src]="getImageUrl()" class="rounded-circle  passport-profil bg-light" alt="Avatar">&nbsp;{{principal.userIdentity.authentification.matricule}}
+               </a-->
+                    <a *jhiHasAnyAuthority="'ROLE_EMPLOYE'"  class="dropdown-item" href="javascript:void(0)" (click)="goToUserProfile()">
+                        <i class="fa fa-fw fa-user"></i> Profil
+                    </a>
+                    <a *jhiHasAnyAuthority="'ROLE_EMPLOYE'"  class="dropdown-item" href="javascript:void(0)" (click)="goToChangePassword()">
+                            <i class="fas fa-lock"></i>   Changer password
+                        </a>
+                     
+                 
+                    <!--a class="dropdown-item" href="javascript:void(0)">
+                        <i class="fa fa-fw fa-envelope"></i> {{ 'Inbox' | translate }}
+                    </a>
+                    <a class="dropdown-item" href="javascript:void(0)">
+                        <i class="fa fa-fw fa-gear"></i> {{ 'Settings' | translate }}
+                    </a-->
+                    <!--     (click)="onLoggedout()"  [routerLink]="['/login']" -->
+
+                    <a href="javascript:void(0)" class="dropdown-item"  (click)="logout()">
+                        <i class="fa fa-fw fa-power-off"></i> Deconnecter
+                    </a>
+                </div>
+            </li>
+        </ul>
+        <!--form class="form-inline my-2 my-lg-0 ">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+        </form-->
+    </div>
+</nav>
+
+<!--a [routerLink]="['/employe']">List emotion</a-->
+
+<!--div class="row">
+ <div class="col-xs-12 col-12 col-md-4 form-group">
+   <input type="text"
+          placeholder="Datepicker"
+          class="form-control theme-blue"
+          bsDatepicker  [bsConfig]="bsConfig">
+ </>
+
+</div-->
+
+
+<!--a style="margin-left:10px" routerLink="/add">Add User</a-->
+<!--div class="nav-scroller bg-white box-shadow">
+    <nav class="nav nav-underline">
+      <a class="nav-link active" href="#">Dashboard</a>
+      <a class="nav-link" href="#">
+        Friends
+        <span class="badge badge-pill bg-light align-text-bottom">27</span>
+      </a>
+      <a class="nav-link" href="#">Explore</a>
+      <a class="nav-link" href="#">Suggestions</a>
+      <a class="nav-link" href="#">Link</a>
+      <a class="nav-link" href="#">Link</a>
+      <a class="nav-link" href="#">Link</a>
+      <a class="nav-link" href="#">Link</a>
+      <a class="nav-link" href="#">Link</a>
+    </nav>
+  </div-->

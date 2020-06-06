@@ -1,0 +1,380 @@
+              <div class="container-fluid">
+    <!--div class="card bg-light">
+
+        <div class="card-body">
+            <h5 class="card-title">Détail employé</h5-->
+    <div class="row">
+        <div class="col">
+            <!-- <h5 class="text-left font-weight-bold text-uppercase">Arborescence </h5> -->
+            <div>
+                <img class="rotating" style="width: 100px; height: 100px; line-height: 100px;" src="assets/images/organ.png" alt="" />
+            </div>
+
+        </div>
+        <div class="col">
+            <a [routerLink]="['/home']"  href="javascript:void(0)" class="link text-primary float-right">Page de recherche</a>
+        </div>
+    </div>
+    <div class="row">
+        <alert type="danger" *ngIf="isOpenAlert" [dismissible]="true" dismissOnTimeout="60000" (onClosed)="isOpenAlert = false">
+            <h4 class="alert-heading">Access refusé</h4>
+            <p>{{erreurProjet}}</p>
+            <p class="mb-0">Veuillez-vous &nbsp;<a (click)="redirectLogin()"  href="javascript:void(0)" class="link text-primary">connecter</a>&nbsp; pour accéder aux projets</p>
+        </alert>
+        <!--alert type="info" *ngIf="erreurProjet" >
+            <strong>{{erreurProjet}}</strong>  
+        </alert-->
+
+        <div class="mx-auto">
+
+            <div class="tree" *ngIf="employe" [ngClass]="{'n': listFils?.length == 0 , 'y':listFils?.length >  0}">
+
+                <ul class="" *ngIf="employe">
+
+                    <li>
+                        <a class="bg-primary">
+                            <div class="row  ss">
+                                <div class="col-9 p-2  text-left">
+                                    <h6 class="font-weight-bold ">Nom &nbsp;
+                                        <span class="badge badge-light  badge-pill ">{{employe.nom | uppercase}}</span>
+                                    </h6>
+
+                                    <h6 class="font-weight-bold  ">Prenom &nbsp;
+                                        <span class="badge badge-light  badge-pill">{{employe.prenom | uppercase}}</span>
+                                    </h6>
+
+                                    <h6 class="font-weight-bold ">Fonction &nbsp;
+                                        <span class="badge badge-light  badge-pill">{{employe.fonction.label | uppercase}}</span>
+                                    </h6>
+
+                                    <h6 class=" font-weight-bold  ">Service &nbsp;
+                                        <span class=" badge badge-light  badge-pill" tooltip="{{employe.service.label | uppercase}}">{{employe.service.sigle | uppercase}}</span>
+                                    </h6>
+
+
+                                    <h6 class=" font-weight-bold ">Telephone &nbsp;
+                                        <span class="badge badge-light  badge-pill">
+                                            <span *ngIf="employe.telFixePro">{{employe.telFixePro}}
+                                            </span>
+                                            <span *ngIf="employe.telAbbr">/ {{employe.telAbbr}}
+                                            </span>
+                                            <span *ngIf="employe.telPro">/ {{employe.telPro}}
+                                            </span>
+                                            <span *ngIf="employe.telPerso1">/ {{employe.telPerso1}}
+                                            </span>
+                                        </span>
+                                    </h6>
+                                    <!-- Has project -->
+
+                                </div>
+                                <div class="col-3   p-1">
+
+                                    <img *ngIf="!employe.photo" src="/assets/man.png" class="float-right rounded-circle .img-fluid  passport-image bg-light"
+                                        alt="empty profil">
+                                    <img *ngIf="employe.photo" src="{{employe.photo}}" class="float-right rounded-circle .img-fluid  passport-image bg-light"
+                                        alt="image profil" title="image profil">
+                                    <button *ngIf="employe.idEmploiyeParent" (click)="getEmployeById(employe.idEmploiyeParent) ;getEmployeByFils(employe.idEmploiyeParent) ; getHasProject(employe.idEmploiyeParent); getHasSuivie(employe.idEmploiyeParent) ;isOpen = false"
+                                        class="btn btn-rounded pt-1 btn-sm btn-link text-light " tooltip="Voir employé supérieur">
+                                        <i class="fas fa-user-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col p-0">
+                                    <span class="">
+                                        <a href="javascript:void(0)" *ngIf="hasProject" class="mylink   text-light float-left" (click)="onClickFils(employe)">
+                                            <h6 class="small font-weight-bold">Voir projet</h6>
+                                        </a>
+
+                                        <a href="javascript:void(0)" *ngIf="hasSuivie" class="mylink text-light float-right" (click)=" onClickFilsSuivie(employe)">
+                                            <h6 class="small font-weight-bold">Suivre courrier</h6>
+                                        </a>
+                                    </span>
+                                </div> 
+
+                            </div>
+
+                        </a>
+                        <ul class="mymy mx-auto">
+                            <li class="mymo" *ngFor=" let fils of listFils">
+                                <a class="bg-primary">
+                                    <div class="row my-1 ss  ">
+                                        <div class="col-9 p-1  text-left">
+                                            <h6 class=" font-weight-bold">Nom &nbsp;
+                                                <span class=" badge badge-light  badge-pill ">{{fils.nom | uppercase}}</span>
+                                            </h6> 
+
+                                            <h6 class=" font-weight-bold">Prénom &nbsp;
+                                                <span class="badge badge-light  badge-pill ">{{fils.prenom | uppercase}}</span>
+                                            </h6>
+
+                                            <h6 class="font-weight-bold">Fonction &nbsp;
+                                                <span class="badge badge-light  badge-pill ">{{fils.fonction.label | uppercase}}</span>
+                                            </h6>
+
+                                            <h6 class="font-weight-bold">Service &nbsp;
+                                                <span class="badge badge-light  badge-pill " tooltip="{{fils.service.label | uppercase}}">{{fils.service.sigle | uppercase}}</span>
+                                            </h6>
+
+                                            <!--div class="row"-->
+                                            <h6 class=" font-weight-bold">Téléphone &nbsp;
+                                                <span class="ml-2 badge badge-light  badge-pill ">
+                                                    <span *ngIf="fils.telFixePro">{{fils.telFixePro}}
+                                                    </span>
+                                                    <span *ngIf="fils.telAbbr">/ {{fils.telAbbr}}
+                                                    </span>
+                                                    <span *ngIf="fils.telPro">/ {{fils.telPro}}
+                                                    </span>
+                                                    <span *ngIf="fils.telPerso1">/ {{fils.telPerso1}}
+                                                    </span>
+                                                </span>
+                                            </h6>
+                                            <!--/div-->
+
+                                            <!--span class="text-right">
+                                                <a *ngIf="fils.projet" class="mylink text-light" [routerLink]="['/',{outlets:{popup:'employedetaildialog/'+ fils.id}}]" replaceurl="true">Voir projet</a>
+                                            </span-->
+                                            <!--span class="text-center">
+                                                <a href="javascript:void(0)" *ngIf="fils.projet" class="mylink text-light" (click)="onClickFils(fils)">Voir projet</a>
+                                                <a href="javascript:void(0)" *ngIf="fils.courrier"  class="mylink text-light" (click)="onClickFilsSuivie(fils)">Suivre courier</a>
+
+                                            </span-->
+
+                                            <!--============================================test======================================-->
+                                            <!--     <ng-template #template>
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title pull-left">Les projets</h4>
+                                                    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div clas="row">
+
+
+                                                                <h5 class="card-title">Liste des projets</h5>
+
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-bordered table-striped table-hover">
+                                                                        <caption>Liste des projets</caption>
+                                                                        <thead class="thead-dark bg-primary">
+                                                                            <tr (click)="onClickRow(projet)" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+
+                                                                                <th jhiSortBy="label">Libellé
+                                                                                    <span class="fa fa-sort"></span>
+                                                                                </th>
+
+                                                                                <th jhiSortBy="datecreation">Date de création
+                                                                                    <span class="fa fa-sort"></span>
+                                                                                </th>
+                                                                                <th jhiSortBy="datedebut">Date debut
+                                                                                    <span class="fa fa-sort"></span>
+                                                                                </th>
+                                                                                <th jhiSortBy="datefin">Date fin
+                                                                                    <span class="fa fa-sort"></span>
+                                                                                </th>
+
+                                                                                <!--th>Actions</th-->
+                                            <!--      </tr>
+                                                                        </thead>
+                                                                        <tbody> -->
+                                            <!-- <tr *ngFor="let pr of projets; trackBy: trackIdentity"  [routerLink]="['../projet', pr.id]">-->
+                                            <!--                    <td ><a [routerLink]="['../admin/produit', pr.name]">{{pr.id}}</a></td>-->
+                                            <!--   <tr *ngFor="let projet of projets">
+                                                                                    <td>{{projet.label}}</td>
+                                                                                    <td>{{projet.datecreation}}</td>
+                                                                                    <td>{{projet.datedebut}}</td>
+                                                                                    <td>{{projet.datefin}}</td> -->
+                                            <!--td class=""-->
+                                            <!--button type="button" title="modifier" (click)="editProduit(pr)" class="btn btn-icon btn-success btn-sm">
+                                                          <clr-icon shape="edit"></clr-icon>
+                                                      </button>
+
+                                                      <button type="button" title="Supprimer" (click)="confirmRemoveProfile(pr)"  class="btn btn-icon btn-danger btn-sm">
+                                                          <clr-icon shape="remove"></clr-icon>
+                                                      </button-->
+
+                                            <!--/td-->
+                                            <!--      </tr>
+                                                                        </tbody>
+                                                                    </table>
+
+                                                        </div>
+
+
+                                                        <h5 class="card-title">Liste des tâches</h5>
+                                                        <div class="table-responsive">
+                                                            <table class="table">
+                                                                <thead class="thead-dark">
+                                                                    <tr>
+                                                                        <th scope="col">Nom</th>
+                                                                        <th scope="col">Libellé</th>
+                                                                        <th scope="col">Date debut</th>
+                                                                        <th scope="col">Date fin</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody> -->
+                                            <!--<tr *ngFor="let tache of affectProjet.taches" [ngClass]="{'dangerline': tache.echeance==true , 'successline' : tache.echeance==false}">-->
+                                            <!--   <tr>
+                                                                        <td>roland employé</td>
+                                                                        <td>tache titre</td>
+                                                                        <td>tache debut</td>
+                                                                        <td>tache fin</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+                                                </div>
+                                                </div>
+                                            </ng-template> -->
+                                            <!--============================================ fin test======================================-->
+
+                                        </div>
+                                        <div class="col-3 my-1">
+                                            <img *ngIf="!fils.photo" src="assets/man.png" class="rounded-circle .img-fluid float-right passport-image2 bg-light" alt="empty profil">
+                                            <img *ngIf="fils.photo" src="{{fils.photo}}" class="rounded-circle .img-fluid float-right passport-image2 bg-light" alt="image profil"
+                                                title="image profil">
+                                            <button [disabled]="!fils.isCollapsed" *ngIf="fils.fils && isOpen" (click)="getSousFils(fils.id); getHasSuivie(fils.id);  fils.isCollapsed = !fils.isCollapsed"
+                                                [attr.aria-expanded]="!fils.isCollapsed" aria-controls="fils.id" class="btn pt-1 btn-sm text-danger  btn-link ">
+                                                <i class="fas fa-user-minus"></i>
+                                            </button>
+                                            <button *ngIf="fils.fils && !isOpen" (click)="getSousFils(fils.id);getHasSuivie(fils.id);  fils.isCollapsed = !fils.isCollapsed" [attr.aria-expanded]="!fils.isCollapsed"
+                                                aria-controls="fils.id" class="btn pt-1 btn-sm text-danger  btn-link ">
+                                                <i class="fas fa-user-minus"></i> 
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                            <div class="col">
+                                        <span class="">
+                                            <a href="javascript:void(0)" *ngIf="fils.projet" class="mylink text-light  float-left" (click)="onClickFils(fils)">Voir projet</a>
+                                            <a href="javascript:void(0)" *ngIf="fils.courrier"  class="mylink text-light float-right" (click)="onClickFilsSuivie(fils)">Suivre courrier</a>
+
+                                        </span>
+                                    </div>
+                                    </div>
+
+
+
+
+                                    <!--div class="row" *ngIf="fils.fils">
+                                    <   [ngClass]="{'border-top': fils.fils, 'border-0': !fils.fils}" >
+                                    <div class="col-3 mt-1 p-2"  >
+
+                                        <button data-target="fils.id"  type="button"     aria-controls="fils.id"  class="float-right btn btn-sm btn-primary mt-1 navbar-toggler">
+                                            <i class="fas fa-angle-down"></i>
+                                        </button>
+
+                                    </div>
+                                    <div class="col-9 mt-1 p-2" >
+
+                                        <div id="fils.id"  class="card card-block card-header col-7">
+                                            <div class="well well-lg">Some content</div>
+                                        </div>
+                                    </div>
+
+                                </div-->
+
+                                </a>
+
+                                <div id="fils.id" *ngIf="fils.fils" [collapse]="!fils.isCollapsed" class="">
+
+                                    <!--div class="list-group">
+                                        <a *ngFor="let filson of sousListFils" (click)="getEmployeById(filson.id); getEmployeByFils(filson.id);isOpen = false"  class="list-group-item list-group-item-action flex-column align-items-start mb-1 link">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h6 class="mb-1">{{filson.nom}}&nbsp;{{filson.prenom}}</h6>
+                                                <small class="font-weight-bold">{{filson.fonction.label}}</small>
+                                            </div>
+                                            <p class="mb-1">Fonction</p>
+                                            <small class="font-weight-bold">{{filson.fonction.label}}</small>
+                                        </a>
+                                        <a *ngFor="let filson of sousListFils"  class="list-group-item list-group-item-action flex-column align-items-start mb-1 ">
+                                            <div class="d-flex w-100 justify-content-between">
+                                              <h6 class="mb-1">{{filson.nom}}&nbsp;{{filson.prenom}}</h6>
+                                              <small class="font-weight-bold">{{filson.fonction.label}}</small>
+                                            </div>
+                                            <p class="mb-1">Fonction</p>
+                                            <small class="font-weight-bold">{{filson.fonction.label}}</small>
+                                          </a>
+                                    </div-->
+                                    <div class="row ">
+                                        <div class="tree ">
+                                            <ul class=" pb-5 " *ngFor="let filson of sousListFils">
+                                                <li class="text-light ">
+                                                    <a class="bg-primary us text-light" href="javascript:void(0)" (click)="getEmployeById(filson.id); getHasProject(filson.id); getHasSuivie(filson.id); getEmployeByFils(filson.id);isOpen = false">
+
+                                                        <h6 class="mb-1 text-light">{{filson.nom}}&nbsp;{{filson.prenom}}</h6>
+                                                        <small class="font-weight-bold">{{filson.fonction.label}}</small>
+                                                    </a>
+                                                    <!--a class="text-secondary" href="javascript:void(0)"  > voir projet
+
+                                                      <h6 class="mb-1">{{filson.nom}}&nbsp;{{filson.prenom}}</h6>
+                                                       <small class="font-weight-bold">{{filson.fonction.label}}</small>
+                                                   </a--> 
+                                                </li>
+
+                                            </ul>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </li>
+                        </ul>
+
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!--/div>
+</div-->
+</div>
+
+<!--============================Test===============================-->
+
+
+<!--===============================================================-->
+<!--<button class="btn-primary" (click)=" showChildModal()">show</button>
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name" class="modal-title pull-left">Child modal</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body"> hgfgggggggggggggg {{id}}
+      </div>
+    </div>
+  </div>
+</div>-->
+
+
+<!--div class="modal-header">
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    {{message}}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="bsModalRef.hide()" translate="cancel"></button>
+    <button type="button" class="btn btn-success" (click)="clickOk()" translate="ok"></button>
+  </div-->
+
+<!--div class="card p-3"> <img class="card-img-top" src=".../90px160/" alt="Card image cap"> <div class="card-body"> <span class="card-title">Card title that wraps to a new line</span> <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> </div> </div> <div class="card"> <blockquote class="blockquote mb-0 card-body"> <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p> <footer class="blockquote-footer"> <small class="text-muted"> Someone famous in <cite title="Source Title">Source Title</cite> </small> </footer> </blockquote> </div> </div-->
+
+<!--div class="card"> <img class="card-img-top" src=".../90px180/" alt="Card image cap"> <div class="card-body"> <span class="card-title">Card title</span> <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> </div> <div class="card-footer"> <small class="text-muted">Last updated 3 mins ago</small> </div> </div-->
+<!--   https://codepen.io/jreaux62/pen/GJmOMP -->

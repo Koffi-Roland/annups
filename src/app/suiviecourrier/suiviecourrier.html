@@ -1,0 +1,70 @@
+<app-navbar></app-navbar>
+<div class="nav-side-menu">
+    <div class="brand">Brand Logo</div>
+    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+    <div class="menu-list mt-2">
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center  " *jhiHasAnyAuthority="['ROLE_ADMIN_COURRIER',['ROLE_GESTION_COURRIER']]">
+                <a [routerLink]="['/suiviecourrier/new']">
+                    <i class="fa fa-paper-plane  mr-2"></i>
+                    Nouveau courrier
+                </a>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center" *jhiHasAnyAuthority="['ROLE_ADMIN_COURRIER','ROLE_GESTION_COURRIER','ROLE_VISIONNER_COURRIER']">
+                <a [routerLink]="['/suiviecourrier/home']">
+                    <i class="fa fa-list  mr-2"></i>Voir courriers
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+   
+    <ul class="list-group">
+        <li  style="background-color: #007bff"  (click)="onClickModuleProjet()" class="list-group-item d-flex justify-content-between align-items-center active">
+            Module projet
+        </li>
+        <li  style="background-color: #007bff" (click)="onClickModuleOrgan()" class="list-group-item d-flex justify-content-between align-items-center active">
+                Module organ
+             </li>
+             <li (click)="onClickModuleConge()" style="background-color: #007bff" class="list-group-item d-flex justify-content-between align-items-center active">
+                    Module congé
+                 </li>
+
+
+       
+    </ul>
+
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+<!-- <div role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 mt-5">
+
+    <router-outlet></router-outlet>
+   
+
+
+</div> -->
+
+<div role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 mt-5 ">
+    <nav aria-label="breadcrumb" class="pt-5 ">
+        <ol class="breadcrumb bg-primary ">
+            <li class="breadcrumb-item active text-light" aria-current="page">Suivi courrier</li>
+        </ol>
+    </nav>
+    <!-- <h6 class="card-subtitle mb-2 text-muted">Suivie courriers</h6> -->
+
+    <router-outlet></router-outlet>
+
+
+</div>

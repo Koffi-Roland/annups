@@ -1,0 +1,317 @@
+<div class="col-md-12 mx-auto my-auto">
+
+    <!--   <alert  type="success" *ngIf="isOpenSuccess" [dismissible]="true" dismissOnTimeout="6000" (onClosed)="isOpenAlert = false"> 
+                <p>{{erreurProjet}}</p>
+         </alert>
+
+    <alert  type="danger" *ngIf="isOpenDanger" [dismissible]="true" dismissOnTimeout="6000" (onClosed)="isOpenAlert = false"> 
+        <p>{{erreurProjet}}</p>
+    </alert> -->
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="mt-5" *ngIf="employeSuccess||employeError">
+                <alert *ngIf="employeSuccess" type="success" dismissOnTimeout="6000" (onClosed)="employeSuccess = false">{{ msg | translate}}</alert>
+                <alert *ngIf="employeError" type="danger" dismissOnTimeout="6000" (onClosed)="employeError = false">{{ msg | translate}} </alert>
+            </div>
+            <div class="card mt-3">
+
+                <div class="card-body" >
+                    <button class="btn btn-primary float-right" (click)="listEmploye()">Liste des employés</button>
+                    <h5 class="card-title">Enregistrement des employés</h5>
+                    <form novalidate class="pt-3" (ngSubmit)="onSubmit()" #f="ngForm">
+                        <div class="form-row">
+                            <!--=====================matricule===================-->
+                            <div class="form-group col-md-3">
+                                <label for="matricule">Matricule</label>
+                                <input type="text" id="matricule" [(ngModel)]="entity.matricule" name="matricule" class="form-control form-control-sm"
+                                    autofocus required>
+                            </div>
+
+                            <!--=====================nom===================-->
+                            <div class="form-group col-md-3">
+                                <label for="nom">Nom</label>
+                                <input type="text" id="nom" [(ngModel)]="entity.nom" name="nom" class="form-control form-control-sm"
+                                    #name required>
+
+                            </div>
+
+
+                            <!--=====================prenom===================-->
+                            <div class="form-group col-md-3">
+                                <label for="prenom">Prénom</label>
+                                <input type="text" id="prenom" [(ngModel)]="entity.prenom" name="prenom" class="form-control form-control-sm"
+                                    required>
+                            </div>
+
+
+                            <!--=====================password===================-->
+                            <div class="form-group col-md-3">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" [(ngModel)]="entity.password" name="password"
+                                    class="form-control form-control-sm" required>
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+
+                            <!--=====================sexe===================-->
+                            <div class="form-group col-md-3">
+                                <label for="sexe">Sexe</label>
+                                <select class="custom-select" [(ngModel)]="entity.sexe" id="sexe" name="sexe" required>
+                                    <option value="" selected disabled>Choisir un sexe</option>
+                                    <option *ngFor="let sex of sexe" [ngValue]="sex.value">{{sex.label}}</option>
+                                </select>
+                            </div>
+                            <!--=====================date naissance===================-->
+                            <div class="form-group col-md-3">
+                                 
+                                <label for="dateDeNaissance">Date de naissance</label>
+                                <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [(ngModel)]="entity.dateDeNaissance"
+                                    name="dateDeNaissance" [bsValue]="bsValue" required [bsConfig]="bsConfig">
+
+                            </div>
+
+                            <!--=====================date embauche===================-->
+                            <div class="form-group col-md-3">
+                                <label for="dateEmbauche">Date embauche</label>
+
+                                <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [(ngModel)]="entity.dateEmbauche"
+                                    name="dateEmbauche" [minDate]="entity.dateDeNaissance" [bsValue]="bsValue" required [bsConfig]="bsConfig">
+
+                            </div>
+                            <!--=====================fonction ===================-->
+
+                            <div class="form-group col-md-3">
+                                <label for="fonction">Fonction</label>
+
+                                <select class="custom-select" [(ngModel)]="entity.fonction" name="fonction" id="fonction"
+                                    required>
+                                    <option value="" selected disabled>Choisir fonction...</option>
+                                    <option *ngFor="let fonction of allFonctions" [ngValue]="fonction">{{fonction.label}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+
+                            <!--=====================statut ===================-->
+
+                            <div class="form-group col-md-3">
+                                <label for="statut">Statut</label>
+
+                                <select class="custom-select" [(ngModel)]="entity.statut" name="statut" id="statut"
+                                    required>
+                                    <option value="" selected disabled>Choisir statut...</option>
+                                    <option *ngFor="let statut of statut" [ngValue]="statut.value">{{statut.label}}</option>
+                                </select>
+
+                            </div>
+
+                            <!--=====================service ===================-->
+
+                            <div class="form-group col-md-3">
+                                <label for="service">Service</label>
+                                <select class="custom-select" [(ngModel)]="entity.service" name="service" id="service"
+                                    (change)="getEmployeByService()" required>
+                                    <option value="" selected disabled>Choisir service...</option>
+                                    <option *ngFor="let service of allServices" [ngValue]="service">{{service.label}}</option>
+                                </select>
+
+                            </div>
+
+                            <!--=====================telephone fixe ===================-->
+
+                            <div class="form-group col-md-2">
+                                <label for="telFixePro">Tél fixe prof.</label>
+                                <input type="text" id="telFixePro" [(ngModel)]="entity.telFixePro" name="telFixePro"
+                                    class="form-control form-control-sm" placeholder="Tél fixe" required>
+                            </div>
+
+                            <!--=====================telephone telabbr ===================-->
+
+                            <div class="form-group col-md-2">
+                                <label for="telAbbr">Tél Abrégé</label>
+                                <input type="text" id="telAbbr" [(ngModel)]="entity.telAbbr" name="telAbbr" class="form-control form-control-sm"
+                                    required>
+
+                            </div>
+
+                            <!--=====================telephone professionnel ===================-->
+
+                            <div class="form-group col-md-2">
+                                <label for="telAbbr">Tél Pro</label>
+                                <input type="text" id="telPro" [(ngModel)]="entity.telPro" name="telPro" class="form-control form-control-sm"
+                                    required>
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-row">
+
+                            <!--=====================telephone 1 ===================-->
+
+                            <div class="form-group col-md-2">
+                                <label for="telperso1">Tél 1</label>
+                                <input type="text" id="telperso1" [(ngModel)]="entity.telPerso1" name="telperso1" class="form-control form-control-sm">
+                            </div>
+
+                            <!--=====================telephone 2 ===================-->
+
+                            <div class="form-group col-md-2">
+                                <label for="telperso2">Tél 2</label>
+                                <input type="text" id="telperso2" [(ngModel)]="entity.telPerso2" name="telperso2" class="form-control form-control-sm">
+
+                            </div>
+
+                            <!--=====================telephone 3 ===================-->
+
+                            <div class="form-group col-md-2">
+                                <label for="telperso3">Tél 3</label>
+                                <input type="text" id="telperso3" [(ngModel)]="entity.telPerso3" name="telperso3" class="form-control form-control-sm">
+                            </div>
+
+                            <!--=====================ville  ===================-->
+
+                            <div class="form-group col-md-3">
+                                <label for="ville">Ville</label>
+                                <input type="text" id="ville" [(ngModel)]="entity.ville" name="ville" class="form-control form-control-sm"
+                                    required>
+                            </div>
+                            <!--======================email==============================-->
+                            <div class="form-group col-md-3">
+                                <label for="emailpro">Email Professionnel</label>
+                                <input type="email" id="emailpro" [(ngModel)]="entity.emailPro" name="emailPro" class="form-control form-control-sm"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+
+
+
+                            <!--======================emailpro==============================-->
+                            <div class="form-group col-md-3">
+                                <label for="emailPerso">Email personnel</label>
+                                <input type="email" id="emailPerso" [(ngModel)]="entity.emailPerso" name="emailPerso"
+                                    class="form-control form-control-sm" >
+
+                            </div>
+                            <!--=====================langue  ===================-->
+
+                            <div class="form-group col-md-3">
+                                <label for="langue">Langue</label>
+                                <select class="custom-select" id="langue" [(ngModel)]="entity.langue" name="langue"
+                                    required>
+                                    <option value="" selected disabled>Choisir langue...</option>
+                                    <option *ngFor="let lang of langue" [ngValue]="lang.value">{{lang.label}}</option>
+                                </select>
+                            </div>
+
+                            <!--=====================pays ===================-->
+
+                            <div class="form-group col-md-3">
+                                <label for="pays">Pays</label>
+                                <select class="custom-select" [(ngModel)]="entity.pays" name="pays" id="pays" required>
+                                    <option value="" selected disabled>Choisir pays...</option>
+                                    <option>TOGO</option>
+                                    <option>SENEGAL</option>
+                                </select>
+                            </div>
+
+
+
+                            <div class="form-group col-md-3 mt-4">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadioInline1" (click)="activeSuperior()" [checked]="superior"
+                                        name="customRadioInline1" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadioInline1">Service du supérieur</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="r2" [checked]="other" (click)="activeOther()" name="customRadioInline1"
+                                        class="custom-control-input">
+                                    <label class="custom-control-label" for="r2">Autre</label>
+                                </div>
+                                <!--  <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="superieur" value="superieur" [(ngModel)]="radioValue" name="radio" class="custom-control-input" (click)="onClickRadio()">
+                            <label class="custom-control-label" for="superieur">Superieur service </label>
+                        </div>
+
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="autre" value="autre" [(ngModel)]="radioValue" name="radio" class="custom-control-input" (click)="onClickRadio()">
+                            <label class="custom-control-label" for="autre">Autre superieur</label>
+                        </div> -->
+                            </div>
+                        </div>
+                        <div class="form-row">
+
+
+                            <!--=====================service parent ===================-->
+
+                            <div class="form-group col-md-3" *ngIf="other">
+                                <label for="service">Service supérieur</label>
+                                <select class="custom-select" [(ngModel)]="otherservice" name="serviceparent" id="serviceparent"
+                                    (change)="getEmployeByOtherService()" required>
+                                    <option value="" selected disabled>Choisir service...</option>
+                                    <option *ngFor="let service of allServices" [ngValue]="service">{{service.label}}</option>
+                                </select>
+
+                            </div>
+
+                            <!--======================Parent==============================-->
+                            <div class="form-group col-md-3" *ngIf="other">
+                                <label for="parent">Choisir supérieur employé</label>
+                                <ngx-select-dropdown [multiple]="false" [config]="config" [(value)]="singleSelect"
+                                    [options]="allEmployeOtherService" id="other" required></ngx-select-dropdown>
+                            </div>
+
+                            <!--======================Parent==============================-->
+                            <div *ngIf="superior" class="form-group col-md-3">
+                                <label for="parent">Choisir supérieur employé </label>
+                                <ngx-select-dropdown [multiple]="false" [config]="config" [(value)]="singleSelect"
+                                    [options]="allEmployeService" id="parent" placeholder="Choisir" required></ngx-select-dropdown>
+                            </div>
+
+                            <!--=======================Photo==============================-->
+                            <div class="form-group col-md-3">
+                                <label for="photo">Sélectionner photo</label>
+
+                                <div class="image-upload">
+
+                                    <input #myInput name="imageUrl" type="file" (change)="handleInputChange($event)" />
+                                    <span *ngIf="imageError" class="text-danger">{{filename}} </span>
+
+                                </div>
+
+                            </div>
+
+                            <!--======================authorites==============================-->
+
+                            <div class="col-md-3 mb-3">
+                                <label for="droit">Attribution de droit(s)</label>
+
+                                <div class="form-label-group">
+                                    <select multiple class="form-control" [(ngModel)]="entity.droits" name="droits" id="droits"
+                                        required>
+                                        <option value="" selected disabled>Affecter droit(s)...</option>
+                                        <option *ngFor="let droit of allDroits" [value]="droit">{{droit.description}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="float-left">
+                            <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Enregistrer</button>
+                        </div>
+                        <!--p style="margin: 0;"> {{singleSelect[0]?.id}}</p>-->
+                        <!--  <pre>{{f.value | json}}</pre> -->
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

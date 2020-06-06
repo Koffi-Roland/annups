@@ -1,0 +1,106 @@
+<app-navbar></app-navbar>
+
+
+<!--   =====================================================================================-->
+
+
+
+<!--==========================================================================================-->
+
+<div class="container-fluid mt-5">
+
+    <div class="row h-100 ">
+        <div class="col-md-9 my-auto mx-auto">
+            <div class="card bg-light border-light mb-1">
+                <div class="card-body">
+                    <div *ngIf="affectProjet">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">Projet</li>
+                                <li class="breadcrumb-item active" aria-current="page">{{affectProjet.projet.label}}</li>
+                            </ol>
+                        </nav>
+                        <!--  <h2>
+                    <span>Projet</span> [
+                    <b>{{affectProjet.projet.label}}</b>]
+                </h2>-->
+                        <dl class="row-md jh-entity-details">
+                            <!--dt><span jhiTranslate="userManagement.login">Login</span></dt>
+      <dd>
+          <span>{{user.login}}</span>
+          <span class="badge badge-danger" *ngIf="!user.activated"
+                jhiTranslate="userManagement.deactivated">Deactivated</span>
+          <span class="badge badge-success" *ngIf="user.activated"
+                jhiTranslate="userManagement.activated">Activated</span>
+      </dd-->
+
+
+                            <!--  <dt>
+                        <span>Libellé</span>
+                    </dt>
+                    <dd>{{affectProjet.projet.label}}</dd>-->
+                            <dt>
+                                <span>Chef projet</span>
+                            </dt>
+                            <dd>{{affectProjet.projet.proprietaire}}</dd>
+                            <dt>
+                                <span>Date création</span>
+                            </dt>
+                            <dd>{{affectProjet.projet.dateCreation | date: 'dd-MM-yyyy' }}</dd>
+                            <!-- <dt>
+                        <span>Taches</span>
+                    </dt>
+                    <dd>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let tache of affectProjet.taches">
+                                <span class="badge" [ngClass]="{'badge-danger': tache.echeance==true , 'badge-success' : tache.echeance==false}">{{tache.employe}} &nbsp; {{tache.label}} &nbsp; {{tache.dateDebut}} &nbsp; {{tache.dateFin}}</span>
+                            </li>
+                        </ul>
+                    </dd>-->
+                        </dl>
+
+                        <h5 class="card-title">Liste des tâches</h5>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Nom</th>
+                                        <th scope="col">Libellé</th>
+                                        <th scope="col">Date debut</th>
+                                        <th scope="col">Date fin</th>
+                                        <th scope="col">Progression</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!--tr *ngFor="let tache of affectProjet.taches" [ngClass]="{'dangerline': tache.echeance=='oui' , 'bg-success' : tache.echeance=='success','bg-info' : tache.echeance=='egal'}"-->
+
+                                    <tr *ngFor="let tache of affectProjet.taches">
+                                        <td [ngClass]="{'dangerline': tache.echeance=='danger' , 'bg-success' : tache.echeance=='success','bg-info' : tache.echeance=='info','bg-warning' : tache.echeance=='warning'}">{{tache.employe}}</td>
+                                        <td [ngClass]="{'dangerline': tache.echeance=='danger' , 'bg-success' : tache.echeance=='success','bg-info' : tache.echeance=='info','bg-warning' : tache.echeance=='warning'}">{{tache.label}}</td>
+                                        <td [ngClass]="{'dangerline': tache.echeance=='danger' , 'bg-success' : tache.echeance=='success','bg-info' : tache.echeance=='info','bg-warning' : tache.echeance=='warning'}">{{tache.dateDebut
+                                            | date: 'dd-MM-yyyy'}}</td>
+                                        <td [ngClass]="{'dangerline': tache.echeance=='danger' , 'bg-success' : tache.echeance=='success','bg-info' : tache.echeance=='info','bg-warning' : tache.echeance=='warning'}">{{tache.dateFin
+                                            | date: 'dd-MM-yyyy'}}</td>
+                                        <td [ngClass]="{'text-danger': tache.echeance=='danger' , 'text-success' : tache.echeance=='success','text-info' : tache.echeance=='info','text-warning' : tache.echeance=='warning'}">
+                                            <div class="mb-2">
+                                                <progressbar max="100" class="progress-striped active" [value]="tache.progression"
+                                                    [type]="tache.echeance" [striped]="true" [animate]="true"><b class="text-dark">{{tache.progression}}%</b></progressbar>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                            <button routerLink="/projet" class="btn btn-primary btn-sm my-2 my-s-0 ">
+                                <i class="fa fa-arrow-left"></i>&nbsp; Retour
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

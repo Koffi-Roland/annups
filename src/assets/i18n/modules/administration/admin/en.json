@@ -1,0 +1,16 @@
+{
+    "fonction": {
+        "save": "Enrégistrement du fonction {{value}} ",
+        "update": "Mise à jour fonction {{value}} "
+    },
+    "employe": {
+        "save": "Enrégistrement de l' employé  ",
+        "update": "Mise à jour de l'employé {{value}}",
+        "matricule": {
+            "exist": "Ce matricule existe déja"
+        },
+        "email": {
+            "exist": "l' e-mail renseigné existe déja"
+        }
+    }
+}

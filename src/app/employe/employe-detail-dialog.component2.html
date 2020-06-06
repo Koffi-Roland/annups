@@ -1,0 +1,85 @@
+<div class="modal-header"  *ngIf="projet">
+        <h4 class="modal-title pull-left">{{projet.id}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div clas="row">
+
+        
+                    <h5 class="card-title">Liste des projets</h5>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover">
+                            <caption>Liste des projets</caption>
+                            <thead class="thead-dark bg-primary">
+                               <tr (click)="onClickRow(projet)" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+
+                                    <th jhiSortBy="label">Libellé
+                                        <span class="fa fa-sort"></span>
+                                    </th>
+
+                                    <th jhiSortBy="datecreation">Date de création
+                                        <span class="fa fa-sort"></span>
+                                    </th>
+                                    <th jhiSortBy="datedebut">Date debut
+                                        <span class="fa fa-sort"></span>
+                                    </th>
+                                    <th jhiSortBy="datefin">Date fin
+                                        <span class="fa fa-sort"></span>
+                                    </th>
+
+                                    <!--th>Actions</th-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr *ngFor="let pr of projets; trackBy: trackIdentity"  [routerLink]="['../projet', pr.id]">-->
+                                <!--                    <td ><a [routerLink]="['../admin/produit', pr.name]">{{pr.id}}</a></td>-->
+                                <tr *ngFor="let projet of projets">
+                                        <td>{{projet.label}}</td>
+                                        <td>{{projet.datecreation}}</td>
+                                        <td>{{projet.datedebut}}</td>
+                                        <td>{{projet.datefin}}</td>
+                                    <!--td class=""-->
+                                    <!--button type="button" title="modifier" (click)="editProduit(pr)" class="btn btn-icon btn-success btn-sm">
+              <clr-icon shape="edit"></clr-icon>
+          </button>
+
+          <button type="button" title="Supprimer" (click)="confirmRemoveProfile(pr)"  class="btn btn-icon btn-danger btn-sm">
+              <clr-icon shape="remove"></clr-icon>
+          </button-->
+
+                                    <!--/td-->
+                                </tr>
+                            </tbody>
+                        </table>
+                 
+            </div>
+
+ 
+            <h5 class="card-title">Liste des tâches</h5>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Libellé</th>
+                            <th scope="col">Date debut</th>
+                            <th scope="col">Date fin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--<tr *ngFor="let tache of affectProjet.taches" [ngClass]="{'dangerline': tache.echeance==true , 'successline' : tache.echeance==false}">-->
+                           <tr>
+                            <td>roland employé</td>
+                            <td>tache titre</td>
+                            <td>tache debut</td>
+                            <td>tache fin</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+       
+    </div>
+    </div>

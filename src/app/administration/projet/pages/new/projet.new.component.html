@@ -1,0 +1,190 @@
+<div class="col-md-9 mx-auto my-auto">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="mt-5" *ngIf="projetSuccess||projetError">
+                <alert *ngIf="projetSuccess" type="success" dismissOnTimeout="6000" (onClosed)="projetSuccess = false">{{
+                    msg | translate}}</alert>
+                <alert *ngIf="projetError" type="danger" dismissOnTimeout="6000" (onClosed)="projetError = false">{{
+                    msg | translate}} </alert>
+            </div>
+            <div class="mt-5">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline1" (click)="activeSimpleProjet()" [checked]="simpleProjet"
+                        name="customRadioInline1" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline1">Ajouter un projet sans chef projet</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="r2" [checked]="projetWithChef" (click)="activeWithChefProjet()" name="customRadioInline1"
+                        class="custom-control-input">
+                    <label class="custom-control-label" for="r2">Ajouter un projet avec chef de projet</label>
+                </div>
+            </div>
+
+
+
+            <div *ngIf="simpleProjet">
+                <div class="card mt-3">
+
+
+                    <div class="card-body">
+                        <button class="btn btn-primary float-right" (click)="listProjets()">Liste des projets</button>
+
+                        <h5 class="card-title">Créer un projet</h5>
+                        <form class="pt-3" novalidate (ngSubmit)="onSubmit()" #f="ngForm">
+                            <div class="form-row">
+                                <!--=====================date debut===================-->
+                                <div class="form-group col-md-4">
+                                    <label for="dateDeNaissance">Date de début</label>
+                                    <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [(ngModel)]="entity.datedebut"
+                                        name="datedebut" [bsValue]="bsValue" required [bsConfig]="bsConfig">
+
+                                </div>
+
+                                <!--=====================date fin===================-->
+                                <div class="form-group col-md-4">
+                                    <label for="dateEmbauche">Date de fin</label>
+
+
+                                    <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [minDate]="entity.datedebut"
+                                        [(ngModel)]="entity.datefin" name="datefin" [bsValue]="bsValue" required
+                                        [bsConfig]="bsConfig"  [disabled]="!entity.datedebut">
+
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                        <label for="sponsor">Choisir un sponsor </label>
+                                        <ngx-select-dropdown class="text-capitalize" [multiple]="false" [config]="config"
+                                            [(value)]="singleSponsor" [options]="allSponsor" id="sponsor" placeholder="Choisir"
+                                            required></ngx-select-dropdown>
+                                    </div>
+                            </div>
+                            <div class="form-row">
+                                <!--=====================prenom===================-->
+                                <div class="form-group col-md-12">
+                                    <label for="label">Description du projet</label>
+                                    <textarea class="form-control" id="label" rows="5" [(ngModel)]="entity.label" name="label"
+                                        required></textarea>
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="float-left">
+                                <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Enregistrer</button>
+                            </div>
+                            <!--   <pre>{{f.value | json}}</pre> -->
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div *ngIf="projetWithChef">
+                <div class="card mt-3">
+
+
+                    <div class="card-body">
+                        <button class="btn btn-primary float-right" (click)="listProjets()">Liste des projets</button>
+
+                        <h5 class="card-title">Créer un projet</h5>
+                        <form class="pt-3" novalidate (ngSubmit)="onChefProjetSubmit()" #f="ngForm">
+                            <div class="form-row">
+                                <!--=====================date debut===================-->
+                                <div class="form-group col-md-4">
+                                    <label for="dateDeNaissance">Date de début</label>
+                                    <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [(ngModel)]="entity.datedebut"
+                                        name="datedebut" [bsValue]="bsValue" required [bsConfig]="bsConfig">
+
+                                </div>
+
+                                <!--=====================date fin===================-->
+                                <div class="form-group col-md-4">
+                                    <label for="dateEmbauche">Date de fin</label>
+
+
+                                    <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [minDate]="entity.datedebut"
+                                        [(ngModel)]="entity.datefin" name="datefin" [bsValue]="bsValue" required
+                                        [bsConfig]="bsConfig">
+
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="chef">Choisir un sponsor </label>
+                                    <ngx-select-dropdown class="text-capitalize" [multiple]="false" [config]="config"
+                                        [(value)]="singleSponsor" [options]="allSponsor" id="chef" placeholder="Choisir"
+                                        required></ngx-select-dropdown>
+                                </div>
+
+                            </div>
+
+                            <div class="form-row" *ngIf="viewAdmin">
+
+                                <div class="form-group col-md-4">
+                                    <label for="service">Service</label>
+                                    <select class="custom-select" [(ngModel)]="service" name="service" id="service"
+                                        (change)="getEmployeByService()">
+                                        <option value="" selected disabled>Choisir service...</option>
+                                        <option *ngFor="let service of allServices" [ngValue]="service">{{service.label}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label for="chef">Choisir un employé </label>
+                                    <ngx-select-dropdown class="text-capitalize" [multiple]="false" [config]="config"
+                                        [(value)]="singleSelect" [options]="allEmployes" id="chef" placeholder="Choisir"
+                                        required></ngx-select-dropdown>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-row" *ngIf="viewAdminProjet">
+
+
+
+                                <div class="form-group col-md-4">
+                                    <label for="chef">Choisir un employé </label>
+                                    <ngx-select-dropdown class="text-capitalize" [multiple]="false" [config]="config"
+                                        [(value)]="singleSelect" [options]="allEmployesData" id="chef" placeholder="Choisir"
+                                        required></ngx-select-dropdown>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-row">
+                                <!--=====================prenom===================-->
+                                <div class="form-group col-md-12">
+                                    <label for="label">Description du projet</label>
+                                    <textarea class="form-control" id="label" rows="5" [(ngModel)]="entity.label" name="label"
+                                        required></textarea>
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="float-left">
+                                <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Enregistrer</button>
+                            </div>
+                            <!-- <pre>{{f.value | json}}</pre> -->
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="container-fluid">
+
+    <div class="row ">
+        <div class="col-md-8  mx-auto my-auto">
+            <div class="mt-5" *ngIf="activationSuccess||activationError">
+                <alert *ngIf="activationSuccess" type="success" dismissOnTimeout="6000" (onClosed)="activationSuccess = false">{{ msg | translate:param}}</alert>
+                <alert *ngIf="activationError" type="danger" dismissOnTimeout="6000" (onClosed)="activationError = false">{{ msg | translate}} </alert>
+            </div>
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h5 class="card-title">Configuration globale des jours ouvrables</h5>
+
+                    <!--  <dl class="row-md jh-entity-details" *ngFor="let config of allConfig" >
+                     
+                        <dt>
+                            <span>{{config.label}}</span>
+                        </dt>
+                        <dd> <ui-switch class="custom-switches" (change)="onChange($event,config)" checkedLabel="on"
+                            uncheckedLabel="off" size="small" [checked]="config.estOuvrable"></ui-switch></dd>
+                    </dl> -->
+                    <ul class="list-group" *ngFor="let config of allConfig">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{config.label}}
+                            <span>
+                                <ui-switch class="custom-switches" (change)="onChange($event,config)" checkedLabel="on"
+                                    uncheckedLabel="off" size="small" [checked]="config.estOuvrable"></ui-switch>
+                            </span>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

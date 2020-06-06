@@ -1,0 +1,21 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-4">
+           <!--  <span class="img-fluid img-rounded">
+                <img class="errorImage" src="../../../assets/organ.png" /> 
+            </span> -->
+
+        </div>
+        <div class="col-md-8">
+            <h1>Error Page!</h1>
+
+            <div [hidden]="!errorMessage">
+                <div class="alert alert-danger">{{errorMessage}}
+                </div>
+            </div>
+            <div [hidden]="!error403" class="alert alert-danger">Vous n'êtes pas autorisée à visiter cette page.
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+{
+  "login": {
+    "authenticate": "Authenticate your self",
+    "001": "Authenticate your self",
+    "002": "Authenticate your self",
+    "003": "Authenticate your self"
+  },
+  "fonction": {
+    "save": "Enrégistrement du fonction {{value}} ",
+    "update": "Mise à jour fonction {{value}} " 
+}
+}

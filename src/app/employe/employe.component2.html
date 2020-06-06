@@ -1,0 +1,121 @@
+<div class="container">
+
+
+        <ngx-spinner
+        bdColor = "rgba(255,255,255,0.8)"
+        size = "large"
+        color = "#105ac7"
+        type = "ball-grid-pulse"
+       loadingText="Chargement...">
+      </ngx-spinner>
+
+ 
+
+  <div class="row"  >
+      <div class="mx-auto " [hidden]="!error" style="width: 500px;">
+          <p class="text-danger" > Erreur de connexion au serveur</p>
+        </div>
+<div class="col-12  m-2" [hidden]="error" >
+<!--figure class="figure">
+  <img src="./assets/man.png" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+  <figcaption class="figure-caption text-right">A caption for the above image.</figcaption>
+</figure-->
+<!--h2>Liste des employé</h2-->
+<div class="form-inline mb-1 float-right">
+    <input class="form-control mr-sm-2" type="search" key.value='' (keyup.enter)="searchEmployes(key.value)" (blur)="searchEmployes(key.value)" #key  placeholder="Rechercher" aria-label="Search">
+    <button class="btn btn-primary my-2 my-sm-0 btn-md"   (click)="searchEmployes(key.value)"><i class="fas fa-search"></i></button>
+</div>
+<!--input #newHero
+      (keyup.enter)="addHero(newHero.value)"
+      (blur)="addHero(newHero.value); newHero.value='' ">
+
+    <button (click)="addHero(newHero.value)">Add</button-->
+  <div class="clearfix"></div>
+
+<div class="table-responsive">
+<table class="table  table table-bordered  table-hover sm ">
+
+
+  <thead class="text-uppercase ">
+  <tr  >
+    <th scope="col" class="d-none" >#</th>
+    <th scope="col">Nom</th>
+    <th scope="col">Prenom</th>
+    <th scope="col">Telephone</th>
+    <th scope="col">Fonction</th>
+    <th scope="col">Service</th>
+
+  </tr>
+  </thead>
+  <tbody class="text-uppercase ">
+  <tr *ngFor="let employe of employes" (click)="onClickRow(employe)" >
+    <td scope="row" class="d-none"></td>
+    <td   class="text-uppercase">{{employe.nom}}</td>
+    <td  class="text-capitalize">{{employe.prenom}}</td>
+    <td  class="text-capitalize">{{employe.telFixePro}}</td>
+    <td>{{employe.fonction.label}}</td>
+    <td>{{employe.service.label}}</td>
+    <!--td class="text-center">
+        <div class="clearfix">
+      <button class="btn btn-primary btn-sm m-1" (click)="deleteEmploye(employe)" title="detaille"> <i class="fas fa-align-justify"></i></button>
+
+    </div>
+    </td-->
+  </tr>
+  </tbody>
+  <tfoot>
+      <!--caption>Employe Details</caption-->
+  </tfoot>
+</table>
+
+<div class="clearfix"></div>
+<!--pagination class="float-right"  [itemsPerPage]="_size"  [totalItems]="totalElements"
+ [firstText]="'Premier'" [lastText]="'Dernier'" [previousText]="'Préscedant'" [nextText]="'Suivant'"></pagination-->
+
+<pagination class="float-right" [boundaryLinks]="true" [totalItems]="totalElements"  [itemsPerPage]="_size" [(ngModel)]="currentPageNumber"
+            previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
+            (pageChanged)="pageChanged($event)" [maxSize]="maxSize"
+            >
+
+</pagination>
+
+<!-- <pagination class="float-right" [totalItems]="100" [(ngModel)]="bigCurrentPage" [maxSize]="maxSize"></pagination> -->
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+</div>
+</div>
+
+
+<!--ul>
+<li><a href="#">Classement</a>
+		<ul>
+			<li><a href="#">Type partie 1</a></li>
+			<li><a href="#">Type partie 2</a></li>
+			<li><a href="#">Type partie 3</a></li>
+		</ul>
+	</li>
+</ul-->
+
+<!--table style="height: 100px;">
+    <tbody>
+      <tr>
+        <td class="align-baseline">baseline</td>
+        <td class="align-top">top</td>
+        <td class="align-middle">middle</td>
+        <td class="align-bottom">bottom</td>
+        <td class="align-text-top">text-top</td>
+        <td class="align-text-bottom">text-bottom</td>
+      </tr>
+    </tbody>
+  </table-->

@@ -1,0 +1,139 @@
+<!--<div class="row h-100">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 offset-md-4 my-auto">
+        <a class="text-primary float-right pr-3" [routerLink]="['/admin/updateprofil']">Mise a jour d'infos personnel </a>
+    </div>
+</div>-->
+
+<nav class="navbar navbar-dark fixed-top  bg-primary flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Os consulting-expertise</a>
+    <!-- <ul class="navbar-nav px-3">
+      <li class="nav-item text-nowrap">
+        <a class="nav-link" href="#">Déconnexion</a>
+      </li>
+    </ul>-->
+</nav>
+
+<div class="container-fluid">
+    <div class="row" style="background-color: #ffffff;">
+
+        <!--debut contenu-->
+        <div role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 ">
+            <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis justo quam. Vestibulum ante ipsum primis in
+                faucibus orci luctus et ultrices posuere cubilia Curae; Quisque gravida efficitur consectetur. Nulla at vehicula
+                nulla. Nulla facilisi. Morbi sagittis vulputate urna id congue. Donec finibus feugiat mi, at dictum tortor
+                porttitor eget. Duis iaculis at magna sed fringilla. Nullam commodo augue in tortor suscipit, vel tempor
+                nisi tincidunt. Sed felis mauris, malesuada quis pharetra id, tristique non odio. Fusce ut diam ac augue
+                maximus condimentum. Sed pellentesque posuere nunc, at mattis augue eleifend vitae. Mauris eget ipsum vitae
+                ligula hendrerit placerat sed sed nisl. Nulla aliquam mollis sapien, sed facilisis dolor. Praesent tempus
+                at lacus vitae aliquam. Suspendisse pharetra orci sit amet orci feugiat molestie.
+            </p>
+
+            <p>Nam feugiat bibendum est eu sagittis. Morbi eget vestibulum sem. Donec quam lacus, fringilla id semper sit amet,
+                pretium et arcu. Nunc egestas nibh sapien, nec scelerisque turpis ornare et. Sed elementum ante sit amet
+                nibh dignissim tempor. Vestibulum pulvinar ipsum porttitor dolor viverra egestas. Suspendisse a augue quis
+                odio fermentum sodales. Mauris non lacus nulla. Aenean tristique, mi vel euismod efficitur, tellus leo commodo
+                libero, vel ultricies felis ante a velit. Quisque sit amet sagittis tortor. Integer nec gravida mauris. Praesent
+                iaculis nisl justo, ut tincidunt augue aliquet eu.
+            </p>
+
+            <p>Integer lacinia, sapien a molestie facilisis, ipsum dui tristique elit, porta fermentum risus erat at massa.
+                Vivamus sed tempus quam. Pellentesque eleifend mauris lectus, sit amet interdum velit commodo ut. Sed ut
+                ex in nisl imperdiet ullamcorper. Nulla in leo laoreet, cursus dolor in, semper eros. Donec porta sagittis
+                metus, et tincidunt turpis varius ac. Nam sollicitudin accumsan nibh, ut ornare justo commodo quis. Sed lacinia
+                vulputate sem sit amet euismod. Cras dignissim ipsum urna, sed ultricies mauris pulvinar bibendum. Maecenas
+                tristique libero magna, ut tempor urna condimentum id. Fusce condimentum bibendum dui.
+            </p>
+            <p>Phasellus eget consequat nisl. Suspendisse aliquet rutrum ex, quis egestas quam. Fusce nec sem dictum, porttitor
+                mi vitae, sollicitudin arcu. Morbi fermentum dapibus fringilla. Ut ullamcorper ipsum nec velit egestas mattis.
+                Vestibulum ultricies quis mauris ut pretium. Mauris volutpat, nulla non ultricies convallis, nibh odio malesuada
+                mauris, eget fermentum erat sem et erat. Proin tempus et purus eget pellentesque. Morbi tincidunt nisi et
+                dolor venenatis imperdiet. Morbi quis facilisis felis. Nam non aliquet risus. Nullam viverra posuere enim,
+                et rhoncus metus sodales eu. Donec id velit non quam egestas viverra. Fusce ac felis sed neque efficitur
+                aliquam.
+            </p>
+        </div>
+        <!-- fin contenu-->
+
+        <nav class="col-md-2  d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky float-right">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <span data-feather="home"></span>
+                            Accueil
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/admin/updateprofil']">
+                            <i class="far fa-address-card"></i>
+                            Mise a jour d'infos personnel
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-align-justify"></i>
+                            modules
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-address-book"></i>
+                            Rapports
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-chalkboard-teacher"></i>
+
+                            Equipes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-align-justify"></i>
+                            Activités
+                        </a>
+                    </li>
+                </ul>
+
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>Suivi avance</span>
+                    <a class="d-flex align-items-center text-muted" href="#">
+                        <span data-feather="plus-circle"></span>
+                    </a>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="file-text"></span>
+                            Mois courant
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="file-text"></span>
+                            Archives
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="file-text"></span>
+                            Engagement social
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="file-text"></span>
+                            Experience
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+
+    </div>
+
+</div>

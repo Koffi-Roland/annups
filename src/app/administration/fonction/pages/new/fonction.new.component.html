@@ -1,0 +1,220 @@
+<div class="col-md-12 mx-auto my-auto">
+
+
+    <!--  <div class="card mt-5">
+        <div class="card-body">
+           
+            <h5 class="card-title">Enregistrement des fonctions</h5>
+            <form class="pt-3" novalidate [formGroup]="newForm" (ngSubmit)="onSubmit()">
+                <div class="form-row">
+                   
+
+                    <div class="col-md-3 mb-3">
+
+                        <div class="form-label-group">
+                            <input type="text" id="label" formControlName="label" class="form-control form-control-sm" autofocus required>
+                            <label class="text-left" for="label">Libellé</label>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="float-left">
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </form>
+           
+        </div>
+       
+    </div> -->
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mt-5" *ngIf="fonctionSuccess||fonctionError||fonctionUpdateSuccess||fonctionDeleteSuccess">
+                <alert *ngIf="fonctionSuccess" type="success" dismissOnTimeout="6000" (onClosed)="fonctionSuccess = false">
+                    {{ msg | translate:param}}</alert>
+                <alert *ngIf="fonctionUpdateSuccess" type="success" dismissOnTimeout="6000" (onClosed)="fonctionUpdateSuccess = false">
+                    {{ msg | translate:param}}</alert>
+                <alert *ngIf="fonctionDeleteSuccess" type="success" dismissOnTimeout="6000" (onClosed)="fonctionDeleteSuccess = false">
+                    {{ msg | translate}}</alert>
+                <alert *ngIf="fonctionError" type="danger" dismissOnTimeout="6000" (onClosed)="fonctionError = false">
+                    {{ msg | translate}}</alert>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body" *ngIf="new">
+                    <h5 class="card-title">Enregistrement des fonctions</h5>
+                    <form class="pt-3" novalidate (ngSubmit)="onSubmit()" #f="ngForm">
+                        <div class="form-row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="sigle">Sigle</label>
+
+                                    <input type="text" class="form-control form-control-sm" [(ngModel)]="entity.sigle"
+                                        id="sigle" name="sigle" required>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="label">Libellé</label>
+
+                                    <textarea class="form-control" id="label" [(ngModel)]="entity.label" name="label"
+                                        required></textarea>
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="float-left">
+                            <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!--  -->
+                <div class="card-body" *ngIf="update">
+                    <h5 class="card-title">Modification de fonction</h5>
+                    <form class="pt-3" novalidate (ngSubmit)="onUpdate()" #f="ngForm">
+
+
+
+                        <div class="form-row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="sigle">Sigle</label>
+
+                                    <input type="text" class="form-control form-control-sm" [(ngModel)]="updateEntity.sigle"
+                                        id="sigle" name="sigle" required>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-row">
+
+                            <div class="col-md-6 ">
+                                <label for="label">Libellé</label>
+                                <div class="form-group">
+                                    <input type="text" id="label" [(ngModel)]="updateEntity.label" name="label" class="form-control form-control-sm"
+                                        autofocus required>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="float-left">
+                            <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Modifier</button>
+                        </div>
+                    </form>
+                </div>
+                <!--  -->
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mt-3">
+                <div class="card-body">
+                    <!--                         <button class="btn btn-primary float-right" (click)="addFonction()">Ajouter unne fonction</button>
+ -->
+                    <h5 class="card-title">Liste des fonctions</h5>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover" *ngIf="allFonctions">
+                            <!--   <caption>Liste des fonctions &nbsp;
+                                        <a href="javascript:void(0)" class="text-primary" *ngIf="affichertout"
+                                            (click)="loadAll()">Afficher tout</a>
+
+                                    </caption> -->
+                            <thead class="text-uppercase thead-dark">
+                                <tr>
+                                    <th scope="col">Sigle</th>
+                                    <th scope="col">Libellé</th>
+                                    <th class="text-center">Option</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let fonction of allFonctions">
+                                    <td class="text-uppercase">{{fonction.sigle}}</td>
+                                    <td class="text-uppercase">{{fonction.label}}</td>
+                                    <td class="text-center">
+                                        <!--   <a class="text-primary" title="modifier" href="javascript:void(0)" (click)="updateFonction(fonction)">
+                                            <i class="fa fa-edit"></i>
+                                        </a> -->
+                                        <button type="button" (click)="updateFonction(fonction)" class=" btn btn-primary
+                                            btn-circle-min"
+                                            title="Modifier une fonction">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <!--  <a class="text-success" href="javascript:void(0)" (click)="addFonction()">
+                                            <i class="fa fa-plus"></i>
+                                        </a> -->
+                                        <button type="button" (click)="addFonction()" class="btn btn-success btn-circle-min"
+                                            title="Ajouter une fonction">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <button type="button" (click)="onDelete(fonction.id)" class="btn btn-danger btn-circle-min"
+                                            title="Supprimer une fonction">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                            <tfoot>
+
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div *ngIf="allFonctions" class="">
+                        <!--div class="row justify-content-center">
+                            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                        </div-->
+                        <div class="row justify-content-center">
+                            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  <ng-template #fonctionModal>
+        <div class="">
+        <h5 class="card-title">Enregistrement des fonctions</h5>
+        <form class="pt-3" novalidate [formGroup]="newForm" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+
+
+                <div class="col-md-6 ">
+                    <label for="label">Libellé</label>
+                    <div class="form-group">
+                        <input type="text" id="label" formControlName="label" class="form-control form-control-sm" autofocus required>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="float-left">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </div>
+        </form>
+    </div>
+    </ng-template> -->
+</div>

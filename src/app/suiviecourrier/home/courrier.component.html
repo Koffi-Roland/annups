@@ -1,0 +1,313 @@
+<div class="col-md-12 mx-auto my-auto">
+    <!--   <ngx-spinner bdColor="rgba(255,255,255,0.8)" size="large" color="#105ac7" type="ball-grid-pulse" loadingText="Chargement...">
+      </ngx-spinner> -->
+    <ngx-spinner [bdColor]="spinnerConfig.bdColor" [size]="spinnerConfig.size" [color]="spinnerConfig.color">
+        <p style="font-size: 20px; color: #fafafa">Loading...</p>
+    </ngx-spinner>
+    <div class="row">
+
+        <div class="col">
+
+            <div class="clearfix"></div>
+            <div class="mt-5" *ngIf="clotureSuccess||clotureError">
+                <alert *ngIf="clotureSuccess" type="success" dismissOnTimeout="6000" (onClosed)="clotureSuccess = false">{{
+                    msg | translate}}</alert>
+                <alert *ngIf="clotureError" type="danger" dismissOnTimeout="6000" (onClosed)="clotureError = false">{{
+                    msg | translate}} </alert>
+            </div>
+            <!--p-panel header="Title" [toggleable]="true">
+            Content ghgvh
+        </p-panel-->
+            <!--  <div>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Ajouter un employé</button>
+          </div> -->
+
+            <div class="row my-1 mt-5" id="collapseBasic" [collapse]="isCollapsed">
+
+                <div class="offset-lg-4 col-lg-4  card card-block card-header ">
+                    <form #envoie="ngForm" novalidate>
+                        <div class="form-group">
+                            <textarea class="form-control" required [(ngModel)]="avis" name="avis" placeholder="avis"
+                                cols="30" rows="3">
+
+
+
+                                </textarea>
+                        </div>
+                        <button type="submit" [disabled]="!envoie.valid" *jhiHasAnyAuthority="'ROLE_VISIONNER_COURRIER'"
+                            class="btn-primary btn" (click)="envoiCourrier(envoie) ; closeCollapse()">Repondre</button>
+                        <!--    <button type="submit" [disabled]="!envoie.valid" *jhiHasAnyAuthority="['ROLE_ADMIN_COURRIER','ROLE_GESTION_COURRIER']" class="btn-primary btn"
+                            (click)="envoiCourrier(envoie) ; closeCollapse()">Valider</button> -->
+                        <button type="button" class="btn btn-dark ml-2" (click)="closeCollapse()">Quitter</button>
+                    </form>
+
+                </div>
+
+            </div>
+            <button class="btn btn-primary float-right" *jhiHasAnyAuthority="['ROLE_ADMIN_COURRIER','ROLE_GESTION_COURRIER']"
+                (click)="courrier()">Nouveau courrier</button>
+
+            <div class="table-responsive mt-5 ">
+
+
+                <!--   <form class="form-inline ">
+                    <div class="form-group  mb-2">
+                        <label for="simpleSearch" class="sr-only">Rechercher</label>
+                        <input key.value='' search='key.value' (keyup.enter)="loadAllSimpleSearch(key.value)" (blur)="loadAllSimpleSearch(key.value)"
+                            #key type="search" class="form-control-sm" id="simpleSearch" placeholder="Recherche simple">
+                    </div>
+                    <button (click)="loadAllSimpleSearch(key.value)" class="btn btn-sm btn-primary mb-2">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form> -->
+
+                <table class="table  table table-bordered  table-hover  ">
+
+
+                    <thead class="text-uppercase thead-dark">
+                        <tr>
+                            <!-- <th scope="col" class="d-none"></th> -->
+                            <!-- <th scope="col">Date envoie</th>-->
+                            <th scope="col">Envoyé par</th>
+                            <th scope="col">Référence</th>
+                            <th scope="col">Type de retour</th>
+                            <th scope="col">Objet</th>
+                            <th scope="col">Service</th>
+                            <th scope="col">Date Retour prév</th>
+                            <!--  <th scope="col">Date retour</th>
+                            <th scope="col">Date clôture</th>-->
+                            <!--     <th scope="col">Fichier</th> -->
+
+                            <th scope="col">
+                                <span>Etat</span>
+                                <!--   <span *jhiHasAnyAuthority="['ROLE_ADMIN_COURRIER','ROLE_GESTION_COURRIER']">Statut</span> -->
+                            </th>
+
+                            <th scope="col">
+                                <span *jhiHasAnyAuthority="'ROLE_VISIONNER_COURRIER'">Envoie avis</span>
+                                <span *jhiHasAnyAuthority="['ROLE_ADMIN_COURRIER','ROLE_GESTION_COURRIER']">Réponse
+                                    avis</span>
+                            </th>
+                            <!--  <th scope="col">
+                                <span *jhiHasAnyAuthority="'ROLE_VISIONNER_COURRIER'">Réponse avis</span>
+                                <span *jhiHasAnyAuthority="['ROLE_ADMIN_COURRIER','ROLE_GESTION_COURRIER']">Envoie avis</span>
+                            </th> -->
+
+                            <th>Option</th>
+
+                        </tr>
+                    </thead>
+                    <tbody class="">
+
+                        <tr class="link" *ngFor="let courrier of allCourriers">
+
+                            <!-- <td class="">{{courrier.suiviCourier.createdDate| date: 'dd-MM-yyyy h:mm'}}</td>-->
+                            <td class="">{{courrier.suiviCourier.employeEnvoi?.nom}} &nbsp;
+                                {{courrier.suiviCourier.employeEnvoi?.prenom}}
+                            </td>
+                            <td class="">{{courrier.suiviCourier.reference}}</td>
+                            <td class="">{{courrier.typeCourrier?.label}}</td>
+                            <td class="">{{courrier.suiviCourier.label}}</td>
+                            <td class="">
+                                <span>{{courrier.service.label}}</span>
+                            </td>
+                            <td class="">
+                                <span>{{courrier.dateRetourPrevTraitm | date: 'dd-MM-yyyy'}} </span>
+                            </td>
+                            <!-- <td class="">
+                                <span>{{courrier.dateRetourTraitm | date: 'dd-MM-yyyy'}}</span>
+                            </td>
+                            <td class="">
+                                <span>{{courrier.dateClotureTraitm | date: 'dd-MM-yyyy'}}</span>
+                            </td>-->
+                            <!--   <td class="">
+                                <span>{{courrier.fichierCourrier}}</span>
+                            </td> -->
+
+                            <td class="text-center">
+                                <span>
+                                    <i [ngClass]="{'text-success fa fa-check ' : courrier.etat == true }"></i>
+                                    <i [ngClass]="{'text-danger fa fa-times ' : courrier.etat == false }"></i>
+                                </span>
+                                <!--  <span *jhiHasAnyAuthority="['ROLE_ADMIN_COURRIER','ROLE_GESTION_COURRIER']">
+                                    <i [ngClass]="{'text-success fa fa-check ' : courrier.suiviCourier.statut == true }"></i>
+                                    <i [ngClass]="{'text-danger fa fa-times ' : courrier.suiviCourier.statut == false }"></i>
+                                </span> -->
+                                <!--ui-switch class="custom-switches" checkedLabel="on" uncheckedLabel="off" size="small"
+                                    [checked]="courrier.etat"></ui-switch-->
+                            </td>
+                            <td class="text-center">
+                                <span *jhiHasAnyAuthority="'ROLE_VISIONNER_COURRIER'">
+                                    {{courrier.avis}}
+                                </span>
+                                <span *jhiHasAnyAuthority="['ROLE_ADMIN_COURRIER','ROLE_GESTION_COURRIER']">
+                                    {{courrier.avis}}
+                                </span>
+
+                            </td>
+                            <!-- <td class="text-center">
+                                <span *jhiHasAnyAuthority="'ROLE_VISIONNER_COURRIER'">
+                                    {{courrier.suiviCourier.avis}}
+                                </span>
+                                <span *jhiHasAnyAuthority="['ROLE_ADMIN_COURRIER','ROLE_GESTION_COURRIER']">
+                                    {{courrier.suiviCourier.avis}}
+                                </span>
+                            </td> -->
+
+
+                            <td class="text-center">
+
+                                <button title="envoi courrier" type="button" [disabled]="courrier.etat||courrier.dateRetourTraitm==null" class="btn btn-primary btn-circle-min"
+                                    (click)="validerCourrier(courrier)" *jhiHasAnyAuthority="['ROLE_ADMIN_COURRIER','ROLE_GESTION_COURRIER']">
+                                    <i class="fa fa-paper-plane"></i>
+                                </button>
+                                <button title="envoyé le courrier" type="button" [disabled]="courrier.etat" class="btn btn-primary btn-circle-min"
+                                    (click)="openCollapse(); createCourrierToUpdate(courrier)" *jhiHasAnyAuthority="'ROLE_VISIONNER_COURRIER'">
+                                    <i class="fa fa-paper-plane"></i>
+                                </button>
+                                <button type="button" (click)="download(courrier)" class="btn btn-success btn-circle-min"
+                                    title="download" *jhiHasAnyAuthority="['ROLE_ADMIN_COURRIER','ROLE_GESTION_COURRIER','ROLE_VISIONNER_COURRIER']">
+                                    <i class="fa fa-download"></i>
+                                </button>
+                                <button  title="détail du courrier" class="btn btn-dark btn-circle-min" (click)="openModalWithClass(template,courrier)">
+                                    <i class="fa fa-list"></i>
+
+                                </button>
+                            </td>
+
+                            <!--td class="text-center">
+                              <div class="clearfix">
+                            <button class="btn btn-primary btn-sm m-1" (click)="deleteEmploye(employe)" title="detaille"> <i class="fas fa-align-justify"></i></button>
+                
+                          </div>
+                          </td-->
+                        </tr>
+
+                    </tbody>
+                    <tfoot>
+
+                        <!--caption>Employe Details</caption-->
+                    </tfoot>
+                </table>
+
+                <div class="clearfix"></div>
+                <!--pagination class="float-right"  [itemsPerPage]="_size"  [totalItems]="totalElements"
+               [firstText]="'Premier'" [lastText]="'Dernier'" [previousText]="'Préscedant'" [nextText]="'Suivant'"></pagination-->
+
+                <pagination class="float-right" [boundaryLinks]="true" [totalItems]="totalElements" [itemsPerPage]="_size"
+                    [(ngModel)]="currentPageNumber" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+                    lastText="&raquo;" (pageChanged)="pageChanged($event)" [maxSize]="maxSize">
+
+                </pagination>
+                <div class="clearfix"></div>
+
+               <!--  <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                    <button (click)="backToOrgan()" class="btn btn-primary btn-sm my-2 my-s-0 ">
+                        <i class="fa fa-arrow-left"></i>&nbsp; Retour
+                    </button>
+                </div> -->
+
+
+
+                <!--table class="table table-striped" [mfData]="employes" #mf="mfDataTable" [mfRowsOnPage]="5">
+                  <thead>
+                  <tr>
+                      <th style="width: 20%">
+                          <mfDefaultSorter by="nom">Nom</mfDefaultSorter>
+                      </th>
+                      <th style="width: 50%">
+                          <mfDefaultSorter by="prenom">Prenom</mfDefaultSorter>
+                      </th>
+                      <th style="width: 10%">
+                          <mfDefaultSorter by="telFixePro">Telephone</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                          <mfDefaultSorter by="fonction.label">Fonction</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                          <mfDefaultSorter by="service.label">Service</mfDefaultSorter>
+                      </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let item of mf.data">
+                      <td>{{item.nom}}</td>
+                      <td>{{item.prenom}}</td>
+                      <td class="text-right">{{item.telFixePro}}</td>
+                      <td>{{item.fonction.label | uppercase}}</td>
+                      <td>{{item.service.label | uppercase}}</td>
+                  </tr>
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                      <td colspan="4">
+                          <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                      </td>
+                  </tr>
+                  </tfoot>
+              </table-->
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Détails sur traitement courrier (référence:
+            &nbsp;{{courrierTraitement.suiviCourier.reference}})</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <dl class="row-md jh-entity-details">
+            <!--dt><span jhiTranslate="userManagement.login">Login</span></dt>
+  <dd>
+      <span>{{user.login}}</span>
+      <span class="badge badge-danger" *ngIf="!user.activated"
+            jhiTranslate="userManagement.deactivated">Deactivated</span>
+      <span class="badge badge-success" *ngIf="user.activated"
+            jhiTranslate="userManagement.activated">Activated</span>
+  </dd-->
+
+
+            <!--  <dt>
+                    <span>Libellé</span>
+                </dt>
+                <dd>{{affectProjet.projet.label}}</dd>-->
+            <dt>
+                <span>Envoyé par</span>
+            </dt>
+            <dd>{{courrierTraitement.suiviCourier.employeEnvoi?.nom}} &nbsp;
+                {{courrierTraitement.suiviCourier.employeEnvoi?.prenom}}</dd>
+
+            <dt>
+                <span>Objet du courrier</span>
+            </dt>
+            <dd>{{courrierTraitement.suiviCourier.label}} </dd>
+
+
+            <dt>
+                <span>Type retour</span>
+            </dt>
+            <dd>{{courrierTraitement.typeCourrier.label}} </dd>
+            <dt>
+                <span>Service</span>
+            </dt>
+            <dd>{{courrierTraitement.service.label}} </dd>
+            <dt>
+                <span>Date envoie</span>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;<span >Date Retour prév</span>&nbsp;&nbsp;<span>Date retour</span>&nbsp;&nbsp;<span>Date
+                    clôture</span>
+
+            </dt>
+            <dd>{{courrierTraitement.suiviCourier.createdDate| date: 'dd-MM-yyyy h:mm'}} &nbsp;&nbsp; &nbsp;&nbsp; {{courrierTraitement.dateRetourPrevTraitm | date: 'dd-MM-yyyy'}} &nbsp;&nbsp;&nbsp;&nbsp;{{courrierTraitement.dateRetourTraitm | date: 'dd-MM-yyyy'}}&nbsp;&nbsp;&nbsp;{{courrierTraitement.dateClotureTraitm | date: 'dd-MM-yyyy'}}</dd>
+
+        </dl>
+    </div>
+</ng-template>

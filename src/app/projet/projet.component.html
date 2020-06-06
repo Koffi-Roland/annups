@@ -1,0 +1,192 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid mt-5">
+    <div class="card bg-light border-light">
+        <!--div class="card-header">Projet</div-->
+        <div class="card-body">
+            <!--h5 class="card-title">PROJET</h5-->
+            <div class="row ">
+                <div class="col-sm-12 pb-0">
+                    <div class="card bg-light  border-light">
+                        <div class="card-body">
+                            <a href="javascript:void(0)" class="card-link text-primary " (click)="isCollapsedSearch = !isCollapsedSearch" [attr.aria-expanded]="!isCollapsedSearch"
+                                aria-controls="collapseExample">
+                                <span class="card-title">Recherche &nbsp;
+                                    <span *ngIf="isCollapsedSearch">
+                                        <i class="fas fa-angle-down"></i>
+                                    </span>
+                                    <span *ngIf="!isCollapsedSearch">
+                                        <i class="fas fa-angle-up"></i>
+                                    </span>
+                                </span>
+                            </a>
+                            <div class="row" [ngbCollapse]="isCollapsedSearch">
+                                <div class="col-sm-6 ">
+                                    <div class="card  bg-light border-light">
+                                        <div class="card-body">
+
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="customRadioInline1" (click)="activeSearch()" [checked]="simpleSearch" name="customRadioInline1" class="custom-control-input">
+                                                <label class="custom-control-label" for="customRadioInline1">Recherche simple</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="r2" [checked]="advanceSearch" (click)="activeAdvanceSearch()" name="customRadioInline1" class="custom-control-input">
+                                                <label class="custom-control-label" for="r2">Recherche avancée</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 pb-0">
+                                    <div class="card bg-light border-light">
+                                        <div class="card-body">
+                                            <form class="form-inline" *ngIf="simpleSearch">
+                                                <div class="form-group mx-sm-3 mb-2">
+                                                    <label for="simpleSearch" class="sr-only">Rechercher</label>
+                                                    <input key.value='' search='key.value' (keyup.enter)="loadAllSimpleSearch(key.value)" (blur)="loadAllSimpleSearch(key.value)"
+                                                        #key type="search" class="form-control-sm" id="simpleSearch" placeholder="Recherche simple">
+                                                </div>
+                                                <button (click)="loadAllSimpleSearch(key.value)" class="btn btn-sm btn-primary mb-2">
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            </form>
+
+                                            <form #searchFormAd="ngForm" novalidate (submit)="loadAdvancedSearch(searchFormAd)" novalidate *ngIf="advanceSearch">
+                                                <div class="form-row">
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="libelle">Libellé</label>
+                                                        <input type="text" [(ngModel)]="label" name="label" class="form-control" placeholder="Label" autofocus class="form-control form-control-sm"
+                                                            id="libelle" placeholder="Libelle projet">
+                                                        <!--div class="valid-feedback">
+                                                          Looks good!
+                                                        </div-->
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="nom">Nom</label>
+                                                        <input type="text" [(ngModel)]="nom" name="nom" class=" form-control form-control-sm" id="nom" placeholder="Nom du proprietaire">
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="prenom">Prénom</label>
+                                                        <input type="text" [(ngModel)]="prenom" name="prenom" class=" form-control form-control-sm" id="prenom" placeholder="Prénom du proprietaire">
+                                                    </div>
+                                                </div>
+                                                <!--div class="form-row">
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="dateCreation">Date de creation</label>
+                                                        <input bsDatepicker [bsConfig]="{dateInputFormat : 'YYYY-MM-dd'}" [bsValue]="undefined" type="text" [(ngModel)]="datecreation" name="datecreation" class="form-control form-control-sm" id="dateCreation" placeholder="Date de création" >
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="dateDebut">Date debut</label>
+                                                        <input bsDatepicker [bsValue]="undefined" [bsConfig]="{dateInputFormat : 'YYYY-MM-dd'}" type="text" name="datedebut" [(ngModel)]="datedebut" class="form-control form-control-sm" id="dateDebut" placeholder="Date debut" >
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="dateFin">Date fin</label>
+                                                        <input bsDatepicker [bsValue]="undefined" [bsConfig]="{dateInputFormat : 'YYYY-MM-dd'}" [(ngModel)]="datefin" name="datefin" type="text" class="form-control form-control-sm" id="dateFin" placeholder="Date fin" >
+                                                    </div>
+                                                </div-->
+
+                                                <button class="btn btn-primary btn-sm" type="submit">Rechercher &nbsp;
+                                                    <i class="fa fa-search">&nbsp;</i>
+                                                </button>
+                                                <!--    TODO: remove this: {{nom}} , {{prenom}}
+            ...........................................
+            Afficher {{ searchFormAd.value | json}}  -->
+
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 mt-0">
+                    <div class="card bg-light border-light mb-1">
+                        <div class="card-body">
+                            <h5 class="card-title">Liste des projets</h5>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover" *ngIf="projets">
+                                    <caption>Liste des projets &nbsp;
+                                        <a href="javascript:void(0)" class="text-primary" *ngIf="affichertout"
+                                            (click)="loadAll()">Afficher tout</a>
+
+                                    </caption>
+                                    <thead class="thead-dark bg-primary">
+                                        <tr (click)="onClickRow(projet)" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+
+                                            <th jhiSortBy="label">Libellé
+                                                <span class="fa fa-sort"></span>
+                                            </th>
+                                            <th>Chef projet
+                                                <span class="fa fa-sort"></span>
+                                            </th>
+                                            <th jhiSortBy="datecreation">Date de création
+                                                <span class="fa fa-sort"></span>
+                                            </th>
+                                            <th jhiSortBy="datedebut">Date debut
+                                                <span class="fa fa-sort"></span>
+                                            </th>
+                                            <th jhiSortBy="datefin">Date fin
+                                                <span class="fa fa-sort"></span>
+                                            </th>
+                                            <th jhiSortBy="etatProjet">Etat du projet
+                                                <span class="fa fa-sort"></span>
+                                            </th>
+                                            <th jhiSortBy="etatProjet">Progrsession
+                                                <span class="fa fa-sort"></span>
+                                            </th>
+                                            <!--th>Actions</th-->
+
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let pr of projets; trackBy: trackIdentity" [routerLink]="['../projet', pr.id]">
+                                            <!--                    <td ><a [routerLink]="['../admin/produit', pr.name]">{{pr.id}}</a></td>-->
+
+                                            <td>{{pr.label}}</td>
+                                            <td>{{pr.user?.nom}}&nbsp;{{pr.user?.prenom}}</td>
+                                            <td>{{pr.datecreation | date: 'dd-MM-yyyy'}}</td>
+                                            <td>{{pr.datedebut| date: 'dd-MM-yyyy'}}</td>
+                                            <td>{{pr.datefin| date: 'dd-MM-yyyy'}}</td>
+                                            <td>{{pr.etatProjet | lowercase}}</td>
+                                            <td [ngClass]="{'text-danger': pr.echeance=='danger' , 'text-success' : pr.echeance=='success','text-info' : pr.echeance=='info','text-warning' : pr.echeance=='warning'}">
+                                                <div class="mb-2">
+                                                    <progressbar max="100" class="progress-striped active" [value]="pr.progression"
+                                                        [type]="pr.echeance" [striped]="true" [animate]="true">
+                                                        <b class="text-dark">{{pr.progression}}%</b>
+                                                    </progressbar>
+                                                </div>
+                                            </td>
+                                            <!--td class=""-->
+                                            <!--button type="button" title="modifier" (click)="editProduit(pr)" class="btn btn-icon btn-success btn-sm">
+                                                <clr-icon shape="edit"></clr-icon>
+                                            </button>
+  
+                                            <button type="button" title="Supprimer" (click)="confirmRemoveProfile(pr)"  class="btn btn-icon btn-danger btn-sm">
+                                                <clr-icon shape="remove"></clr-icon>
+                                            </button-->
+
+                                            <!--/td-->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div *ngIf="projets" class="">
+                                <!--div class="row justify-content-center">
+                                    <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                                </div-->
+                                <div class="row justify-content-center">
+                                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

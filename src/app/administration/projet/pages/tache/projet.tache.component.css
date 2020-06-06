@@ -1,0 +1,11 @@
+input:invalid + span:after {
+    content: 'Valeur ne doit pas être > 100, ni < 0';
+    color: #f00;
+    padding-left: 2px;
+}
+
+/*input:valid + span:after {
+    content: '✓';
+    color: #26b72b;
+    padding-left: 5px;
+}*/

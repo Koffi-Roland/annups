@@ -1,0 +1,214 @@
+<div class="col-md-12 mx-auto my-auto">
+    <!--   <ngx-spinner bdColor="rgba(255,255,255,0.8)" size="large" color="#105ac7" type="ball-grid-pulse" loadingText="Chargement...">
+    </ngx-spinner> -->
+    <ngx-spinner [bdColor]="spinnerConfig.bdColor" [size]="spinnerConfig.size" [color]="spinnerConfig.color">
+        <p style="font-size: 20px; color: #fafafa">Loading...</p>
+    </ngx-spinner>
+
+
+    <div class="row">
+
+        <div class="col">
+
+            <div class="clearfix"></div>
+            <div class="mt-5" *ngIf="employeUpdateSuccess||employeError||success||activationSuccess||activationError">
+                <alert *ngIf="employeUpdateSuccess" type="success" dismissOnTimeout="9000" (onClosed)="employeUpdateSuccess = false">{{
+                    msg | translate}}</alert>
+
+                <alert *ngIf="success" type="success" dismissOnTimeout="9000" (onClosed)="success = false">{{
+                    msg | translate}}</alert>
+                <alert *ngIf="employeError" type="danger" dismissOnTimeout="9000" (onClosed)="employeError = false"> {{
+                    msg | translate }}</alert>
+
+
+                    <alert *ngIf="activationSuccess" type="success" dismissOnTimeout="9000" (onClosed)="activationSuccess = false">{{
+                        msg | translate:param}}</alert>
+                    <alert *ngIf="activationError" type="danger" dismissOnTimeout="9000" (onClosed)="activationError = false"> {{
+                        msg | translate:param }}</alert>
+
+            </div>
+            <!--p-panel header="Title" [toggleable]="true">
+          Content ghgvh
+      </p-panel-->
+            <!--  <div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Ajouter un employé</button>
+        </div> -->
+            <div class="table-responsive mt-5 ">
+                <button class="btn btn-primary float-right" (click)="ajouterEmploye()">Ajouter un employé</button>
+
+                <form class="form-inline ">
+                    <div class="form-group  mb-2">
+                        <label for="simpleSearch" class="sr-only">Rechercher</label>
+                        <input key.value='' search='key.value' (keyup.enter)="loadAllSimpleSearch(key.value)" (blur)="loadAllSimpleSearch(key.value)"
+                            #key type="search" class="form-control-sm" id="simpleSearch" placeholder="Recherche simple">
+                    </div>
+
+                    <button (click)="loadAllSimpleSearch(key.value)" class="btn btn-sm btn-primary mb-2">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+
+                <table class="table  table table-bordered  table-hover  ">
+                    <caption>Liste des employes &nbsp;
+                        <a href="javascript:void(0)" class="text-primary" *ngIf="affichertout" (click)="loadAll()">Afficher
+                            tout</a>
+
+                    </caption>
+
+                    <thead class="text-uppercase thead-dark">
+                        <tr>
+                            <th scope="col" class="d-none"></th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prenom</th>
+                            <th scope="col">Téléphone</th>
+                            <th scope="col">Fonction</th>
+                            <th scope="col">Service</th>
+                            <th scope="col">Etat</th>
+
+                            <th>Option</th>
+
+                        </tr>
+                    </thead>
+                    <tbody class="">
+
+                        <tr class="link" *ngFor="let employe of employes">
+
+
+                            <td class="text-uppercase">{{employe.nom}}</td>
+                            <td class="text-capitalize"><span *ngIf="employe.prenom">{{employe.prenom}}</span>&nbsp;&nbsp;<span
+                                    *ngIf="employe.prenomsecond">{{employe.prenomsecond}} </span></td>
+                            <td class="text-capitalize"><span *ngIf="employe.telFixePro">{{employe.telFixePro}} </span><span
+                                    *ngIf="employe.telPro">/ {{employe.telPro}} </span></td>
+                            <td class="text-uppercase">{{employe.fonction.label}}</td>
+                            <td class="text-uppercase">{{employe.service.label}}</td>
+                            <td>
+                                <ui-switch class="custom-switches" (change)="onChange($event,employe)" checkedLabel="on"
+                                    uncheckedLabel="off" size="small" [checked]="employe.activated"></ui-switch>
+                            </td>
+
+                            <td class="text-center">
+                                
+                                <button type="button" (click)="updateEmploye(employe.id)" class="btn btn-primary btn-circle-min"
+                                    title="modifier un employe">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <!--                             <a class="text-primary"  title="modifier"  href="javascript:void(0)" (click)="updateEmploye(employe.id)" > <i class="fa fa-edit"></i></a>
+ -->
+                                &nbsp;&nbsp;
+                                <button type="button" (click)="ajouterEmploye()" class="btn btn-success btn-circle-min"
+                                    title="Ajouter un employe">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                                &nbsp;&nbsp;
+                                <button *jhiHasAnyAuthority="['ROLE_ADMIN']" type="button" (click)="openModal(template,employe)"
+                                    class="btn btn-default btn-circle-min" title="réinitialiser un mot de passe">
+                                    <i class="fas fa-sync"></i>
+                                </button>
+                                &nbsp;&nbsp; &nbsp;&nbsp;
+                                <button *jhiHasAnyAuthority="['ROLE_ADMIN']" [hidden]="employe.congeGlobal"   type="button" (click)="openModalWithClass(templateJouvrable,employe)"
+                                    class="btn btn-success btn-circle-min" title="initialiser la configuration des jours ...">
+                                    <i class="far fa-calendar-plus"></i>
+                                </button>
+                              
+                                <button *jhiHasAnyAuthority="['ROLE_ADMIN']" [hidden]="!employe.congeGlobal" type="button" (click)="openModalWithClass(templateJouvrable,employe)"
+                                    class="btn btn-dark btn-circle-min" title="configuration de jours ouvrables">
+                                    <i class="far fa-calendar-plus"></i>
+                                </button>
+
+                                <!--                              <a class="text-success"  title="Ajouter"  href="javascript:void(0)" (click)="ajouterEmploye()" > <i class="fa fa-plus"></i></a> </td> 
+ -->
+                                <!--td class="text-center">
+                            <div class="clearfix">
+                          <button class="btn btn-primary btn-sm m-1" (click)="deleteEmploye(employe)" title="detaille"> <i class="fas fa-align-justify"></i></button>
+              
+                        </div>
+                        </td-->
+                        </tr>
+
+                    </tbody>
+                    <tfoot>
+
+                        <!--caption>Employe Details</caption-->
+                    </tfoot>
+                </table>
+
+                <div class="clearfix"></div>
+                <!--pagination class="float-right"  [itemsPerPage]="_size"  [totalItems]="totalElements"
+             [firstText]="'Premier'" [lastText]="'Dernier'" [previousText]="'Préscedant'" [nextText]="'Suivant'"></pagination-->
+                <!-- 
+            <pagination class="float-right" [boundaryLinks]="true" [totalItems]="totalElements" [itemsPerPage]="_size" [(ngModel)]="currentPageNumber"
+                previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)"
+                [maxSize]="maxSize">
+
+            </pagination> -->
+                <div *ngIf="employes">
+
+                    <div class="float-right">
+                        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #template>
+    <div class="modal-body text-center">
+        <h6 class="card-title">Réinitialiser un mot de passe</h6>
+        <form class="pt-3" novalidate (ngSubmit)="confirm()" #f="ngForm">
+            <div class="form-row">
+
+
+                <div class="col-md-12 ">
+                    <div class="form-group">
+                        <show-hide-password icon="fontawesome" btnStyle="primary" [btnOutline]="false">
+
+                            <input type="password" class="form-control form-control-sm" [(ngModel)]="password" id="password"
+                                name="password" />
+                        </show-hide-password>
+                    </div>
+
+                </div>
+
+            </div>
+            <button type="button" class="btn btn-primary mr-2" [disabled]="!f.valid" (click)="confirm()">Enregister</button>
+            <button type="button" class="btn btn-default " (click)="decline()">Annuler</button>
+            <!--  <div class="float-left">
+                            <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Enregistrer</button>
+                        </div> -->
+        </form>
+
+    </div>
+</ng-template>
+
+<ng-template #templateJouvrable>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Configuration des jours ouvrables</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center active">
+                <span>
+                    {{employeDetails.nom}}&nbsp;&nbsp;{{employeDetails.prenom}}&nbsp;&nbsp;{{employeDetails?.prenomsecond}}
+                </span>
+            </li>
+        </ul>
+        <ul class="list-group" *ngFor="let config of allConfig">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{config.label}}
+                <span>
+                    <ui-switch class="custom-switches" (change)="onChangeJour($event,config)" checkedLabel="on"
+                        uncheckedLabel="off" size="small" [checked]="config.estOuvrable"></ui-switch>
+                </span>
+            </li>
+        </ul>
+        <pre></pre>
+        <button type="button" class="btn btn-primary mr-2 mt-3" (click)="onSubmit()">Enregister</button>
+
+    </div>
+</ng-template>

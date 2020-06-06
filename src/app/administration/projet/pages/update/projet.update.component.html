@@ -1,0 +1,66 @@
+<div class="col-md-9 mx-auto my-auto">
+
+    <div class="row">
+     <div class="col-md-12">
+            <div class="mt-5" *ngIf="projetError">
+                    <alert *ngIf="projetError" type="danger" dismissOnTimeout="6000" (onClosed)="projetError = false">{{ msg | translate}} </alert>
+                </div>
+    <div class="card mt-3">
+        <div class="card-body">
+            <button class="btn btn-primary float-right" (click)="listProjet()">Liste de projets</button>
+            <h5 class="card-title">Modifier un projet</h5>
+            <form class="pt-3" class="pt-3" novalidate (ngSubmit)="onSubmit()" #f="ngForm" >
+                <div class="form-row">
+                    <!--=====================date debut===================-->
+                    <div class="form-group col-md-3">
+                        <label for="datedebut">Date de début</label>
+                        <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [(ngModel)]="entity.datedebut" name="datedebut"
+                        [bsValue]="bsValue" [bsConfig]="bsConfig" required>
+
+                    </div>
+
+                    <!--=====================date embauche===================-->
+                    <div class="form-group col-md-3">
+                        <label for="dateEmbauche">Date de fin</label>
+
+
+                        <input type="text" class="form-control" #dp="bsDatepicker" [(ngModel)]="entity.datefin" bsDatepicker name="datefin"
+                        [bsValue]="bsValue" [bsConfig]="bsConfig" required>
+
+                    </div>
+
+                   
+
+
+                    <div class="form-group col-md-4">
+                        <label for="sponsor">Choisir un sponsor</label>
+
+                        <select class="custom-select" [(ngModel)]="entity.sponsor" name="sponsor" id="sponsor"
+                            required>
+                            <option [ngValue]="entity.sponsor" selected disabled>{{entity.sponsor.nom}}&nbsp;{{entity.sponsor.prenom}}</option>
+                            <option *ngFor="let sponsor of allSponsor" [ngValue]="sponsor">{{sponsor.employe}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <!--=====================prenom===================-->
+                    <div class="form-group col-md-12">
+                        <label for="label">Description du projet</label>
+                        <textarea class="form-control" id="label" rows="5" [(ngModel)]="entity.label"  name="label" required></textarea>
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="float-left">
+                    <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Mettre à jour</button>
+                </div>
+              <!--   <pre>{{f.value | json}}</pre> -->
+            </form>
+
+
+        </div>
+        </div>
+        </div>

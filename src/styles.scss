@@ -1,0 +1,710 @@
+@import './theme';
+:root {
+    --input-padding-x: .45rem;
+    --input-padding-y: .45rem;
+    --textarea-padding-x: .50rem;
+    --textarea-padding-y: .50rem;
+}
+
+html,
+body {
+    height: 100%; // background-color: #6200EE;
+    // background-color: #f6f6f6 ;
+}
+
+body {
+    /*  display: -ms-flexbox;
+      display: flex;*/
+    color: #000000;
+    /*  text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+      box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);*/
+}
+
+/* ****************************** BOOTSTRAP CUSTUM ********************************** */@at-root
+
+// Required
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+// Optional
+@import "node_modules/bootstrap/scss/reboot";
+@import "node_modules/bootstrap/scss/type";
+@import "node_modules/bootstrap/scss/images";
+@import "node_modules/bootstrap/scss/code";
+@import "node_modules/bootstrap/scss/grid";
+
+/*
+$body-bg : #ffffff;
+$body-color:  #0c0101;
+
+*/
+/*
+$theme-colors: (
+  "custom-color": #900,
+  "primary":  #00e5ff,    // style="background-color: #0D47A1;"
+  "text-primary" : rgb(14, 66, 162),
+  "dark" : #212121
+);
+*/
+
+@import "node_modules/bootstrap/scss/bootstrap";
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
+
+
+/* *********************************   Floating form ********************************************** */
+
+.form-search {
+    // background-color: red;
+    width: 100%;
+    max-width: 500px;
+    padding: 15px;
+    margin: auto;
+}
+
+.form-label-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.form-label-group>textarea,
+.form-label-group>input,
+.form-label-group>label {
+    padding: var(--input-padding-y) var(--input-padding-x);
+}
+
+.form-label-group>label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    margin-bottom: 0;
+    /* Override default `<label>` margin */
+    line-height: 1.5;
+    color: #495057;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    transition: all .1s ease-in-out;
+}
+
+.form-label-group input::-webkit-input-placeholder,
+.form-label-group textarea::-webkit-textarea-placeholder {
+    color: transparent;
+}
+
+.form-label-group input:-ms-input-placeholder,
+.form-label-group textarea:-ms-textarea-placeholder {
+    color: transparent;
+}
+
+.form-label-group input::-ms-input-placeholder,
+.form-label-group textarea::-ms-textarea-placeholder {
+    color: transparent;
+}
+
+.form-label-group input::-moz-placeholder,
+.form-label-group textarea::-moz-placeholder {
+    color: transparent;
+}
+
+.form-label-group input::placeholder,
+.form-label-group textarea::placeholder {
+    color: transparent;
+}
+
+.form-label-group input:not(:placeholder-shown) {
+    padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
+    padding-bottom: calc(var(--input-padding-y) / 3);
+}
+
+.form-label-group textarea:not(:placeholder-shown) {
+    padding-top: calc(var(--textarea-padding-y) + var(--textarea-padding-y) * (2 / 3));
+    padding-bottom: calc(var(--textarea-padding-y) / 3);
+}
+
+.form-label-group input:not(:placeholder-shown)~label {
+    padding-top: calc(var(--input-padding-y) / 3);
+    padding-bottom: calc(var(--input-padding-y) / 3);
+    font-size: 12px;
+    color: #777;
+}
+
+.form-label-group textarea:not(:placeholder-shown)~label {
+    padding-top: calc(var(--textarea-padding-y) / 3);
+    padding-bottom: calc(var(--textarea-padding-y) / 3);
+    font-size: 12px;
+    color: #777;
+}
+
+/* Fallback for Edge
+-------------------------------------------------- */
+
+@supports (-ms-ime-align: auto) {
+    .form-label-group>label {
+        display: none;
+    }
+    .form-label-group input::-ms-input-placeholder {
+        color: #777;
+    }
+    .form-label-group textarea::-ms-textarea-placeholder {
+        color: #777;
+    }
+}
+
+/* Fallback for IE  -------------------------------------------------- */
+
+@media all and (-ms-high-contrast: none),
+(-ms-high-contrast: active) {
+    .form-label-group>label {
+        display: none;
+    }
+    .form-label-group input:-ms-input-placeholder {
+        color: #777;
+    }
+    .form-label-group textarea:-ms-textarea-placeholder {
+        color: #777;
+    }
+}
+
+/* ********************************* floating form ************************************************* */
+
+.navbar {
+    // margin-bottom: 30px;
+}
+
+html body .container {
+    font-size: 15px;
+}
+
+.table {
+    font-size: 10px; //10
+    // border: 1px solid black;
+    //font-:
+}
+
+table thead tr th {
+    padding: 4px !important;
+} //4
+table tr td {
+    padding: 2px !important;
+}
+
+.pagination {
+    padding: 0px;
+}
+
+tr .link {
+    cursor: mouse;
+}
+
+.passport-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+}
+
+.passport-image-large {
+    width: 150px;
+    height: 150px;
+    border-radius: 3px;
+}
+
+.passport-image2 {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.passport-profil {
+    width: 35px;
+    height: 35px;
+    border-radius: 3px;
+}
+
+/*.hc li{
+  display :  inline-block
+}
+
+.myscroll{
+  //position : absolute;
+  overflow-x: auto;
+}
+
+.myborder{
+  border-radius: 5px;
+}
+
+ul {
+  position: relative;
+}
+
+li {
+  list-style: none;
+}
+
+li.child::before {
+  content: "┖";
+  transform: scale(1, 1.8);
+  position: absolute;
+  left: 1em;
+}*/
+
+/* .mymy{
+   // height : 400px ;
+  width : 1500px;
+     overflow-x: auto;
+}
+.mymy  ul{
+     width : 2000px;
+
+}
+  */
+
+/*
+ * Globals
+ */
+
+/* Links */
+
+a,
+a:focus,
+a:hover {
+    color: #fff;
+}
+
+/* Custom default button */
+
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus {
+    color: #333;
+    text-shadow: none;
+    /* Prevent inheritance from `body` */
+    background-color: #fff;
+    border: .05rem solid #fff;
+}
+
+.mymy {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    .mymo {
+        flex: 0 0 auto;
+    }
+}
+
+/*arbre généalogique début*/
+
+.tree {
+    //font-size: 40px;
+}
+
+.tree ul li a {
+    width: 300px;
+    min-height: 200px;
+    height: 210px;
+    min-width: 100px;
+}
+.tree ul li a.us {
+  padding: 5 px;
+  margin : 5 px;
+  width: 200px;
+  min-height: 20px;
+  height: 50px;
+  //min-width: 100px;
+}
+.tree ul li a .neutre {
+  padding: 0 px;
+  margin : 0 px;
+  width: 0px;
+  height: 0px;
+  //min-width: 100px;
+}
+.tree ul {
+    padding-top: 20px;
+    position: relative;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+
+.tree li {
+    float: left;
+    text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 20px 5px 0 5px;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+/*We will use ::before and ::after to draw the connectors*/
+
+.tree li::before,
+.tree li::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 50%;
+    border-top: 1px solid #ccc;
+    width: 50%;
+    height: 20px;
+}
+
+.tree li::after {
+    right: auto;
+    left: 50%;
+    border-left: 1px solid #ccc;
+}
+
+/*We need to remove left-right connectors from elements without
+any siblings*/
+
+.tree li:only-child::after,
+.tree li:only-child::before {
+    display: none;
+}
+
+/*Remove space from the top of single children*/
+
+.tree li:only-child {
+    padding-top: 0;
+}
+
+/*Remove left connector from first child and
+right connector from last child*/
+
+.tree li:first-child::before,
+.tree li:last-child::after {
+    border: 0 none;
+}
+
+/*Adding back the vertical connector to the last nodes*/
+
+.tree li:last-child::before {
+    border-right: 1px solid #ccc;
+    border-radius: 0 5px 0 0;
+}
+
+.tree li:first-child::after {
+    border-radius: 5px 0 0 0;
+}
+
+/*Time to add downward connectors from parents*/
+
+/* .tree ul ul::before{
+   content: '';
+  position: absolute; top: 0; left: 50%;
+ // border-left: 1px solid #ccc;
+  width: 0; height: 20px;
+} */
+
+.tree.y ul ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-left: 1px solid #ccc;
+    width: 0;
+    height: 20px;
+}
+
+.tree.n ul ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    //  border-left: 1px solid #ccc;
+    width: 0;
+    height: 20px;
+}
+
+.tree li a{
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #666;
+    font-family: arial, verdana, tahoma;
+    font-size: 11px;
+    display: inline-block;
+    border-radius: 5px;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.tree ul li a .mylink {
+    padding: 0px;
+    margin: 0px;
+    height: 0px;
+    width: 0px;
+    min-height: 0px;
+    border: 0 none;
+}
+
+/*Time for some hover effects*/
+
+/*We will apply the hover effect the the lineage of the element also*/
+
+/*.tree li a, .tree li a+ul li a {
+  background: red; color: #ffffff; border: 1px solid #94a0b4;
+}*/
+
+/*a.bg-primary:hover, a.bg-primary:focus,
+button.bg-primary:hover,
+button.bg-primary:focus {
+background-color: #0062cc !important;
+}*/
+
+/*.tree li a:hover, .tree li a:hover+ul li a {
+  background: #c8e4f8; color: #000; border: 1px solid #94a0b4;
+}*/
+
+.tree li a:hover,
+.tree li a:hover+ul li a {
+    /*background: #0062cc !important; color: #000; border: 1px solid #94a0b4;*/
+    background: #0062cc !important;
+    color: #000;
+    border: 1px solid #0062cc;
+}
+
+/*Connector styles on hover*/
+
+.tree li a:hover+ul li::after,
+.tree li a:hover+ul li::before,
+.tree li a:hover+ul::before,
+.tree li a:hover+ul ul::before {
+    border-color: #94a0b4;
+}
+
+/*.tree{
+ position: absolute;
+ min-width: 1500px;
+}*/
+
+/*.push-right{
+  display:   bloc;
+  position: relative;
+  overflow-x: scroll ;
+}*/
+
+/*.scrolling-wrapper {
+overflow-x: scroll;
+overflow-y: hidden;
+white-space: nowrap;
+
+.xy {
+  display: inline-block;
+}
+}*/
+
+.row.jh-entity-details>dd {
+    margin-bottom: 15px;
+}
+
+@media screen and (min-width: 768px) {
+    .row.jh-entity-details>dt {
+        margin-bottom: 15px;
+    }
+    .row.jh-entity-details>dd {
+        border-bottom: 1px solid #eee;
+        padding-left: 180px;
+        margin-left: 0;
+    }
+}
+
+
+
+/*
+* Base structure
+*/
+/*
+div.list-group a.list-group-item-action {
+  width: 100%;
+  min-height: 100px;
+}
+
+.tree div ul li a {
+  width: 100%;
+  min-height: 100px;
+}
+*/
+
+
+.product-image-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 9999;
+  display: none;
+}
+
+.product-image-overlay .product-image-overlay-close {
+  display: block;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #eee;
+  line-height: 35px;
+  font-size: 20px;
+  color: #eee;
+  text-align: center;
+  cursor: pointer;
+}
+
+.product-image-overlay img {
+  width: auto;
+  max-width: 80%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+
+.successline{
+    background-color: #33b266;
+    color:#ffffff;
+}
+
+.dangerline{
+    background-color: #df1b2c;
+    color:#ffffff;
+    animation: allblink 2s infinite;
+}
+
+@keyframes allblink { 
+    0% { }
+    50% { color:#ffffff; background-color:#500f14; } 
+    }
+
+
+ 
+
+   /*  body {
+        background-color: #fcfcfc;
+        padding-top: 5rem;
+      } */
+      
+      
+      @import '~ngx-ui-switch/ui-switch.component.scss';
+    /*   strong {
+        font-weight: 30;
+      } */
+
+      .custom-switches {
+        .switch {
+         // min-width: 30px;
+         height: 18px; 
+         color: #ffffff !important; 
+          background: #777;
+          padding:0px;
+          small {
+        
+            background: #ffffff;
+          }
+          &.checked { 
+
+            background:  #007bff !important; 
+          } 
+        }
+      }  
+       
+
+    .navbar-img{
+   height :45px;
+        width: 45px; 
+      
+    } 
+     
+    
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+    from {
+      -webkit-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes rotating {
+    from {
+      -ms-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -webkit-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -ms-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  .rotating {
+    -webkit-animation: rotating 2s linear infinite;
+    -moz-animation: rotating 2s linear infinite;
+    -ms-animation: rotating 2s linear infinite;
+    -o-animation: rotating 2s linear infinite;
+    animation: rotating 2s linear infinite;
+  }
+
+
+  .btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    font-size: 24px;
+    line-height: 1.33;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+
+.btn-circle-min.btn-xl {
+    width: 50px;
+    height: 50px;
+    padding: 5px 8px;
+    border-radius: 25px;
+    font-size: 18px;
+    line-height: 1.33; 
+}
+
+.btn-circle-min {
+    width: 20px;
+    height: 20px;
+    padding:2px 0px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 9px;
+    line-height: 1.42857;
+}
+.controle-border{
+    border-color:#df1b2c;
+}
+

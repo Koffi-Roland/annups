@@ -1,0 +1,155 @@
+<div class="col-md-12 mx-auto my-auto">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="mt-5" *ngIf="configSuccess||configError">
+                <alert *ngIf="configSuccess" type="success" dismissOnTimeout="6000" (onClosed)="configSuccess = false">{{
+                    msg | translate}}</alert>
+                <alert *ngIf="configError" type="danger" dismissOnTimeout="6000" (onClosed)="configError = false">{{
+                    msg | translate}} </alert>
+            </div>
+          
+
+
+
+            <div >
+                <div class="card mt-3">
+
+
+                    <div class="card-body">
+<!--                         <button class="btn btn-primary float-right" (click)="listProjets()">Liste des projets</button>
+ -->
+                        <h5 class="card-title">Ajout des jours fériés</h5>
+                            <div class="form-row">
+                                <!--=====================date debut===================-->
+                                <div class="form-group col-md-3">
+                                    <label for="jour">Jour férié</label>
+                                    <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [(ngModel)]="jour"
+                                        name="jour" [bsValue]="bsValue" required [bsConfig]="bsConfig">
+
+                                        <div class="float-left">
+                                            <button [disabled]="jour==null" (click)="ajoutJour()" class="btn btn-primary btn-sm  mt-2" >Soumettre au tableau</button>
+                                        </div>
+                                </div>
+
+                                <!--=====================date fin===================-->
+                                <div class="form-group col-md-4">
+                                    <label for="jour">Jour férié</label>
+
+
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped table-hover" >
+                                            <!--   <caption>Liste des fonctions &nbsp;
+                                                        <a href="javascript:void(0)" class="text-primary" *ngIf="affichertout"
+                                                            (click)="loadAll()">Afficher tout</a>
+                
+                                                    </caption> -->
+                                            <thead class="text-uppercase thead-dark">
+                                                <tr>
+                                                    <th scope="col">Jour férié</th>
+                                                    <th scope="col">Option</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let ferier of listFerier">
+                                                    <td class="text-uppercase">{{ferier.jour| date: 'dd-MM-yyyy'}}</td>
+                                                    <td class="text-center">
+                                                        <!--   <a class="text-primary" title="modifier" href="javascript:void(0)" (click)="updateFonction(fonction)">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a> -->
+                                                     
+                                                        <button type="button" (click)="onDelete(ferier)" class="btn btn-danger btn-circle-min"
+                                                            title="Supprimer une fonction">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                
+                                                    </td>
+                
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                    <p class="text-monospace" *ngIf="listFerier?.length==0">Tableau vide</p>
+
+                                                <button *ngIf="listFerier?.length > 0" (click)="soumettre()" class="btn btn-dark btn-sm  mt-2" >Soumettre le tableau</button>
+
+                                            </tfoot>
+                                        </table>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label for="dateEmbauche">Liste  des jours feriers</label>
+
+
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped table-hover" >
+                                            <!--   <caption>Liste des fonctions &nbsp;
+                                                        <a href="javascript:void(0)" class="text-primary" *ngIf="affichertout"
+                                                            (click)="loadAll()">Afficher tout</a>
+                
+                                                    </caption> -->
+                                            <thead class="text-uppercase thead-dark">
+                                                <tr>
+                                                    <th scope="col">Jour ferier</th>
+                                                    <th scope="col">Option</th>
+
+                                                  
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let ferier of allFerier">
+                                                    <td class="text-uppercase">{{ferier.jour | date: 'dd-MM-yyyy'}}</td>
+                                                    <td class="text-center">
+                                                        <!--   <a class="text-primary" title="modifier" href="javascript:void(0)" (click)="updateFonction(fonction)">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a> -->
+                                                      
+                                                        <!--  <a class="text-success" href="javascript:void(0)" (click)="addFonction()">
+                                                            <i class="fa fa-plus"></i>
+                                                        </a> -->
+                                                      
+                                                        <button type="button" (click)="onDeleted(ferier.jour)" class="btn btn-danger btn-circle-min"
+                                                            title="Supprimer un jour ferier">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                
+                                                    </td>
+                
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+<!--                                                     <p class="text-monospace" *ngIf="listFerier?.length==0">Tableau vide</p>
+ -->
+                                            </tfoot>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                           
+
+
+
+                            <!--   <pre>{{f.value | json}}</pre> -->
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+          
+
+
+        </div>
+    </div>
+
+   
+          
+</div>

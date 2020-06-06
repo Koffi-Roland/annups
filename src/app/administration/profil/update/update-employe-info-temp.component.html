@@ -1,0 +1,125 @@
+<div class="container-fluid">
+
+    <div class="row ">
+        <div class="col-md-12  mx-auto my-auto">
+            <div class="mt-5" *ngIf="employetempoSuccess||employetempoError">
+                <alert *ngIf="employetempoSuccess" type="success" dismissOnTimeout="6000" (onClosed)="employetempoSuccess = false">
+                        {{ msg | translate}}</alert>
+                <alert *ngIf="employetempoError" type="danger" dismissOnTimeout="6000" (onClosed)="employetempoError = false">
+                        {{ msg | translate}} </alert>
+            </div>
+
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h5 class="card-title">Mise à jour des informations</h5>
+                    <form class="pt-3" (ngSubmit)="onUpdate()" #formUpdate="ngForm">
+                        <div class="row">
+                            <div class="col-md-3"> <img *ngIf="!entity.photo" src="assets/man.png" class="rounded-circle .img-fluid passport-image-large bg-light"
+                                    alt="empty profil">
+                                <img *ngIf="entity.photo" src="{{entity.photo}}" class="rounded-circle .img-fluid  passport-image-large bg-light"
+                                    alt="image profil" title="image profil"></div>
+                            <div class="col-md-9">
+                                <div class="form-row">
+
+                                    <div class="form-group col-md-3">
+                                        <label for="nom">Nom</label>
+                                        <input type="text" id="nom" [(ngModel)]="entity.nom" name="nom" class="form-control form-control-sm"
+                                            autofocus required readonly>
+                                    </div>
+                                    <!--  <div class="col-md-4 mb-3">
+                                <div class="form-label-group">
+                                    <input type="text" id="nom" [(ngModel)]="entity.nom" name="nom" class="form-control form-control-sm" placeholder="Nom" autofocus
+                                        readonly>
+                                    <label class="text-left" for="nom">Nom</label>
+                                </div>
+                            </div> -->
+                                    <div class="form-group col-md-3">
+                                        <label for="prenom">Prénom</label>
+                                        <input type="text" id="prenom" [(ngModel)]="entity.prenom" name="prenom" class="form-control form-control-sm"
+                                            autofocus required readonly>
+                                    </div>
+                                    <!--  <div class="col-md-4 mb-3">
+                                <div class="form-label-group">
+                                    <input type="text" id="prenom" [(ngModel)]="entity.prenom" name="prenom" class="form-control form-control-sm" placeholder="Prenom"
+                                        autofocus readonly>
+                                    <label class="text-left" for="prenom">Prenom</label>
+                                </div>
+                            </div> -->
+                                    <div class="form-group col-md-3">
+                                        <label for="prenomSecondaire">Prénom secondaire</label>
+                                        <input type="text" id="prenomSecondaire" [(ngModel)]="prenomSecondaire" name="prenomSecondaire"
+                                            class="form-control form-control-sm" autofocus>
+                                    </div>
+
+                                    <!--  <div class="col-md-4 mb-3">
+                                <div class="form-label-group">
+                                    <input type="text" id="prenomSecondaire" [(ngModel)]="entity.prenomSecondaire" name="prenomSecondaire" class="form-control form-control-sm"
+                                        placeholder="Prenom Secondaire" autofocus>
+                                    <label class="text-left" for="prenomSecondaire">Prenom Secondaire</label>
+                                </div>
+                            </div> -->
+                                </div>
+                                <div class="form-row">
+
+
+
+                                    <div class="form-group col-md-3">
+                                        <label for="emailPerso">Email personnel</label>
+                                        <input type="email" id="emailPerso" [(ngModel)]="entity.emailPerso" name="emailPerso"
+                                            class="form-control form-control-sm" placeholder="E-mail" autofocus>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="telperso1">Téléphone personnel 1</label>
+                                        <input type="text" id="telperso1" [(ngModel)]="entity.telperso1" name="telperso1"
+                                            class="form-control form-control-sm" placeholder="Telephone 1" autofocus>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="telperso2">Téléphone personnel 2</label>
+                                        <input type="text" id="telperso2" [(ngModel)]="entity.telperso2" name="telperso2"
+                                            class="form-control form-control-sm" placeholder="Telephone 2" autofocus>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-row">
+
+
+                                    <div class="form-group col-md-3">
+                                        <label for="telperso3">Téléphone personnel 3</label>
+                                        <input type="text" id="telperso3" [(ngModel)]="entity.telperso3" name="telperso3"
+                                            class="form-control form-control-sm" placeholder="Telephone 3" autofocus>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="adresse">Adresse</label>
+                                        <textarea type="text" id="address" [(ngModel)]="entity.adresse" name="adresse"
+                                            class="form-control form-control-sm" placeholder="Adresse" autofocus>
+                                        </textarea>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="photo">Sélectionner photo</label>
+
+                                        <div class="image-upload">
+                                                <img [src]="imageSrc" *ngIf="showImage" style="max-width:100px;max-height:100px" />
+
+                                            <input #myInput name="imageUrl" type="file" (change)="handleInputChange($event)" />
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                        <button class="btn btn-primary">Mettre à jour</button>
+                                    </div>
+
+<!--                                                            <pre>{{formUpdate.value | json}}</pre>
+ -->
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

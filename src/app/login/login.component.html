@@ -1,0 +1,56 @@
+<div class="row  h-100">
+
+    <div class="my-auto mx-auto" *ngIf="!isAuthenticated">
+        <div class="ml-5 mb-2">
+            <img class="rotating" style="width: 100px; height: 100px; line-height: 100px;" src="assets/images/organ.png" alt="" />
+        </div>
+        <form class="form-signin" (ngSubmit)="login()">
+            <img class="mb-4" src="" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">{{'login.authenticate' | translate}}</h1>
+            <alert *ngIf="authenticationError" type="danger" dismissOnTimeout="6000" (onClosed)="authenticationError = false">{{code
+                | translate}} </alert>
+
+            <div class="form-group">
+                <label for="inputEmail" class="sr-only">Identifiant</label>
+                <input type="text" name="username" [(ngModel)]="username" class="form-control" placeholder="Identifiant"
+                    required autofocus>
+            </div>
+            <div class="form-group ">
+                <label for="password" class="sr-only">Password</label>
+                <show-hide-password icon="fontawesome" btnStyle="primary" [btnOutline]="false">
+
+                    <input type="password" id="password" class="form-control" name="password" [(ngModel)]="password"
+                        placeholder="Mot de passe" required>
+
+                </show-hide-password>
+
+            </div>
+
+            <div class="form-group ">
+                <div class="checkbox mb-3">
+                    <label>
+                        <input name="rememberMe" type="checkbox" id="rememberme" [(ngModel)]="rememberMe">Se souvenir
+                        de moi
+                    </label>
+                </div>
+            </div>
+            <!--div class="error active" *ngIf="authenticationError" >
+                <strong>Failed to sign in!</strong> Please check your credentials and try again.
+            </div>
+
+            <div class="alert-sm alert-warning">
+                <a class="alert-link" (click)="requestResetPassword()" >Did you forget your password?</a>
+            </div>
+            <div class="alert-sm alert-warning">
+                <span >You don't have an account yet?</span>
+                <a class="alert-link" (click)="register()" >Register a new account</a>
+            </div-->
+            <button class="btn btn-primary btn-block" type="submit">Connexion</button>
+            <a [routerLink]="['/home']" class="link text-primary my-2 float-right">Page de recherche</a>
+
+            <!--p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p-->
+        </form>
+
+    </div>
+
+</div>

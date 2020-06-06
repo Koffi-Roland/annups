@@ -1,0 +1,190 @@
+<div class="col-md-12 mx-auto my-auto">
+
+
+    <!--  <div class="card mt-5">
+        <div class="card-body">
+           
+            <h5 class="card-title">Enregistrement des fonctions</h5>
+            <form class="pt-3" novalidate [formGroup]="newForm" (ngSubmit)="onSubmit()">
+                <div class="form-row">
+                   
+
+                    <div class="col-md-3 mb-3">
+
+                        <div class="form-label-group">
+                            <input type="text" id="label" formControlName="label" class="form-control form-control-sm" autofocus required>
+                            <label class="text-left" for="label">Libellé</label>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="float-left">
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </form>
+           
+        </div>
+       
+    </div> -->
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mt-5" *ngIf="serviceSuccess||serviceError||serviceUpdateSuccess||serviceDeleteSuccess">
+                <alert *ngIf="serviceSuccess" type="success" dismissOnTimeout="6000" (onClosed)="serviceSuccess = false">
+                    {{ msg | translate:param}}</alert>
+                <alert *ngIf="serviceUpdateSuccess" type="success" dismissOnTimeout="6000" (onClosed)="serviceUpdateSuccess = false">
+                    {{ msg | translate:param}}</alert>
+                <alert *ngIf="serviceDeleteSuccess" type="success" dismissOnTimeout="6000" (onClosed)="serviceDeleteSuccess = false">
+                    {{ msg | translate}}</alert>
+                <alert *ngIf="serviceError" type="danger" dismissOnTimeout="6000" (onClosed)="serviceError = false"> {{
+                    msg | translate}}</alert>
+            </div>
+            <div class="card mt-3 ">
+                <div class="card-body" *ngIf="new">
+                    <h5 class="card-title">Enregistrement des services</h5>
+                    <form class="pt-3" novalidate (ngSubmit)="onSubmit()" #f="ngForm">
+                        <div class="form-row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="sigle">Sigle</label>
+
+                                    <input type="text" class="form-control form-control-sm" [(ngModel)]="entity.sigle"
+                                        id="sigle" name="sigle" required>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="label">Libellé</label>
+
+                                    <textarea class="form-control" id="label" [(ngModel)]="entity.label" name="label"
+                                        required></textarea>
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="float-left">
+                            <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card-body" *ngIf="update">
+                    <h5 class="card-title">Modification des services</h5>
+                    <form class="pt-3" novalidate (ngSubmit)="onUpdate()" #formUpdate="ngForm">
+                        <div class="form-row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="sigle">Sigle</label>
+
+                                    <input type="text" class="form-control form-control-sm" [(ngModel)]="entity.sigle"
+                                        id="sigle" name="sigle" required>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="label">Libellé</label>
+
+                                    <textarea class="form-control" id="label" [(ngModel)]="entity.label" name="label"
+                                        required></textarea>
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="float-left">
+                            <button type="submit" class="btn btn-primary" [disabled]="!formUpdate.valid">Modifier</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!---->
+
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Liste des services</h5>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover" *ngIf="allServices">
+                            <thead class="text-uppercase thead-dark">
+                                <tr>
+                                    <th scope="col">Sigle</th>
+                                    <th scope="col">Libellé</th>
+                                    <th>Option</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let services of allServices">
+
+                                    <td class="text-uppercase">{{services.sigle}}</td>
+
+                                    <td class="text-uppercase">{{services.label}}</td>
+                                    <td class="text-center">
+                                        <!--  <a class="text-primary" (click)="updateService(services)" title="modifier" href="javascript:void(0)">
+                                        <i class="fa fa-edit"></i>
+                                    </a> -->
+                                        <button type="button" (click)="updateService(services)" class="btn btn-primary btn-circle-min"
+                                            title="Modifier un service">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <!--  <a class="text-success" href="javascript:void(0)" (click)="addService()">
+                                            <i class="fa fa-plus"></i>
+                                        </a> -->
+                                        <button type="button" (click)="addService()" class="btn btn-success btn-circle-min"
+                                            title="Ajouter un service">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <!--  <a class="text-danger" title="Supprimer" (click)="onDelete(services.id)" href="javascript:void(0)">
+                                            <i class="fa fa-trash"></i>
+                                        </a> -->
+                                        <button type="button" (click)="onDelete(services.id)" class="btn btn-danger btn-circle-min"
+                                            title="Supprimer un service">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div *ngIf="allServices" class="">
+                        <!--div class="row justify-content-center">
+                                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                            </div-->
+                        <div class="row justify-content-center">
+                            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

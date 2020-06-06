@@ -1,0 +1,260 @@
+<div class="col-md-12 mx-auto my-auto">
+    <!--   <ngx-spinner bdColor="rgba(255,255,255,0.8)" size="large" color="#105ac7" type="ball-grid-pulse" loadingText="Chargement...">
+          </ngx-spinner> -->
+    <ngx-spinner [bdColor]="spinnerConfig.bdColor" [size]="spinnerConfig.size" [color]="spinnerConfig.color">
+        <p style="font-size: 20px; color: #fafafa">Loading...</p>
+    </ngx-spinner>
+    <div class="row" *ngIf="employes?.length!=0">
+
+        <div class="col">
+
+            <div class="clearfix"></div>
+
+            <!--p-panel header="Title" [toggleable]="true">
+                Content ghgvh
+            </p-panel-->
+            <!--  <div>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Ajouter un employé</button>
+              </div> -->
+
+            <div class="mt-5" *ngIf="projetSuccess||projetError">
+                <!--   <alert *ngIf="affecterProjetSuccess" type="success" dismissOnTimeout="9000" (onClosed)="affecterProjetSuccess = false">{{
+                    msg | translate}}</alert> -->
+                <alert *ngIf="projetSuccess" type="success" dismissOnTimeout="9000" (onClosed)="projetSuccess = false">{{
+                    msg | translate}}</alert>
+                <alert *ngIf="projetError" type="danger" dismissOnTimeout="9000" (onClosed)="projetError = false"> {{
+                    msg | translate }}</alert>
+
+                <!--  <alert *ngIf="retirerSuccess" type="success" dismissOnTimeout="6000" (onClosed)="retirerSuccess = false">Chef
+                    projet
+                    retiré avec succès</alert>
+                <alert *ngIf="retirerError" type="danger" dismissOnTimeout="6000" (onClosed)="retirerError = false">Requête
+                    de restriction du chef de projet n'a pas abouti. </alert> -->
+            </div>
+
+            <div class="table-responsive mt-5 ">
+                <!--   <button type="button" (click)="ajouterProjet()" class="btn btn-success btn-circle-min"
+                    title="Ajouter un projet">
+                    <i class="fas fa-plus"></i>
+                </button> -->
+                <button class="btn btn-primary float-right" (click)="ajouterProjet()">Ajouter un projet</button>
+
+                <form class="form-inline ">
+                    <div class="form-group  mb-2">
+                        <label for="simpleSearch" class="sr-only">Rechercher</label>
+                        <input key.value='' search='key.value' (keyup.enter)="loadAllSimpleSearch(key.value)" (blur)="loadAllSimpleSearch(key.value)"
+                            #key type="search" class="form-control-sm" id="simpleSearch" placeholder="Recherche simple">
+                    </div>
+
+                    <button (click)="loadAllSimpleSearch(key.value)" class="btn btn-sm btn-primary mb-2">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+
+                <table class="table  table table-bordered  table-hover  ">
+
+                    <caption>Liste des projets &nbsp;
+                        <a href="javascript:void(0)" class="text-primary" *ngIf="affichertout" (click)="loadAll()">Afficher
+                            tout</a>
+
+                    </caption>
+                    <thead class="text-uppercase thead-dark">
+                        <tr>
+                            <th scope="col" class="d-none"></th>
+                            <th scope="col">Libellé</th>
+                            <th scope="col">Créer par </th>
+                            <th scope="col">Chef projet </th>
+                            <th scope="col">Sponsor</th>
+                            <th scope="col">Date de création</th>
+                            <th scope="col">Date debut</th>
+                            <th scope="col">Date fin</th>
+                            <th>Progression
+                                <span> </span>
+                            </th>
+                            <!--  <th scope="col">Etat du projet</th> -->
+                            <th>Option</th>
+
+                        </tr>
+                    </thead>
+                    <tbody class="">
+
+                        <tr class="link" *ngFor="let projet of projets">
+
+                            <td class="text-uppercase">{{projet?.label}}</td>
+                            <td class="text-uppercase">{{projet.createBy?.nom}}&nbsp;{{projet.createBy?.prenom}}</td>
+                            <td class="text-uppercase">{{projet.user?.nom}}&nbsp;{{projet.user?.prenom}}</td>
+                            <td class="text-uppercase">{{projet.sponsor?.employe}}</td>
+                            <td class="text-uppercase">{{projet?.datecreation| date: 'dd-MM-yyyy'}}</td>
+                            <td class="text-uppercase">{{projet?.datedebut| date: 'dd-MM-yyyy'}}</td>
+                            <td class="text-uppercase">{{projet?.datefin| date: 'dd-MM-yyyy'}}</td>
+                            <td [ngClass]="{'text-danger': projet.echeance=='danger' , 'text-success' : projet.echeance=='success','text-info' : projet.echeance=='info','text-warning' : projet.echeance=='warning'}">
+                                <div class="mb-2">
+                                    <progressbar max="100" class="progress-striped active" [value]="projet.progression"
+                                        [type]="projet.echeance" [striped]="true" [animate]="true">
+                                        <b class="text-dark">{{projet.progression}}%</b>
+                                    </progressbar>
+                                </div>
+                            </td>
+                            <!--   <td class="text-uppercase">{{projet?.etatProjet | lowercase}}</td> -->
+                            <td>
+
+                                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                    <button type="button" [hidden]="projet.endProjet" *ngIf="!projet.abandonner"
+                                        (click)="openModal(template,projet.id)" class="btn btn-danger btn-circle-min mr-1"
+                                        title="Abandonner le  projet">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                    <button type="button" [disabled]="projet.abandonner" (click)="updateProjet(projet.id)"
+                                        class="btn btn-primary btn-circle-min mr-1" title="modifier">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button type="button" *ngIf="!projet.affecter" [disabled]="projet.abandonner"
+                                        (click)="ajouterTache(projet.id)" class="btn btn-default btn-circle-min mr-1"
+                                        title="Ajouter une tâche">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+
+                                    <button *ngIf="projet.retirer" type="button" [disabled]="projet.abandonner" (click)="retirerProjet(projet.id)"
+                                        class="btn btn-danger btn-circle-min mr-1" title="Retirer un chef projet">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <button type="button" *ngIf="projet.hastask" [disabled]="projet.abandonner" (click)="voirTache(projet.id)"
+                                        class="btn btn-default btn-circle-min mr-1" title="voir tâche">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button [hidden]="!projet.changer" [disabled]="projet.abandonner"
+                                        *jhiHasAnyAuthority="['ROLE_ADMIN','ROLE_ADMIN_PROJET']" type="button" (click)="changerChefProjet(projet.id)"
+                                        class="btn btn-dark btn-circle-min mr-1" title="Changer un chef projet">
+                                        <i class="fa fa-exchange-alt"></i>
+                                    </button>
+
+
+                                    <button type="button" [hidden]="!projet.endProjet" [disabled]="projet.abandonner"
+                                        *jhiHasAnyAuthority="['ROLE_CONSULTER_PROJET','ROLE_ADMIN_PROJET']" (click)="validerProjet(projet.id)"
+                                        class="btn btn-success btn-circle-min mr-1" title="Valider fin projet">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button type="button" [hidden]="!projet.closeProjet || !projet.isSponsor"
+                                        [disabled]="projet.abandonner" *jhiHasAnyAuthority="['ROLE_SPONSOR_PROJET']"
+                                        (click)="cloturerProjet(projet.id)" class="btn btn-primary btn-circle-min mr-1"
+                                        title="Clôturer fin projet">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                    <button [hidden]="!projet.affecter" [disabled]="projet.abandonner"
+                                        *jhiHasAnyAuthority="['ROLE_ADMIN','ROLE_ADMIN_PROJET']" type="button" (click)="affecterProjet(projet.id)"
+                                        class="btn btn-success btn-circle-min mr-1" title="Affecter un chef projet">
+                                        <i class="fa fa-arrow-right"></i>
+                                    </button>
+                                    <button *ngIf="projet.affecter" [disabled]="projet.abandonner" type="button"
+                                        (click)="onDelete(projet.id)" class="btn btn-danger btn-circle-min mr-1" title="Supprimer le  projet">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+
+                                    <button *ngIf="projet.abandonner" type="button" (click)="onActiveProjet(projet.id)"
+                                        class="btn btn-success btn-circle-min mr-1" title="activer un projet">
+                                        <i class="fas fa-check-double"></i>
+                                    </button>
+
+
+                                </div>
+                                <!-- <a class="text-primary"  title="modifier"  href="javascript:void(0)" (click)="updateProjet(projet.id)" > <i class="fa fa-edit"></i></a> -->
+
+
+                            </td>
+
+
+                            <!--  <td > <ui-switch class="custom-switches"  checkedLabel="on" uncheckedLabel="off"  size="small" [checked]="employe.activated"></ui-switch></td>
+      
+                              <td class="text-center"><a class="text-primary"  title="modifier"  href="javascript:void(0)" (click)="updateEmploye(employe.id)" > <i class="fa fa-edit"></i></a>
+                                  &nbsp;&nbsp; <a class="text-success"  title="Ajouter"  href="javascript:void(0)" (click)="ajouterEmploye()" > <i class="fa fa-plus"></i></a> </td> 
+       -->
+                            <!--td class="text-center">
+                                  <div class="clearfix">
+                                <button class="btn btn-primary btn-sm m-1" (click)="deleteEmploye(employe)" title="detaille"> <i class="fas fa-align-justify"></i></button>
+                    
+                              </div>
+                              </td-->
+                        </tr>
+
+                    </tbody>
+                    <tfoot>
+
+                        <!--caption>Employe Details</caption-->
+                    </tfoot>
+                </table>
+
+                <div class="clearfix"></div>
+                <!--pagination class="float-right"  [itemsPerPage]="_size"  [totalItems]="totalElements"
+                   [firstText]="'Premier'" [lastText]="'Dernier'" [previousText]="'Préscedant'" [nextText]="'Suivant'"></pagination-->
+
+                <!--  <pagination class="float-right" [boundaryLinks]="true" [totalItems]="totalElements" [itemsPerPage]="_size"
+                    [(ngModel)]="currentPageNumber" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+                    lastText="&raquo;" (pageChanged)="pageChanged($event)" [maxSize]="maxSize">
+
+                </pagination> -->
+                <div *ngIf="projets">
+                    <div class="float-right">
+                        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <!--table class="table table-striped" [mfData]="employes" #mf="mfDataTable" [mfRowsOnPage]="5">
+                      <thead>
+                      <tr>
+                          <th style="width: 20%">
+                              <mfDefaultSorter by="nom">Nom</mfDefaultSorter>
+                          </th>
+                          <th style="width: 50%">
+                              <mfDefaultSorter by="prenom">Prenom</mfDefaultSorter>
+                          </th>
+                          <th style="width: 10%">
+                              <mfDefaultSorter by="telFixePro">Telephone</mfDefaultSorter>
+                          </th>
+                          <th style="width: 20%">
+                              <mfDefaultSorter by="fonction.label">Fonction</mfDefaultSorter>
+                          </th>
+                          <th style="width: 20%">
+                              <mfDefaultSorter by="service.label">Service</mfDefaultSorter>
+                          </th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let item of mf.data">
+                          <td>{{item.nom}}</td>
+                          <td>{{item.prenom}}</td>
+                          <td class="text-right">{{item.telFixePro}}</td>
+                          <td>{{item.fonction.label | uppercase}}</td>
+                          <td>{{item.service.label | uppercase}}</td>
+                      </tr>
+                      </tbody>
+                      <tfoot>
+                      <tr>
+                          <td colspan="4">
+                              <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                          </td>
+                      </tr>
+                      </tfoot>
+                  </table-->
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #template>
+    <div class="modal-body text-center">
+        <p>Êtes-vous sûr de vouloir abandonner ce projet ?</p>
+        <button type="button" class="btn btn-primary mr-2" (click)="abandonnerProjet()">Oui</button>
+        <button type="button" class="btn btn-dark" (click)="decline()">Non</button>
+    </div>
+</ng-template>

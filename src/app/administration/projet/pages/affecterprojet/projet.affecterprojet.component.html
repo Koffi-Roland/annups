@@ -1,0 +1,129 @@
+<div class="container-fluid mt-5">
+
+    <div class="row h-100 ">
+        <div class="col-md-9 my-auto mx-auto">
+                <div class="mt-5" *ngIf="affecterProjetError">
+                        <alert *ngIf="affecterProjetError" type="danger" dismissOnTimeout="6000" (onClosed)="affecterProjetError = false">{{ msg | translate}} </alert>
+                    </div>
+            <div class="card bg-light border-light mb-1">
+
+                <div class="card-body">
+                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                        <button routerLink="/admin/projet/list" class="btn btn-primary btn-sm my-2 my-s-0 ">
+                            <i class="fa fa-arrow-left"></i>&nbsp; Retour
+                        </button>
+                    </div>
+                    <div>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">Projet</li>
+                                <li class="breadcrumb-item active" aria-current="page">{{entity.label}}</li>
+                            </ol>
+                        </nav>
+                        <!--  <h2>
+                    <span>Projet</span> [
+                    <b>{{affectProjet.projet.label}}</b>]
+                </h2>-->
+                        <dl class="row-md jh-entity-details">
+                            <!--dt><span jhiTranslate="userManagement.login">Login</span></dt>
+      <dd>
+          <span>{{user.login}}</span>
+          <span class="badge badge-danger" *ngIf="!user.activated"
+                jhiTranslate="userManagement.deactivated">Deactivated</span>
+          <span class="badge badge-success" *ngIf="user.activated"
+                jhiTranslate="userManagement.activated">Activated</span>
+      </dd-->
+
+
+                            <!--  <dt>
+                        <span>Libellé</span>
+                    </dt>
+                    <dd>{{affectProjet.projet.label}}</dd>-->
+                            <dt>
+                                <span>Créer par</span>
+                            </dt>
+                            <dd>{{entity.createBy.nom}} &nbsp;&nbsp; {{entity.createBy.prenom}}</dd>
+                            <dt>
+                                <span>Date création</span>
+                            </dt>
+                            <dd>{{entity.datecreation | date: 'dd-MM-yyyy'}}</dd>
+                            <!-- <dt>
+                        <span>Taches</span>
+                    </dt>
+                    <dd>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let tache of affectProjet.taches">
+                                <span class="badge" [ngClass]="{'badge-danger': tache.echeance==true , 'badge-success' : tache.echeance==false}">{{tache.employe}} &nbsp; {{tache.label}} &nbsp; {{tache.dateDebut}} &nbsp; {{tache.dateFin}}</span>
+                            </li>
+                        </ul>
+                    </dd>-->
+                        </dl>
+
+                        <h5 class="card-title">Affectation d'un chef projet</h5>
+                        <div>
+                            <form novalidate class="pt-3" (ngSubmit)="onSubmit()" #f="ngForm">
+
+                                <div class="form-row" *ngIf="viewAdmin">
+
+                                    <div class="form-group col-md-4">
+                                        <label for="service">Service</label>
+                                        <select class="custom-select" [(ngModel)]="service" name="service" id="service"
+                                            (change)="getEmployeByService()">
+                                            <option value="" selected disabled>Choisir service...</option>
+                                            <option *ngFor="let service of allServices" [ngValue]="service">{{service.label}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="chef">Choisir chef projet </label>
+                                        <ngx-select-dropdown class="text-capitalize" [multiple]="false" [config]="config"
+                                            [(value)]="singleSelect" [options]="allEmployes" id="chef" placeholder="Choisir"
+                                            required></ngx-select-dropdown>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-row" *ngIf="viewAdminProjet">
+
+                                     
+
+                                        <div class="form-group col-md-4">
+                                            <label for="chef">Choisir chef projet </label>
+                                            <ngx-select-dropdown class="text-capitalize" [multiple]="false" [config]="config"
+                                                [(value)]="singleSelect" [options]="allEmployesData" id="chef" placeholder="Choisir"
+                                                required></ngx-select-dropdown>
+                                        </div>
+    
+                                    </div>
+
+
+                                <div class="float-left">
+                                    <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Enregistrer</button>
+                                </div>
+                            </form>
+
+
+                            <!--   <div class="form-row"  *jhiHasAnyAuthority="['!ROLE_ADMIN', 'ROLE_ADMIN_PROJET']">
+
+
+                                    
+                                <div class="form-group col-md-4">
+                                    <label for="chef">Choisir chef projet </label>
+                                    <ngx-select-dropdown class="text-capitalize" [multiple]="false" [config]="config"
+                                        [(value)]="singleSelect" [options]="allEmployes" id="chef" placeholder="Choisir"
+                                        required></ngx-select-dropdown>
+                                </div>
+
+                            </div> -->
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

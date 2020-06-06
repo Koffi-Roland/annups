@@ -1,0 +1,242 @@
+<app-navbar></app-navbar>
+
+<div class="nav-side-menu">
+    <div class="brand">Organ</div>
+    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+    <div class="menu-list mt-2">
+
+
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center  ">
+                <a [routerLink]="['/admin/home']">
+                    <i class="fa fa-tachometer-alt mr-2"></i>Tableau de bord
+
+                </a>
+            </li>
+            <li routerLinkActive="active" data-toggle="collapse" data-target="#projet" class="list-group-item d-flex justify-content-between align-items-center collapsed"
+                *jhiHasAnyAuthority="['ROLE_ADMIN','ROLE_ADMIN_PROJET','ROLE_CONSULTER_PROJET']">
+                <a>
+                    <i class="fa fa-tasks mr-2"></i>Administrer un projet
+
+                </a>
+            </li>
+            <ul class="sub-menu collapse" id="projet">
+
+                <li *jhiHasAnyAuthority="['ROLE_ADMIN','ROLE_ADMIN_PROJET']">
+                    <a href="javascipt:void(0)" routerLinkActive="active-link" [routerLink]="['/admin/projet/new']">
+                        Ajouter projet
+                    </a>
+                </li>
+
+                <li>
+                    <a href="javascipt:void(0)" routerLinkActive="active-link" [routerLink]="['/admin/projet/list']">
+                        Liste des projets
+                    </a>
+                </li>
+
+
+
+                <li>
+                    <a href="javascipt:void(0)" routerLinkActive="active-link" [routerLink]="['/admin/show/projet/etat']">
+                        Affichage de projet par etat
+                    </a>
+                </li>
+
+
+
+            </ul>
+
+
+            <li data-toggle="collapse" routerLinkActive="active" data-target="#employe" class="list-group-item d-flex justify-content-between align-items-center collapsed  "
+                *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                <a>
+                    <i class="fa fa-users-cog mr-2"></i>Administrer un employé
+
+                </a>
+            </li>
+            <ul class="sub-menu collapse" id="employe">
+
+                <li>
+                    <a href="javascipt:void(0)" routerLinkActive="active-link" [routerLink]="['/admin/employenew']">
+                        Ajouter un employe
+                    </a>
+                </li>
+                <li>
+                    <a href="javascipt:void(0)" routerLinkActive="active-link" [routerLink]="['/admin/employe/list']">
+                        Liste employes
+                    </a>
+                </li>
+
+            </ul>
+            <li class="list-group-item d-flex justify-content-between align-items-center  "  *jhiHasAnyAuthority="'ROLE_EMPLOYE'">
+                    <a href="javascipt:void(0)" [routerLink]="['/admin/updateprofil']">
+                        <i class="fa fa-user-tie mr-2"></i>Mise à jour d'info. personnel
+                    </a>
+                </li>
+
+
+                <li data-toggle="collapse" routerLinkActive="active" data-target="#paremètre" class="list-group-item d-flex justify-content-between align-items-center collapsed  "
+                *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                <a>
+                        <i class="fa fa-cogs mr-2"></i>Paramètre
+    
+                    </a>
+            </li>
+            <ul class="sub-menu collapse" id="paremètre">
+
+                    <li>
+                        <a href="javascipt:void(0)" routerLinkActive="active-link" [routerLink]="['/admin/fonction/new']">
+                         Ajouter une fonction
+                        </a>
+                    </li>
+    
+                    <li>
+                        <a href="javascipt:void(0)" routerLinkActive="active-link" [routerLink]="['/admin/service/new']">
+                           Ajouter un service
+                        </a>
+                    </li>
+    
+    
+                    <li>
+                        <a href="javascipt:void(0)" routerLinkActive="active-link" [routerLink]="['/admin/typeretour/new']">
+                          Ajouter un type retour
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascipt:void(0)" routerLinkActive="active-link" [routerLink]="['/admin/configuration/jourouvrable']">
+                          Jour ouvrable global
+                        </a>
+                    </li>
+    
+                </ul>
+        </ul>
+        <!--   
+        <ul id="menu-content" class="menu-content collapse active out">
+            <li>
+                <a [routerLink]="['/admin/home']">
+                    <i class="fa fa-tachometer-alt mr-2"></i>Tableau de bord
+
+                </a>
+            </li>
+
+            <li routerLinkActive="active" data-toggle="collapse" data-target="#projet" class="collapsed"
+                *jhiHasAnyAuthority="['ROLE_ADMIN','ROLE_ADMIN_PROJET','ROLE_CONSULTER_PROJET']">
+                <a>
+                    <i class="fa fa-tasks mr-2"></i>Administrer un projet
+
+                </a>
+            </li>
+            <ul class="sub-menu collapse" id="projet">
+
+                <li *jhiHasAnyAuthority="['ROLE_ADMIN','ROLE_ADMIN_PROJET']">
+                    <a href="javascipt:void(0)" routerLinkActive="active-link" [routerLink]="['/admin/projet/new']">
+                       Ajouter projet
+                    </a>
+                </li>
+
+                <li>
+                    <a href="javascipt:void(0)" routerLinkActive="active-link" [routerLink]="['/admin/projet/list']">
+                       Liste des projets
+                    </a>
+                </li>
+
+
+
+                <li>
+                    <a href="javascipt:void(0)" routerLinkActive="active-link" [routerLink]="['/admin/show/projet/etat']">
+                      Affichage de projet par etat
+                    </a>
+                </li>
+
+
+
+            </ul>
+
+
+
+
+
+            <li data-toggle="collapse" routerLinkActive="active" data-target="#employe" class="collapsed"
+                *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                <a>
+                    <i class="fa fa-users-cog mr-2"></i>Administrer un employé
+
+                </a>
+            </li>
+            <ul class="sub-menu collapse" id="employe">
+
+                <li>
+                    <a href="javascipt:void(0)" routerLinkActive="active-link" [routerLink]="['/admin/employenew']">
+                        Ajouter un employe
+                    </a>
+                </li>
+                <li>
+                    <a href="javascipt:void(0)" routerLinkActive="active-link" [routerLink]="['/admin/employe/list']">
+                        Liste employes
+                    </a>
+                </li>
+
+            </ul>
+       
+
+            <li *jhiHasAnyAuthority="'ROLE_EMPLOYE'">
+                <a href="javascipt:void(0)" [routerLink]="['/admin/updateprofil']">
+                    <i class="fa fa-user-tie mr-2"></i>Mise à jour d'info. personnel
+                </a>
+            </li>
+
+
+            <li routerLinkActive="active" data-toggle="collapse" data-target="#paremètre" class="collapsed"
+                *jhiHasAnyAuthority="['ROLE_ADMIN']">
+                <a>
+                    <i class="fa fa-cogs mr-2"></i>Paremètre
+
+                </a>
+            </li>
+            <ul class="sub-menu collapse" id="paremètre">
+
+                <li>
+                    <a href="javascipt:void(0)" routerLinkActive="active-link" [routerLink]="['/admin/fonction/new']">
+                     Ajouter une fonction
+                    </a>
+                </li>
+
+                <li>
+                    <a href="javascipt:void(0)" routerLinkActive="active-link" [routerLink]="['/admin/service/new']">
+                       Ajouter un service
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="javascipt:void(0)" routerLinkActive="active-link" [routerLink]="['/admin/typeretour/new']">
+                      Ajouter un type retour
+                    </a>
+                </li>
+
+            </ul>
+
+        </ul> -->
+    </div>
+    <ul class="list-group">
+            <li  style="background-color: #007bff" (click)="onClickModuleCourrier()" class="list-group-item d-flex justify-content-between align-items-center active">
+                Module courrier
+            </li>
+            <li  style="background-color: #007bff" (click)="onClickModuleOrgan()" class="list-group-item d-flex justify-content-between align-items-center active">
+                Module organ
+             </li>
+             <li (click)="onClickModuleConge()" style="background-color: #007bff" class="list-group-item d-flex justify-content-between align-items-center active">
+                Module congé
+             </li>
+           
+        </ul>
+</div>
+
+
+<div role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 mt-5">
+    <!--debut contenu-->
+    <router-outlet></router-outlet>
+    <!-- fin contenu-->
+
+
+</div>

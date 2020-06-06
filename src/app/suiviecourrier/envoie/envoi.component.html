@@ -1,0 +1,278 @@
+<div class="col-md-12 mx-auto my-auto">
+    <ngx-spinner [bdColor]="spinnerConfig.bdColor" [size]="spinnerConfig.size" [color]="spinnerConfig.color">
+        <p style="font-size: 20px; color: #fafafa">Loading...</p>
+    </ngx-spinner>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="mt-5" *ngIf="courrierSuccess||courrierError">
+                <alert *ngIf="courrierSuccess" type="success" dismissOnTimeout="6000" (onClosed)="courrierSuccess = false">{{
+                    msg | translate:param}}</alert>
+                <alert *ngIf="courrierError" type="danger" dismissOnTimeout="6000" (onClosed)="courrierError = false">{{
+                    msg | translate}} </alert>
+            </div>
+
+
+            <!--  <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="customRadioInline1" (click)="activeSend()" [checked]="send" name="customRadioInline1"
+                    class="custom-control-input">
+                <label class="custom-control-label" for="customRadioInline1">Envoi courrier</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="r2" [checked]="resend" (click)="activeResend()" name="customRadioInline1" class="custom-control-input">
+                <label class="custom-control-label" for="r2">Renvoi courrier</label>
+            </div> -->
+            <!--  <div>
+                <tabset>
+                    <tab heading="Basic title" id="tab1">Basic content</tab>
+                    <tab heading="Basic Title 1">Basic content 1</tab>
+                    <tab heading="Basic Title 2">Basic content 2</tab>
+                </tabset>
+            </div> -->
+            <div>
+                <div class="card mt-3">
+                    <div class="card-body">
+
+                        <h5 class="card-title "><span class="text-primary">Envoi courrier</span></h5>
+                        <form class="pt-3" novalidate #f="ngForm">
+                                <fieldset>
+                                        <legend>Le courrier</legend>
+                            <div class="form-row mb-2">
+
+                                <div class="form-group col-md-3">
+                                    <label for="matricule">Réference</label>
+                                    <input type="text" id="reference" [(ngModel)]="entity.reference" name="reference"
+                                        class="form-control form-control-sm" autofocus required>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="label">Objet du courrier</label>
+                                    <textarea class="form-control" id="label" [(ngModel)]="entity.label" rows="3" name="label"
+                                        required></textarea>
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="dateReception">Date de réception</label>
+                                    <input type="text" class="form-control" [(ngModel)]="entity.dateReception" #dp="bsDatepicker"
+                                        bsDatepicker name="dateReception" [bsConfig]="bsConfig" [bsValue]="bsValue"
+                                        [maxDate]="today" required>
+
+                                </div>
+
+                            </div>
+                            <div class="form-row mb-1">
+
+                                <div class="form-group col-md-3">
+                                    <label for="dateReponse">Date de réponse</label>
+
+                                    <input type="text" class="form-control" [(ngModel)]="entity.dateReponse" #dp="bsDatepicker"
+                                        bsDatepicker name="dateReponse" [bsConfig]="bsConfig" [bsValue]="bsValue"
+                                        [minDate]="today">
+
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="datePrevisionnel">Date de retour prév. globale</label>
+                                    <input type="text" class="form-control" [(ngModel)]="entity.dateRetourPrevGlobal"
+                                        #dp="bsDatepicker" bsDatepicker name="datePrevisionnel" [bsConfig]="bsConfig"
+                                        [bsValue]="bsValue" [minDate]="today">
+
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="datePrevisionnel">Selectionner le fichier courrier</label>
+
+                                    <div class="image-upload">
+                                        <img [src]="imageSrc" *ngIf="showImage" style="max-width:100px;max-height:100px" />
+                                        <input #myInput name="imageUrl" type="file" accept=".pdf,image/*" (change)="handleInputChange($event)"
+                                            required />
+                                        <span *ngIf="imageError" class="text-danger">{{filename}} </span>
+
+                                    </div>
+                                </div>
+                                <!--  <div class="form-group col-md-4">
+                                <label for="dateRetour">Date de retour globale</label>
+
+                                <input type="text" class="form-control" [(ngModel)]="entity.dateRetourGlobal" #dp="bsDatepicker"
+                                    bsDatepicker name="dateRetour" [bsConfig]="bsConfig" [bsValue]="bsValue" required>
+
+                            </div> -->
+                                <!--  <div class="form-group col-md-3">
+                                <label for="dateRetourReel">Date de retour réelle</label>
+
+                                <input type="text" class="form-control" #dp="bsDatepicker" [(ngModel)]="entity.dateRetourReel" bsDatepicker name="dateRetourReel"
+                                    [bsConfig]="bsConfig" [bsValue]="bsValue" required>
+
+                            </div> -->
+                                <!--  <div class="form-group col-md-3">
+                                <label for="dateCloture">Date de clôture</label>
+
+                                <input type="text" class="form-control" #dp="bsDatepicker" [(ngModel)]="entity.dateCloture" bsDatepicker name="dateCloture" [bsConfig]="bsConfig"
+                                    [bsValue]="bsValue" required>
+
+                            </div> -->
+
+
+                            </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Traitement du courrier</legend>
+                            <div class="form-row">
+                               
+                                    <div class="form-group col-md-4">
+
+                                        <label for="service">Service</label>
+
+                                        <select class="custom-select" name="service" [(ngModel)]="service" id="service">
+                                            <option value="" selected disabled>Choisir service...</option>
+                                            <option *ngFor="let service of allServices" [ngValue]="service">{{service.label}}</option>
+                                        </select>
+
+
+                                        <!--  <button type="button" class="btn btn-dark">
+                                    <i class="fa fa-plus "></i>
+                                </button> -->
+
+                                    </div>
+
+                                    <!--   <div class="form-group col-md-3">
+                                    <button (click)="affectService()" type="button" class="btn btn-dark">
+                                        <i class="fa fa-plus "></i>
+                                    </button>
+                                </div> -->
+
+
+                                    <div class="form-group col-md-4">
+                                        <label for="date">Date retour prév</label>
+
+                                        <input type="text" class="form-control " #dp="bsDatepicker" bsDatepicker name="dateRetourPrevisionelle"
+                                            [bsConfig]="bsConfig" [(ngModel)]="dateRetourPrevisionelle" [bsValue]="bsValue"
+                                             [minDate]="today" [maxDate]="entity.dateRetourPrevGlobal">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="service">type retour</label>
+
+                                        <select class="custom-select " [(ngModel)]="typeCourier" id="typecourrier" name="typecourrier"
+                                            >
+                                            <option value="" selected disabled>Choisir type retour</option>
+                                            <option *ngFor="let type of alltypecourrier" [ngValue]="type">{{type.label}}</option>
+                                        </select>
+
+                                    </div>
+
+                                    <!-- 
+                            <div  class="form-group col-md-4">
+                                    <div *ngIf="currentFileUpload" class="progress">
+                                            <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+                                                aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+                                                {{progress.percentage}}%</div>
+                                        </div>
+                    
+                                        <label class="btn btn-default">
+                                            <input #myInput type="file" name="fileupload" (change)="selectFile($event)">
+                                        </label>
+                    
+                            </div> -->
+
+                                    <!--  <div class="form-group  col-md-6">
+                                <input type="file" multiple class="form-control-file" (change)="getFilesOne($event)" [(ngModel)]="entity.fichierCourrier"  name="fichierCourier"  >
+                            </div> -->
+
+
+
+                              
+                            </div>
+                        </fieldset>
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    <button (click)="affectTableau()" type="button" class="btn btn-dark">
+                                        Ajouter au tableau
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12">
+
+                                    <table class="table  table table-bordered  table-hover ">
+
+
+                                        <thead class="text-uppercase thead-dark">
+                                            <tr>
+                                                <th scope="col">Service</th>
+                                                <th scope="col">Date retour prév.</th>
+                                                <th scope="col">Type retour</th>
+                                                <th>Option</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody class="">
+
+                                            <tr class="link" *ngFor="let sel of envoiCouriers">
+
+                                                <td class="text-uppercase">{{sel.service.label}}</td>
+                                                <td class="text-monospace">
+                                                    {{sel.dateRetourPrevisionelle | date: 'dd-MM-yyyy'}}
+                                                    <!--  <input type="text" class="form-control form-control-sm" #dp="bsDatepicker"
+                                                        bsDatepicker name="dateRetourPrevisionelle" [bsConfig]="bsConfig"
+                                                        [(ngModel)]="sel.dateRetourPrevisionelle" [bsValue]="bsValue"
+                                                        required [minDate]="today" [maxDate]="entity.dateRetourPrevGlobal"> -->
+                                                </td>
+                                                <td class="text-capitalize">
+                                                    {{sel.typeCourier.label}}
+                                                    <!--  <select class="custom-select form-control-sm" [(ngModel)]="sel.typeCourier"
+                                                        id="typecourrier" name="typecourrier" required>
+                                                        <option value="" selected disabled>Choisir type retour</option>
+                                                        <option *ngFor="let type of alltypecourrier" [ngValue]="type">{{type.label}}</option>
+                                                    </select> -->
+
+                                                </td>
+                                                <td class="text-uppercase">
+                                                    <button *ngIf="sel" (click)="desactiverTab(sel)" type="button"
+                                                        class="btn btn-danger btn-circle">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </td>
+
+
+                                            </tr>
+
+                                        </tbody>
+                                        <tfoot>
+                                            <p class="text-monospace" *ngIf="envoiCouriers?.length==0">Tableau vide</p>
+
+                                            <!--caption>Employe Details</caption-->
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+
+                            </div>
+
+                            <ng-template #template>
+                                <div class="modal-body text-center">
+                                    <p>Êtes-vous sûr de vouloir envoyer ce courrier ?</p>
+                                    <button type="button" class="btn btn-primary mr-2" (click)="onSubmit()">Oui</button>
+                                    <button type="button" class="btn btn-dark" (click)="decline()">Non</button>
+                                </div>
+                            </ng-template>
+
+                            <div class="float-left">
+                                <button type="button" [disabled]=" f.invalid || envoiCouriers?.length ==0" class="btn btn-primary" (click)="openModal(template)">Enregistrer</button>
+                            </div>
+                            <!--                          <pre>{{f.value | json}}</pre>
+ -->
+                        </form>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+
+</div>

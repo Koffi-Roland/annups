@@ -1,0 +1,236 @@
+@import './theme';
+
+/*
+#menu {
+        width: 200px;
+        position: absolute;
+        left: 10px;
+        top: 220px;
+        z-index: 100;
+}
+
+#menu li {
+        list-style-image: url(img/puce.png);
+        padding-top: 5px;
+}
+*/
+body {
+    padding-bottom: 20px;
+}
+/* body {
+  Margin bottom by footer height
+  margin-bottom: 60px;
+} */
+
+
+.navbar {
+    margin-bottom: 30px;
+}
+html body .container,{
+    font-size: 15px;
+}
+
+.table {
+    font-size: 10px;  //10
+    // border: 1px solid black;
+    //font-:
+}
+table thead tr th{ padding:4px !important; } //4
+table tr td{ padding:2px !important; }
+
+.pagination{
+    padding : 0px;
+}
+
+tr .link{
+    cursor: mouse;
+}
+
+.passport-image{
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+}
+.passport-image2{
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+/*.hc li{
+  display :  inline-block
+}
+
+.myscroll{
+  //position : absolute;
+  overflow-x: auto;
+}
+
+.myborder{
+  border-radius: 5px;
+}
+
+ul {
+  position: relative;
+}
+
+li {
+  list-style: none;
+}
+
+li.child::before {
+  content: "┖";
+  transform: scale(1, 1.8);
+  position: absolute;
+  left: 1em;
+}*/
+
+
+
+
+
+/*arbre généalogique début*/
+.tree ul {
+    padding-top: 20px;
+    position: relative;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+.tree li {
+    float: left;
+    text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 20px 5px 0 5px;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+/*We will use ::before and ::after to draw the connectors*/
+
+.tree li::before, .tree li::after{
+    content: '';
+    position: absolute; top: 0; right: 50%;
+    border-top: 1px solid #ccc;
+    width: 50%; height: 20px;
+}
+.tree li::after{
+    right: auto; left: 50%;
+    border-left: 1px solid #ccc;
+}
+
+
+
+
+
+/*We need to remove left-right connectors from elements without
+any siblings*/
+.tree li:only-child::after, .tree li:only-child::before {
+    display: none;
+}
+
+/*Remove space from the top of single children*/
+.tree li:only-child{ padding-top: 0;}
+
+/*Remove left connector from first child and
+right connector from last child*/
+.tree li:first-child::before, .tree li:last-child::after{
+    border: 0 none;
+}
+/*Adding back the vertical connector to the last nodes*/
+.tree li:last-child::before{
+    border-right: 1px solid #ccc;
+    border-radius: 0 5px 0 0;
+}
+.tree li:first-child::after{
+    border-radius: 5px 0 0 0;
+}
+
+/*Time to add downward connectors from parents*/
+.tree ul ul::before{
+    content: '';
+    position: absolute; top: 0; left: 50%;
+    border-left: 1px solid #ccc;
+    width: 0; height: 20px;
+}
+
+.tree li a{
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #666;
+    font-family: arial, verdana, tahoma;
+    font-size: 11px;
+    display: inline-block;
+
+    border-radius: 5px;
+
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+/*Time for some hover effects*/
+/*We will apply the hover effect the the lineage of the element also*/
+.tree li a:hover, .tree li a:hover+ul li a {
+    background: #c8e4f8; color: #000; border: 1px solid #94a0b4;
+}
+/*Connector styles on hover*/
+.tree li a:hover+ul li::after,
+.tree li a:hover+ul li::before,
+.tree li a:hover+ul::before,
+.tree li a:hover+ul ul::before{
+    border-color:  #94a0b4;
+}
+
+/*.tree{
+   position: absolute;
+   min-width: 1500px;
+}*/
+
+.push-right{
+    display:   bloc;
+    position: relative;
+    overflow-x: scroll ; 
+}
+/*.scrolling-wrapper {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+
+  .xy {
+    display: inline-block;
+  }
+}*/
+
+
+
+
+/*
+ * Globals
+ */
+
+/* Links */
+a,
+a:focus,
+a:hover {
+  color: #fff;
+}
+
+/* Custom default button */
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus {
+  color: #333;
+  text-shadow: none; /* Prevent inheritance from `body` */
+  background-color: #fff;
+  border: .05rem solid #fff;
+}
+
+
+/*
+ * Base structure
+ */
+

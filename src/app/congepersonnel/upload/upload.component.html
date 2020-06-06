@@ -1,0 +1,42 @@
+<div class="col-md-12 mx-auto my-auto">
+
+
+
+
+    <div class="row">
+
+        <!-- message -->
+        <div class="col-md-12">
+            <div class="mt-5" *ngIf="uploadSuccess||uploadError">
+                <alert *ngIf="uploadSuccess" type="success" dismissOnTimeout="6000" (onClosed)="uploadSuccess = false"> {{
+                    msg | translate}}</alert>
+                    <alert *ngIf="uploadError" type="danger" dismissOnTimeout="6000" (onClosed)="uploadError = false"> {{
+                        msg | translate}}</alert>
+
+            </div>
+            <div class="card mt-3">
+                <div class="card-body">
+
+                    <h5 class="card-title">Uploader un fichier</h5>
+                    <div class="mt-5 mb-5 ml-5">
+                        <div class="progress" style="height: 1px;">
+                        </div>
+                        <div class="progress-bar bg-success mb-2" role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+                            aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+                            {{progress.percentage}}%
+                        </div>
+
+
+                        <label class="btn btn-default">
+                            <input #myInput type="file" name="fileupload" (change)="selectFile($event)">
+                        </label>
+
+                        <button class="btn btn-success " (click)="upload()">Upload</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

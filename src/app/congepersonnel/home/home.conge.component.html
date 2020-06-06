@@ -1,0 +1,288 @@
+<div class="col-md-12 mx-auto my-auto">
+    <!--   <ngx-spinner bdColor="rgba(255,255,255,0.8)" size="large" color="#105ac7" type="ball-grid-pulse" loadingText="Chargement...">
+    </ngx-spinner> -->
+    <ngx-spinner [bdColor]="spinnerConfig.bdColor" [size]="spinnerConfig.size" [color]="spinnerConfig.color">
+        <p style="font-size: 20px; color: #fafafa">Loading...</p>
+    </ngx-spinner>
+
+    <div class="mt-5" *ngIf="congeSuccess||congeError">
+        <alert *ngIf="congeSuccess" type="success" dismissOnTimeout="6000" (onClosed)="congeSuccess = false">
+            {{ msg | translate}}</alert>
+
+        <alert *ngIf="congeError" type="danger" dismissOnTimeout="6000" (onClosed)="congeError = false">
+            {{ msg | translate}}</alert>
+    </div>
+    <div class="row">
+
+        <div class="col">
+
+            <div class="clearfix"></div>
+            <a href="javascript:void(0)" class="card-link text-primary mb-2 " (click)="isCollapsedSearch = !isCollapsedSearch" [attr.aria-expanded]="!isCollapsedSearch"
+                aria-controls="collapseExample">
+                <span class="card-title">Recherche &nbsp;
+                    <span *ngIf="isCollapsedSearch">
+                        <i class="fas fa-angle-down"></i>
+                    </span>
+                    <span *ngIf="!isCollapsedSearch">
+                        <i class="fas fa-angle-up"></i>
+                    </span>
+                </span>
+            </a>
+                <form #searchFormAd="ngForm" novalidate (submit)="searchAdvancedConge(searchFormAd)" novalidate [ngbCollapse]="isCollapsedSearch">
+                    <div class="form-row ml-1">
+                        <div class="col-md-2 mb-3">
+                            <label for="matricule">Matricule</label>
+                            <input type="text" [(ngModel)]="matricule" name="matricule" class="form-control"
+                                placeholder="matricule" autofocus class="form-control form-control-sm" id="matricule"
+                                placeholder="Matricule">
+                            <!--div class="valid-feedback">
+                              Looks good!
+                            </div-->
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <label for="nom">Date début</label>
+                            <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [(ngModel)]="datedebut"
+                                name="datedebut" [bsValue]="bsValue" required [bsConfig]="bsConfig" placeholder="Date debut">
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <label for="prenom">Date fin</label>
+                            <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [(ngModel)]="datefin"
+                                name="datefin" [bsValue]="bsValue" required [bsConfig]="bsConfig" placeholder="Date fin">
+                        </div>
+                        <div class="custom-control custom-checkbox ml-3 mt-4">
+        
+                                <input type="checkbox" class="custom-control-input" name="etat" [(ngModel)]="etat" id="customControlInline">
+                                <label class="custom-control-label" for="customControlInline">Etat de validation</label>
+
+                            </div>
+                    </div>
+                  
+
+
+                    <!--div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label for="dateCreation">Date de creation</label>
+                            <input bsDatepicker [bsConfig]="{dateInputFormat : 'YYYY-MM-dd'}" [bsValue]="undefined" type="text" [(ngModel)]="datecreation" name="datecreation" class="form-control form-control-sm" id="dateCreation" placeholder="Date de création" >
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="dateDebut">Date debut</label>
+                            <input bsDatepicker [bsValue]="undefined" [bsConfig]="{dateInputFormat : 'YYYY-MM-dd'}" type="text" name="datedebut" [(ngModel)]="datedebut" class="form-control form-control-sm" id="dateDebut" placeholder="Date debut" >
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="dateFin">Date fin</label>
+                            <input bsDatepicker [bsValue]="undefined" [bsConfig]="{dateInputFormat : 'YYYY-MM-dd'}" [(ngModel)]="datefin" name="datefin" type="text" class="form-control form-control-sm" id="dateFin" placeholder="Date fin" >
+                        </div>
+                    </div-->
+
+                    <button class="btn btn-primary btn-sm mb-3 ml-1" type="submit" [disabled]="matricule==null && datefin==null && datedebut==null && etat==null">Rechercher &nbsp;
+                        <i class="fa fa-search">&nbsp;</i>
+                    </button>
+                    <!--    TODO: remove this: {{nom}} , {{prenom}}
+...........................................
+Afficher {{ searchFormAd.value | json}}  -->
+
+                </form>
+            <div class="table-responsive mt-5 ">
+
+                <!--   <form class="form-inline">
+                    <div class="form-group  mb-2">
+                        <label for="simpleSearch" class="sr-only">Rechercher</label>
+                        <input key.value='' search='key.value' (keyup.enter)="loadAllSimpleSearch(key.value)" (blur)="loadAllSimpleSearch(key.value)"
+                            #key type="search" class="form-control-sm" id="simpleSearch" placeholder="Recherche simple">
+                    </div>
+                    <div class="form-group  mb-2">
+                        <label for="simpleSearch" class="sr-only">Rechercher</label>
+                        <input key.value='' search='key.value' (keyup.enter)="loadAllSimpleSearch(key.value)" (blur)="loadAllSimpleSearch(key.value)"
+                            #key type="search" class="form-control-sm" id="simpleSearch" placeholder="Recherche simple">
+                    </div>
+
+                    <button (click)="loadAllSimpleSearch(key.value)" class="btn btn-sm btn-primary mb-2 ">
+                       Rechercher
+                    </button>
+                </form> -->
+               
+                <table class="table  table table-bordered  table-hover  ">
+                    <caption>Liste des congés &nbsp;
+                        <a href="javascript:void(0)" class="text-primary" *ngIf="affichertout" (click)="loadAll()">Afficher
+                            tout</a>
+
+                    </caption>
+
+                    <thead class="text-uppercase thead-dark">
+                        <tr>
+                            <th scope="col" class="d-none"></th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prenom</th>
+                            <th scope="col">Date de naissance</th>
+                            <th scope="col">Fonction</th>
+                            <th scope="col">Service</th>
+                            <th scope="col">Type conge</th>
+                            <th scope="col">Date début</th>
+                            <th scope="col">Date fin</th>
+                            <!--                             <th scope="col">Date de validation</th>
+ -->
+                            <th scope="col">Nombre de jours </th>
+                            <th scope="col">Décision</th>
+
+
+                            <th>Option</th>
+
+                        </tr>
+                    </thead>
+                    <tbody class="">
+
+                        <tr class="link" *ngFor="let conge of allconges">
+
+
+                            <td class="text-uppercase">{{conge.employe.nom}}</td>
+                            <td class="text-capitalize"><span *ngIf="conge.employe.prenom">{{conge.employe.prenom}}</span>&nbsp;&nbsp;<span
+                                    *ngIf="conge.employe.prenomsecond">{{conge.employe.prenomsecond}} </span></td>
+                            <td class="text-uppercase">{{conge.employe.dateDeNaissance | date: 'dd-MM-yyyy'}}</td>
+                            <td class="text-uppercase">{{conge.employe.fonction.label}}</td>
+                            <td class="text-uppercase">{{conge.employe.service.label}}</td>
+                            <td> {{conge.typeConge.label}} </td>
+                            <td> {{conge.dateDebut | date: 'dd-MM-yyyy'}} </td>
+                            <td> {{conge.dateFin | date: 'dd-MM-yyyy'}} </td>
+                            <!--                             <td>  {{conge.dateValidation | date: 'dd-MM-yyyy'}}  </td>
+ -->
+                            <td class="text-center"> {{conge.nbrJour}} </td>
+                            <td class="text-center"> {{conge?.decision}} </td>
+
+
+
+
+
+
+                            <td>
+                                <button title="détail du congé" class="btn btn-primary btn-circle-min" (click)="openModalWithClass(template,conge)">
+                                    <i class="fa fa-list"></i>
+                                </button>&nbsp;&nbsp;
+
+
+
+                                <button *ngIf="!conge.etat" title="Valider" class="btn btn-success btn-circle-min"
+                                    (click)="valider(conge)">
+                                    <i class="fa fa-check"></i>
+                                </button>
+                                <!--     <button type="button" (click)="updateEmploye(employe.id)" class="btn btn-primary btn-circle-min"
+                                    title="modifier un employe">
+                                    <i class="fa fa-edit"></i>
+                                </button> -->
+                                <!--                             <a class="text-primary"  title="modifier"  href="javascript:void(0)" (click)="updateEmploye(employe.id)" > <i class="fa fa-edit"></i></a>
+ -->
+                                <!--   &nbsp;&nbsp;
+                                <button type="button" (click)="ajouterEmploye()" class="btn btn-success btn-circle-min"
+                                    title="Ajouter un employe">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                                &nbsp;&nbsp;
+                                <button *jhiHasAnyAuthority="['ROLE_ADMIN']" type="button" (click)="openModal(template,employe)"
+                                    class="btn btn-default btn-circle-min" title="réinitialiser un mot de passe">
+                                    <i class="fas fa-sync"></i>
+                                </button>
+                                &nbsp;&nbsp; &nbsp;&nbsp;
+                                <button *jhiHasAnyAuthority="['ROLE_ADMIN']" [hidden]="employe.congeGlobal"   type="button" (click)="openModalWithClass(templateJouvrable,employe)"
+                                    class="btn btn-success btn-circle-min" title="initialiser la configuration des jours ...">
+                                    <i class="far fa-calendar-plus"></i>
+                                </button>
+                              
+                                <button *jhiHasAnyAuthority="['ROLE_ADMIN']" [hidden]="!employe.congeGlobal" type="button" (click)="openModalWithClass(templateJouvrable,employe)"
+                                    class="btn btn-dark btn-circle-min" title="configuration de jours ouvrables">
+                                    <i class="far fa-calendar-plus"></i>
+                                </button> -->
+
+                                <!--                              <a class="text-success"  title="Ajouter"  href="javascript:void(0)" (click)="ajouterEmploye()" > <i class="fa fa-plus"></i></a> </td> 
+ -->
+                                <!--td class="text-center">
+                            <div class="clearfix">
+                          <button class="btn btn-primary btn-sm m-1" (click)="deleteEmploye(employe)" title="detaille"> <i class="fas fa-align-justify"></i></button>
+              
+                        </div>
+                        </td-->
+                        </tr>
+
+                    </tbody>
+                    <tfoot>
+
+                        <!--caption>Employe Details</caption-->
+                    </tfoot>
+                </table>
+
+                <div class="clearfix"></div>
+                <!--pagination class="float-right"  [itemsPerPage]="_size"  [totalItems]="totalElements"
+             [firstText]="'Premier'" [lastText]="'Dernier'" [previousText]="'Préscedant'" [nextText]="'Suivant'"></pagination-->
+                <!-- 
+            <pagination class="float-right" [boundaryLinks]="true" [totalItems]="totalElements" [itemsPerPage]="_size" [(ngModel)]="currentPageNumber"
+                previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)"
+                [maxSize]="maxSize">
+
+            </pagination> -->
+                <div *ngIf="allconges">
+
+                    <div class="float-right">
+                        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Détails sur congé de l'employe (
+            {{detailsConge.employe.nom}}&nbsp;{{detailsConge.employe.prenom}}) </h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <dl class="row-md jh-entity-details">
+            <!--dt><span jhiTranslate="userManagement.login">Login</span></dt>
+  <dd>
+      <span>{{user.login}}</span>
+      <span class="badge badge-danger" *ngIf="!user.activated"
+            jhiTranslate="userManagement.deactivated">Deactivated</span>
+      <span class="badge badge-success" *ngIf="user.activated"
+            jhiTranslate="userManagement.activated">Activated</span>
+  </dd-->
+
+
+            <!--  <dt>
+                    <span>Libellé</span>
+                </dt>
+                <dd>{{affectProjet.projet.label}}</dd>-->
+            <dt>
+                <span>Date de naissance</span>
+            </dt>
+            <dd>{{detailsConge.employe.dateDeNaissance | date: 'dd-MM-yyyy'}} &nbsp;
+            </dd>
+
+            <dt>
+                <span>Fonction</span>
+            </dt>
+            <dd>{{detailsConge.employe.fonction.label}} </dd>
+
+
+            <dt>
+                <span>Service</span>
+            </dt>
+            <dd>{{detailsConge.employe.service.label}} </dd>
+            <dt>
+                <span>Type congé</span>
+            </dt>
+            <dd>{{detailsConge.typeConge.label}} </dd>
+            <dt>
+                <span>Date début</span>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;<span>Date fin</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Date
+                    de validation</span>
+
+
+            </dt>
+            <dd>{{detailsConge.dateDebut| date: 'dd-MM-yyyy '}} &nbsp;&nbsp; &nbsp;&nbsp; {{detailsConge.dateFin |
+                date: 'dd-MM-yyyy'}} &nbsp;&nbsp;&nbsp;&nbsp;{{detailsConge.dateValidation | date: 'dd-MM-yyyy'}}</dd>
+
+        </dl>
+    </div>
+</ng-template>

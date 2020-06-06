@@ -1,0 +1,202 @@
+<div class="col-md-12 mx-auto my-auto">
+
+   <div class="mt-5" *ngIf="congeSuccess||congeError">
+                        <alert *ngIf="congeSuccess" type="success" dismissOnTimeout="6000" (onClosed)="congeSuccess = false">
+                            {{ msg | translate}}</alert>
+                      
+                        <alert *ngIf="congeError" type="danger" dismissOnTimeout="6000" (onClosed)="congeError = false">
+                            {{ msg | translate}}</alert>
+                    </div>  
+
+
+    <div class="row">
+           
+
+        <div class="col-md-6">
+
+            <form class="form-inline">
+                <div class="form-group  mb-1">
+                    <label for="simpleSearch" class="sr-only">Rechercher</label>
+                    <input key.value='' search='key.value' (keyup.enter)="loadSearch(key.value)" (blur)="loadSearch(key.value)"
+                        #key type="search" class="form-control-sm" id="simpleSearch" placeholder="Recherche matricule">
+                </div>
+
+                <button (click)="loadSearch(key.value)" class="btn btn-sm btn-primary mb-1
+                        ">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+             
+
+
+            <div class="card mt-2">
+                <div class="card-body">
+                    <h5 class="card-title">Informations concernant l'employé </h5>
+                    <dl class="row-md jh-entity-details">
+                        <!--dt><span jhiTranslate="userManagement.login">Login</span></dt>
+                  <dd>
+                      <span>{{user.login}}</span>
+                      <span class="badge badge-danger" *ngIf="!user.activated"
+                            jhiTranslate="userManagement.deactivated">Deactivated</span>
+                      <span class="badge badge-success" *ngIf="user.activated"
+                            jhiTranslate="userManagement.activated">Activated</span>
+                  </dd-->
+
+
+                        <!--  <dt>
+                                    <span>Libellé</span>
+                                </dt>
+                                <dd>{{affectProjet.projet.label}}</dd>-->
+                        <dt>
+                            <span>Nom </span>
+                        </dt>
+                        <dd>{{employe.nom}}
+                        </dd>
+
+                        <dt>
+                            <span>Prénom</span>
+                        </dt>
+                        <dd>{{employe.prenom}} </dd>
+
+                        <dt>
+                            <span>Date de naissance</span>
+                        </dt>
+                        <dd>{{employe.dateDeNaissance| date: 'dd-MM-yyyy'}} </dd>
+
+                        <dt>
+                        <dt>
+                            <span>Sexe</span>
+                        </dt>
+                        <dd>{{employe.statut}} </dd>
+                        <dt>
+                            <span>Fonction</span>
+                        </dt>
+                        <dd>{{employe.fonction.label}} </dd>
+                        <dt>
+                            <span>Service</span>
+                        </dt>
+                        <dd>{{employe.service.label}} </dd>
+
+                    </dl>
+                </div>
+
+                <!--  -->
+
+                <!--  -->
+
+            </div>
+        </div>
+        <div class="col-md-6 ">
+               <!--  <div class="mt-5" *ngIf="congeSuccess||congeError">
+                        <alert *ngIf="congeSuccess" type="success" dismissOnTimeout="6000" (onClosed)="congeSuccess = false">
+                            {{ msg | translate}}</alert>
+                      
+                        <alert *ngIf="congeError" type="danger" dismissOnTimeout="6000" (onClosed)="congeError = false">
+                            {{ msg | translate}}</alert>
+                    </div>  -->
+        
+            <div class="card mt-5">
+                <div class="card-body">
+                    <!--                         <button class="btn btn-primary float-right" (click)="addFonction()">Ajouter unne fonction</button>
+ -->
+                    <h5 class="card-title">Programmer un congé</h5>
+
+                    <form class="pt-3" novalidate (ngSubmit)="onSubmit()" #f="ngForm">
+                        <div class="form-row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="typeconge">Type congé</label>
+
+                                    <select class="custom-select" [(ngModel)]="entity.typeConge" name="typeconge" id="typeconge"
+                                        required>
+                                        <option value="" selected disabled>Choisir type congé...</option>
+                                        <option *ngFor="let typeconge of allTypeconge" [ngValue]="typeconge">{{typeconge.label}}</option>
+                                    </select>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="datedebut">Date de debut</label>
+
+
+                                    <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [(ngModel)]="entity.dateDebut"
+                                        name="datedebut" [bsValue]="bsValue" required [bsConfig]="bsConfig"  (bsValueChange)="onChangeNbreJours()">
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-row ">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="datefin">Date de fin</label>
+
+
+                                    <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [(ngModel)]="entity.dateFin"
+                                        name="datefin" [bsValue]="bsValue" required [bsConfig]="bsConfig" (bsValueChange)="onChangeNbreJours()">
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="form-row ">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="nbrJour">nombre de jours</label>
+
+                                    <input readonly type="text" id="nbrJour" [(ngModel)]="entity.nbrJour" name="nbrJour"
+                                        class="form-control form-control-sm" required>
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="float-left ">
+                            <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  <ng-template #fonctionModal>
+        <div class="">
+        <h5 class="card-title">Enregistrement des fonctions</h5>
+        <form class="pt-3" novalidate [formGroup]="newForm" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+
+
+                <div class="col-md-6 ">
+                    <label for="label">Libellé</label>
+                    <div class="form-group">
+                        <input type="text" id="label" formControlName="label" class="form-control form-control-sm" autofocus required>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="float-left">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </div>
+        </form>
+    </div>
+    </ng-template> -->
+</div>

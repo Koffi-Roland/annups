@@ -1,0 +1,139 @@
+<div class="container">
+    <!--nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Employé</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{title}}</li>
+        </ol>
+      </nav-->
+    <div class="card">
+
+        <div class="card-body">
+            <h5 class="card-title">Détail employé</h5>
+            <!--span class="card-title text-dark text-uppercase">Détail employé </span> <h6 class="card-subtitle mb-2 text-muted text-Capitalize pull-right">Employé {{title}}</h6-->
+
+            <div class="row">
+                <div *ngIf="employe" class="col-12">
+                    <div class="row">
+                        <div class="col-6 offset-md-3 border bg-primary  myborder" >
+                            <!--img class="card-img-top" src=".../100px180/" alt="Card image cap"-->
+                            <div class="row">
+
+                                <div class="col-8 p-1">
+
+                                        <h6 class="small  ">Nom : <span class="badge badge-dark ">{{employe.nom |  uppercase}}</span> </h6>
+
+                                        <h6 class="small  ">Prenom : <span class="badge badge-dark ">{{employe.prenom |  titlecase}}</span></h6>
+
+
+                                        <h6 class="small ">Fonction :  <span class="badge badge-dark">{{employe.fonction.label |  lowercase}}</span></h6>
+
+                                        <h6 class="small  ">Service : <span class=" badge badge-dark  ">{{employe.service.label |  lowercase}}</span></h6>
+
+
+                                        <h6 class="small">Telephone :
+                                            <span class="badge badge-dark">
+                                                <span *ngIf="employe.telFixePro">{{employe.telFixePro}}
+                                                </span>
+                                                <span *ngIf="employe.telAbbr">/
+                                                    {{employe.telAbbr}}
+                                                </span>
+                                                <span *ngIf="employe.telPro">/
+                                                    {{employe.telPro}}
+                                                </span>
+                                                <span *ngIf="employe.telPerso1">/
+                                                    {{employe.telPerso1}}
+                                                </span>
+                                              </span>
+                                              </h6>
+
+                                </div>
+                                <div class="col-4  p-1 ">
+
+                                    <img *ngIf="!employe.photo" src="assets/man.png" class="float-right img-thumbnail .img-fluid  passport-image" alt="empty profil">
+                                    <img *ngIf="employe.photo" src="{{employe.photo}}" class="float-right img-thumbnail .img-fluid  passport-image" alt="image profil" title="image profil">
+
+                                </div>
+                            </div>
+
+                            <!--div class="card-footer"> <small class="text-muted">Last updated 3 mins ago</small> </div-->
+                        </div>
+
+                    </div>
+                    <!-- LIST DES HIER -->
+                    <div class="row">
+
+                     <div class="col-10 offset-md-1 ">
+                        <div class="row">
+
+                        <div  class="col" *ngFor="let fils of listFils.content">
+                            <div class="row border m-2 p-2 bg-primary myborder">
+                                <div class="col-9 ">
+                                  <div class="row">
+                                    <h6 class="small">Nom : <span class=" badge badge-dark">{{fils.nom |  lowercase}}</span></h6>
+                                </div>
+                                    <div class="row">
+                                        <h6  class="small">Prenom : <span class=" badge badge-dark">{{fils.prenom |  lowercase}}</span></h6>
+                                    </div>
+                                    <div class="row">
+                                        <h6  class="small">Fonction : <span class="badge badge-dark">{{fils.fonction.label |  lowercase}}</span></h6>
+                                    </div>
+                                    <div class="row">
+                                        <h6  class="small">Service : <span class=" badge badge-dark">{{fils.service.label |  lowercase}}</span></h6>
+                                    </div>
+                                    <!--div class="row">
+                                        <span class="small">Telephone
+                                            <span class="ml-2 badge-pill badge badge-dark">
+                                                <span *ngIf="employe.telFixePro">{{fils.telFixePro}}
+                                                </span>
+                                                <span *ngIf="employe.telAbbr">/
+                                                    {{fils.telAbbr}}
+                                                </span>
+                                                <span *ngIf="employe.telPro">/
+                                                    {{fils.telPro}}
+                                                </span>
+                                                <span *ngIf="employe.telPerso1">/
+                                                    {{fils.telPerso1}}
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </div-->
+
+                                </div>
+                                <div class="col-3 pr-0">
+
+                                    <img *ngIf="!employe.photo" src="assets/man.png" class="img-thumbnail .img-fluid float-right passport-image2" alt="empty profil">
+                                    <img *ngIf="employe.photo" src="{{fils.photo}}" class="img-thumbnail .img-fluid float-right passport-image2" alt="image profil" title="image profil">
+
+                                </div>
+
+                                <div class="col-12 mt-1"  [ngClass]="{'border-top': fils.fils, 'border-0': !fils.fils}">
+                                  <div class="row">
+                                  <button type="button" *ngIf="fils.fils" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="fils.id"  class="float-right btn btn-sm btn-light mt-1 navbar-toggler"><i class="fas fa-angle-down"></i>
+                                  </button>
+                                  </div>
+                                  <div class="row">
+                                  <div id="{{fils.id}}" [collapse]="isCollapsed" class="card card-block card-header">
+                                      <div class="well well-lg">Some content</div>
+                                    </div>
+</div>
+
+                                </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <!--table style="height: 100px;"> <tbody> <tr> <td class="align-middle">1</td> <td class="align-middle">2</td> <td class="align-middle">3</td> <td class="align-middle">4</td> </tr> </tbody> </table-->
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--div class="card p-3"> <img class="card-img-top" src=".../90px160/" alt="Card image cap"> <div class="card-body"> <span class="card-title">Card title that wraps to a new line</span> <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> </div> </div> <div class="card"> <blockquote class="blockquote mb-0 card-body"> <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p> <footer class="blockquote-footer"> <small class="text-muted"> Someone famous in <cite title="Source Title">Source Title</cite> </small> </footer> </blockquote> </div> </div-->
+
+<!--div class="card"> <img class="card-img-top" src=".../90px180/" alt="Card image cap"> <div class="card-body"> <span class="card-title">Card title</span> <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> </div> <div class="card-footer"> <small class="text-muted">Last updated 3 mins ago</small> </div> </div-->
+
