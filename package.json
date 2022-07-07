@@ -37,7 +37,7 @@
     "date-fns": "^1.29.0",
     "http-partial-loader": "github:julienbourgain/http-partial-loader",
     "jquery": "^3.3.1",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "net": "^1.0.2",
     "ng-jhipster": "^0.3.6",
     "ng2-charts": "^1.6.0",
